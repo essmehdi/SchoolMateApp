@@ -30,6 +30,7 @@ class SchoolNavigationActivity : AppCompatActivity() {
     Configuration.getInstance().load(applicationContext, PreferenceManager.getDefaultSharedPreferences(applicationContext))
     initMap()
 
+    // Fetch school zones
     GlobalScope.launch {
       try {
         val response = Api.schoolZonesService.getAllSchoolZones()
@@ -48,7 +49,7 @@ class SchoolNavigationActivity : AppCompatActivity() {
   fun initMap() {
     map = findViewById(R.id.map)
     map.setTileSource(TileSourceFactory.MAPNIK)
-    map.setMultiTouchControls(true)
+    map.setMultiTouchControls(true) // Enables pinch to zoom & other gestures
     map.minZoomLevel = 19.2 // Zoom on ENSIAS
     map.mapOrientation = -37.5f
 
@@ -61,6 +62,7 @@ class SchoolNavigationActivity : AppCompatActivity() {
 
   fun populateMap() {
     val polygons: List<Polygon> = schoolZones.map { schoolZone ->
+      // Create for each zone a polygon in the map
       val polygon = Polygon(map)
       val geopoints = schoolZone.geometry.points.map { GeoPoint(it.x, it.y) }
       polygon.fillPaint.apply {
@@ -73,6 +75,7 @@ class SchoolNavigationActivity : AppCompatActivity() {
       polygon.subDescription = schoolZone.description
       return@map polygon
     }
+    // Draw all polygons in the map overlay
     polygons.forEach {
       map.overlayManager.add(it)
     }
