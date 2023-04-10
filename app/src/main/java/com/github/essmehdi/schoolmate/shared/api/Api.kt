@@ -6,7 +6,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object Api {
 
-  private const val BASE_URL = "http://100.91.177.135:9080/schoolmate/api/"
+  private const val BASE_URL = "http://192.168.1.107:9080/schoolmate/api/"
 
   private val retrofit = Retrofit.Builder()
     .addConverterFactory(GsonConverterFactory.create())

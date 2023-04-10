@@ -1,3 +1,18 @@
 <resources>
     <string name="app_name">SchoolMate</string>
+
+    <string name="school_navigation_title">School Navigation</string>
+    <string name="zone_title_placeholder">Block A</string>
+    <string name="zone_description_placeholder">Boys main living place</string>
+
+    <string name="school_navigation_location_permission_not_granted_alert_title">Location unavailable</string>
+    <string name="school_navigation_location_permission_not_granted_alert_message">You have disabled location access to the app. You can still navigate the app but you cannot see your live location in the map. You can still grant permissions in the settings later.</string>
+    <string name="school_navigation_location_permission_not_granted_alert_neutral_button_text">Okay</string>
+
+    <string name="school_navigation_location_permission_educational_title">Permission required</string>
+    <string name="school_navigation_location_permission_educational_message">In order to see your live location on the map, you must grant to the app the location permission. Otherwise, you will be able to navigate the map without your live location.</string>
+    <string name="school_navigation_location_permission_educational_positive_button_text">Okay</string>
+    <string name="school_navigation_location_permission_educational_negative_button_text">No, thanks</string>
+
+
 </resources>
