@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="25dp"
+        tools:context=".home.ui.HomeActivity">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/home_welcome_text"
+                        style="@style/TextAppearance.SchoolMate.LoginWelcome"/>
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/first_name_text"
+                        android:layout_marginTop="-15dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/home_firstname_placeholder"
+                        style="@style/TextAppearance.SchoolMate.LoginTitle"/>
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal">
+
+                <include
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="13dp"
+                    android:id="@+id/alerts_home_button"
+                    layout="@layout/home_button"
+                    app:icon="@{@drawable/ic_warning}"
+                    app:text="@{@string/alerts_title}" />
+
+                <include
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="13dp"
+                    android:id="@+id/documents_home_button"
+                    layout="@layout/home_button"
+                    app:icon="@{@drawable/ic_file}"
+                    app:text="@{@string/documents_title}" />
+
+                <include
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/navigation_home_button"
+                    layout="@layout/home_button"
+                    app:icon="@{@drawable/ic_navigation_arrow}"
+                    app:text="@{@string/navigation_title}" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:orientation="horizontal">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/ic_megaphone"
+                    android:tint="?attr/colorPrimary" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    style="@style/TextAppearance.SchoolMate.HomeSectionTitle"
+                    android:text="@string/home_user_complaints_title"/>
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <include android:id="@+id/home_loading" layout="@layout/loading_overlay" tools:visibility="gone"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

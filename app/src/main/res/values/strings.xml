@@ -1,9 +1,11 @@
 <resources>
     <string name="app_name">SchoolMate</string>
+    <string name="app_punchline">Your companion for a better school experience</string>
 
     <string name="school_navigation_title">School Navigation</string>
     <string name="zone_title_placeholder">Block A</string>
     <string name="zone_description_placeholder">Boys main living place</string>
+    <string name="school_zones_loading_failed">Failed to load school zones</string>
 
     <string name="school_navigation_location_permission_not_granted_alert_title">Location unavailable</string>
     <string name="school_navigation_location_permission_not_granted_alert_message">You have disabled location access to the app. You can still navigate the app but you cannot see your live location in the map. You can still grant permissions in the settings later.</string>
@@ -13,6 +15,33 @@
     <string name="school_navigation_location_permission_educational_message">In order to see your live location on the map, you must grant to the app the location permission. Otherwise, you will be able to navigate the map without your live location.</string>
     <string name="school_navigation_location_permission_educational_positive_button_text">Okay</string>
     <string name="school_navigation_location_permission_educational_negative_button_text">No, thanks</string>
+
+    <string name="schoolmate_account">SchoolMate account</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="loading_sign_in">Signing in</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_credentials">Invalid credentials</string>
+
+    <string name="required_email">Email is required</string>
+    <string name="required_password">Password is required</string>
+    <string name="login_failed">"Login failed"</string>
+
+    <string name="welcome_text">Welcome to</string>
+    <string name="home_welcome_text">Welcome,</string>
+    <string name="home_firstname_placeholder">John</string>
+
+    <string name="alerts_title">Alerts</string>
+    <string name="toolbox_title">Toolbox</string>
+    <string name="navigation_title">Navigation</string>
+    <string name="documents_title">Documents</string>
+
+    <string name="home_user_complaints_title">Your complaints</string>
+
+    <string name="unknown_error_occurred">An error has occured</string>
 
 
 </resources>

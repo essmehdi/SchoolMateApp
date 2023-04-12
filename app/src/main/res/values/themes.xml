@@ -14,6 +14,36 @@
         <!-- Customize your theme here. -->
     </style>
 
+    <style name="Theme.SchoolMate.NoActionBar" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryVariant">@color/primary</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/teal_200</item>
+        <item name="colorSecondaryVariant">@color/teal_700</item>
+        <item name="colorOnSecondary">@color/text</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+        <!-- Customize your theme here. -->
+    </style>
+
+    <style name="TextAppearance.SchoolMate.LoginWelcome" parent="TextAppearance.MaterialComponents.Headline5">
+        <item name="android:textStyle">normal</item>
+        <item name="android:textColor">@color/text</item>
+    </style>
+
+    <style name="TextAppearance.SchoolMate.LoginTitle" parent="TextAppearance.MaterialComponents.Headline3">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/text</item>
+    </style>
+
+    <style name="TextAppearance.SchoolMate.LoginPunchline" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="android:textStyle">normal</item>
+        <item name="android:textColor">@color/gray</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
     <style name="TextAppearance.SchoolMate.Headline4" parent="TextAppearance.MaterialComponents.Headline4">
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/text</item>
@@ -30,6 +60,16 @@
 
     <style name="TextAppearance.SchoolMate.Body2" parent="TextAppearance.MaterialComponents.Body2">
         <item name="android:textColor">@color/body</item>
+    </style>
+
+    <style name="TextAppearance.SchoolMate.HomeButton" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="android:textColor">@color/text</item>
+        <item name="android:textSize">13sp</item>
+    </style>
+
+    <style name="TextAppearance.SchoolMate.HomeSectionTitle" parent="TextAppearance.MaterialComponents.Headline6">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/text</item>
     </style>
 
 </resources>
