@@ -2,7 +2,6 @@ package com.github.essmehdi.schoolmate.schoolnavigation.ui
 
 import android.Manifest
 import android.content.pm.PackageManager
-import android.graphics.Paint
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -42,6 +41,8 @@ class SchoolNavigationActivity : AppCompatActivity() {
 
     // Force light mode temporarily
     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+
+    Api.setup(this)
 
     // Initialize map
     Configuration.getInstance().load(applicationContext, PreferenceManager.getDefaultSharedPreferences(applicationContext))
@@ -102,7 +103,8 @@ class SchoolNavigationActivity : AppCompatActivity() {
           schoolZones = response.body() ?: emptyList()
           populateMap()
         } else {
-          Log.e("API Status", response.errorBody().toString())
+          Toast.makeText(this@SchoolNavigationActivity, R.string.school_zones_loading_failed, Toast.LENGTH_LONG).show()
+          Log.e("API Status Code", response.code().toString())
         }
       } catch (e: Exception) {
         e.printStackTrace()
