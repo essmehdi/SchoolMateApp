@@ -72,6 +72,11 @@
     <string name="label_documents_menu_sort_asc">Ascending</string>
     <string name="label_documents_menu_sort_desc">Descending</string>
 
+    <string name="loading_document_deletion">Deleting…</string>
+    <string name="error_document_deletion">An error has occurred while deleting the document</string>
+    <string name="success_document_deletion">The document has been deleted</string>
+
+
     <string name="document_item_name_placeholder">Résumé Java</string>
     <string name="document_item_date_placeholder">Yesterday</string>
     <string name="document_item_tags_placeholder">1ère année • PFA</string>

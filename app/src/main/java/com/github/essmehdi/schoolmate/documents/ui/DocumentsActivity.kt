@@ -17,6 +17,7 @@ import com.github.essmehdi.schoolmate.documents.adapters.OnEditMenuItemClickedLi
 import com.github.essmehdi.schoolmate.documents.models.Document
 import com.github.essmehdi.schoolmate.documents.viewmodels.DocumentsViewModel
 import com.github.essmehdi.schoolmate.shared.api.BaseResponse
+import com.google.android.material.snackbar.Snackbar
 
 class DocumentsActivity : AppCompatActivity() {
 
@@ -76,6 +77,22 @@ class DocumentsActivity : AppCompatActivity() {
           handleError(currentPage.code!!)
         }
         null -> {}
+      }
+    }
+
+    viewModel.deleteStatus.observe(this) {
+      when (it) {
+        is BaseResponse.Success -> {
+          Snackbar.make(binding.root, R.string.success_document_deletion, Snackbar.LENGTH_SHORT).show()
+          viewModel.refresh()
+        }
+        is BaseResponse.Loading -> {
+          Snackbar.make(binding.root, R.string.loading_document_deletion, Snackbar.LENGTH_INDEFINITE).show()
+        }
+        is BaseResponse.Error -> {
+          Snackbar.make(binding.root, R.string.error_document_deletion, Snackbar.LENGTH_SHORT).show()
+        }
+        else -> {}
       }
     }
 
