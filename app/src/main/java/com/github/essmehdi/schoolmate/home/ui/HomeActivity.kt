@@ -9,6 +9,7 @@ import com.github.essmehdi.schoolmate.R
 import com.github.essmehdi.schoolmate.alerts.ui.AlertActivity
 import com.github.essmehdi.schoolmate.auth.models.User
 import com.github.essmehdi.schoolmate.databinding.ActivityHomeBinding
+import com.github.essmehdi.schoolmate.documents.ui.DocumentsActivity
 import com.github.essmehdi.schoolmate.home.viewmodels.HomeViewModel
 import com.github.essmehdi.schoolmate.schoolnavigation.ui.SchoolNavigationActivity
 import com.github.essmehdi.schoolmate.shared.api.BaseResponse
@@ -23,9 +24,16 @@ class HomeActivity : AppCompatActivity() {
     binding = ActivityHomeBinding.inflate(layoutInflater)
     setContentView(binding.root)
 
-    binding.navigationHomeButton.homeButtonRoot.setOnClickListener {
-      val intent = Intent(this@HomeActivity, SchoolNavigationActivity::class.java)
-      startActivity(intent)
+    binding.apply {
+      navigationHomeButton.homeButtonRoot.setOnClickListener {
+        val intent = Intent(this@HomeActivity, SchoolNavigationActivity::class.java)
+        startActivity(intent)
+      }
+
+      documentsHomeButton.homeButtonRoot.setOnClickListener {
+        val intent = Intent(this@HomeActivity, DocumentsActivity::class.java)
+        startActivity(intent)
+      }
     }
     binding.alertsHomeButton.homeButtonRoot.setOnClickListener {
       val intent = Intent(this@HomeActivity, AlertActivity::class.java)

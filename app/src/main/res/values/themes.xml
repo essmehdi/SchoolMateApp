@@ -26,6 +26,7 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+        <item name="actionBarItemBackground">?attr/colorSurface</item>
     </style>
 
     <style name="TextAppearance.SchoolMate.LoginWelcome" parent="TextAppearance.MaterialComponents.Headline5">
@@ -70,6 +71,19 @@
     <style name="TextAppearance.SchoolMate.HomeSectionTitle" parent="TextAppearance.MaterialComponents.Headline6">
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/text</item>
+    </style>
+
+    <style name="TextAppearance.SchoolMate.DocumentTitle" parent="TextAppearance.MaterialComponents.Subtitle1">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/text</item>
+    </style>
+
+    <style name="TextAppearance.SchoolMate.DocumentTags" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="android:textColor">?attr/colorPrimary</item>
+    </style>
+
+    <style name="Theme.SchoolMate.TagChip" parent="Widget.MaterialComponents.Chip.Action">
+        <item name="chipBackgroundColor">@color/primary_transparent</item>
     </style>
 
 </resources>

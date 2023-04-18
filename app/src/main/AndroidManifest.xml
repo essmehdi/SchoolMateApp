@@ -8,6 +8,7 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
+        android:name=".SchoolMateApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -19,11 +20,21 @@
         tools:replace="android:allowBackup"
         tools:targetApi="31">
         <activity
+            android:name=".documents.ui.DocumentEditorActivity"
+            android:exported="false"
+            android:label="@string/action_upload_document"/>
+        <activity
+            android:name=".documents.ui.DocumentsActivity"
+            android:exported="false"
+            android:parentActivityName=".home.ui.HomeActivity"
+            android:theme="@style/Theme.SchoolMate.NoActionBar"
+            android:label="@string/documents_title"/>
+        <activity
             android:name=".alerts.ui.AlertActivity"
             android:parentActivityName=".home.ui.HomeActivity"
             android:exported="false" />
         <activity
-            android:name=".alerts.ui.AddAlert"
+            android:name=".alerts.ui.AddAlertActivity"
             android:exported="false" />
         <activity
             android:name=".home.ui.HomeActivity"
@@ -43,9 +54,6 @@
             android:name=".schoolnavigation.ui.SchoolNavigationActivity"
             android:exported="false"
             android:label="@string/school_navigation_title" />
-        <activity
-            android:name=".MainActivity"
-            android:exported="true" />
     </application>
 
 </manifest>
