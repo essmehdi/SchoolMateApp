@@ -7,7 +7,7 @@ import android.provider.OpenableColumns
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.github.essmehdi.schoolmate.documents.api.dto.UploadDocumentDto
+import com.github.essmehdi.schoolmate.documents.api.dto.DocumentDetailsDto
 import com.github.essmehdi.schoolmate.documents.models.Document
 import com.github.essmehdi.schoolmate.documents.models.DocumentTag
 import com.github.essmehdi.schoolmate.shared.api.Api
@@ -43,10 +43,6 @@ class DocumentEditorViewModel: ViewModel() {
     }
   }
 
-  fun selectTags(vararg ids: Long) {
-    selectedTags.value = selectedTags.value!!.plus(ids.toList())
-  }
-
   fun selectTag(id: Long) {
     selectedTags.value = selectedTags.value!!.plus(id)
   }
@@ -55,17 +51,17 @@ class DocumentEditorViewModel: ViewModel() {
     selectedTags.value = selectedTags.value!!.minus(id)
   }
 
-  fun uploadDocument(uploadDocumentDto: UploadDocumentDto, filename: String, mediaType: MediaType, file: ByteArray) {
+  fun uploadDocument(documentDetailsDto: DocumentDetailsDto, filename: String, mediaType: MediaType, file: ByteArray) {
     uploadStatus.value = BaseResponse.Loading()
     val bodyFile = RequestBody.create(mediaType, file)
     val body = MultipartBody.Part.createFormData("file", filename, bodyFile)
     viewModelScope.launch {
-      Api.documentsService.uploadDocument(uploadDocumentDto, body).enqueue(requestCallback)
+      Api.documentsService.uploadDocument(documentDetailsDto, body).enqueue(requestCallback)
     }
   }
 
-  fun editDocument(uploadDocumentDto: UploadDocumentDto) {
-    Api.documentsService.editDocument(editId.value!!, uploadDocumentDto).enqueue(requestCallback)
+  fun editDocument(documentDetailsDto: DocumentDetailsDto) {
+    Api.documentsService.editDocument(editId.value!!, documentDetailsDto).enqueue(requestCallback)
   }
 
   fun fetchDocumentTags() {
@@ -105,7 +101,7 @@ class DocumentEditorViewModel: ViewModel() {
     val byteBuffer = ByteArrayOutputStream()
     val bufferSize = 1024
     val buffer = ByteArray(bufferSize)
-    var len = 0
+    var len: Int
     while (inputStream!!.read(buffer).also { len = it } != -1) {
       byteBuffer.write(buffer, 0, len)
     }

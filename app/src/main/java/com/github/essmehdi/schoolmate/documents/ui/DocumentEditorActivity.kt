@@ -14,7 +14,7 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import com.github.essmehdi.schoolmate.R
 import com.github.essmehdi.schoolmate.databinding.ActivityDocumentEditorBinding
-import com.github.essmehdi.schoolmate.documents.api.dto.UploadDocumentDto
+import com.github.essmehdi.schoolmate.documents.api.dto.DocumentDetailsDto
 import com.github.essmehdi.schoolmate.documents.models.Document
 import com.github.essmehdi.schoolmate.documents.viewmodels.DocumentEditorViewModel
 import com.github.essmehdi.schoolmate.shared.api.BaseResponse
@@ -27,6 +27,7 @@ class DocumentEditorActivity : AppCompatActivity() {
   private lateinit var viewModel: DocumentEditorViewModel
   private lateinit var filePickerLauncher: ActivityResultLauncher<String>
 
+  @Suppress("DEPRECATION")
   @SuppressLint("Range")
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -161,9 +162,9 @@ class DocumentEditorActivity : AppCompatActivity() {
     val shared = binding.documentSharedCheckbox.isChecked
     val tags = viewModel.selectedTags.value?.toList() ?: listOf()
 
-    val uploadDocumentDto = UploadDocumentDto(name, shared, tags)
+    val documentDetailsDto = DocumentDetailsDto(name, shared, tags)
     if (viewModel.editMode.value == true) {
-      viewModel.editDocument(uploadDocumentDto)
+      viewModel.editDocument(documentDetailsDto)
     } else {
       if (viewModel.selectedFile.value == null) {
         Toast.makeText(this, R.string.error_document_file_empty, Toast.LENGTH_LONG).show()
@@ -172,7 +173,7 @@ class DocumentEditorActivity : AppCompatActivity() {
       val file = viewModel.getFileContent(contentResolver)
       val filename = viewModel.getFileName(contentResolver)
       val fileType = viewModel.getFileMediaType(contentResolver)
-      viewModel.uploadDocument(uploadDocumentDto, filename, MediaType.get(fileType), file)
+      viewModel.uploadDocument(documentDetailsDto, filename, MediaType.get(fileType), file)
     }
   }
 
