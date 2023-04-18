@@ -12,9 +12,9 @@ import com.github.essmehdi.schoolmate.R
 import com.github.essmehdi.schoolmate.documents.models.Document
 import com.github.essmehdi.schoolmate.shared.api.Api
 import com.github.essmehdi.schoolmate.shared.api.BaseResponse
+import com.github.essmehdi.schoolmate.shared.api.dto.MessageResponse
 import com.github.essmehdi.schoolmate.shared.api.dto.PaginatedResponse
 import com.github.essmehdi.schoolmate.shared.utils.PrefsManager
-import com.github.essmehdi.schoolmate.shared.utils.Utils
 import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
@@ -25,6 +25,7 @@ class DocumentsViewModel: ViewModel() {
   private val sortOrder: MutableLiveData<String> = MutableLiveData("desc")
   val documents: MutableLiveData<List<Document>> = MutableLiveData()
   val currentPage: MutableLiveData<BaseResponse<PaginatedResponse<Document>>?> = MutableLiveData()
+  val deleteStatus: MutableLiveData<BaseResponse<MessageResponse>?> = MutableLiveData(null)
 
   fun loadDocuments() {
     if (currentPage.value?.data?.last == true) {
@@ -53,7 +54,21 @@ class DocumentsViewModel: ViewModel() {
   }
 
   fun deleteDocument(document: Document) {
+    deleteStatus.value = BaseResponse.Loading()
+    Api.documentsService.deleteDocument(document.id).enqueue(object: Callback<MessageResponse> {
+      override fun onResponse(call: Call<MessageResponse>, response: Response<MessageResponse>) {
+        if (response.isSuccessful) {
+          deleteStatus.value = BaseResponse.Success(response.body()!!)
+        } else {
+          deleteStatus.value = BaseResponse.Error(response.code())
+        }
+      }
 
+      override fun onFailure(call: Call<MessageResponse>, t: Throwable) {
+        deleteStatus.value = BaseResponse.Error(0)
+      }
+
+    })
   }
 
   fun downloadDocument(document: Document, context: Context) {
