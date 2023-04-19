@@ -31,4 +31,9 @@
             </group>
         </menu>
     </item>
+    <item
+        android:id="@+id/documents_menu_filter"
+        android:title="@string/label_documents_menu_filter"
+        android:icon="@drawable/ic_funnel"
+        app:showAsAction="ifRoom"/>
 </menu>

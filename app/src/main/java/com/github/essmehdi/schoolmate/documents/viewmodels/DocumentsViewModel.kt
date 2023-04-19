@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.github.essmehdi.schoolmate.R
 import com.github.essmehdi.schoolmate.documents.models.Document
+import com.github.essmehdi.schoolmate.documents.models.DocumentTag
 import com.github.essmehdi.schoolmate.shared.api.Api
 import com.github.essmehdi.schoolmate.shared.api.BaseResponse
 import com.github.essmehdi.schoolmate.shared.api.dto.MessageResponse
@@ -27,29 +28,39 @@ class DocumentsViewModel: ViewModel() {
   val currentPage: MutableLiveData<BaseResponse<PaginatedResponse<Document>>?> = MutableLiveData()
   val deleteStatus: MutableLiveData<BaseResponse<MessageResponse>?> = MutableLiveData(null)
 
+  val documentTags: MutableLiveData<BaseResponse<List<DocumentTag>>> = MutableLiveData()
+  val filterTags: MutableLiveData<Set<DocumentTag>> = MutableLiveData(setOf())
+
   fun loadDocuments() {
     if (currentPage.value?.data?.last == true) {
       return
     }
     currentPage.value = BaseResponse.Loading()
     viewModelScope.launch {
-      Api.documentsService.getAllDocuments(currentPage.value?.data?.page?.plus(1) ?: 0, sort = "${sortField.value},${sortOrder.value}").enqueue(object: Callback<PaginatedResponse<Document>> {
-        override fun onResponse(
-          call: Call<PaginatedResponse<Document>>,
-          response: Response<PaginatedResponse<Document>>
-        ) {
-          if (response.isSuccessful) {
-            currentPage.value = BaseResponse.Success(response.body()!!)
-            documents.value = (documents.value ?: listOf()).plus(response.body()!!.results)
-          } else {
-            currentPage.value = BaseResponse.Error(response.code())
+      Api
+        .documentsService
+        .getAllDocuments(
+          currentPage.value?.data?.page?.plus(1) ?: 0,
+          sort = "${sortField.value},${sortOrder.value}",
+          tags = filterTags.value?.map { it.id.toString() }?.toTypedArray() ?: arrayOf()
+        )
+        .enqueue(object: Callback<PaginatedResponse<Document>> {
+          override fun onResponse(
+            call: Call<PaginatedResponse<Document>>,
+            response: Response<PaginatedResponse<Document>>
+          ) {
+            if (response.isSuccessful) {
+              currentPage.value = BaseResponse.Success(response.body()!!)
+              documents.value = (documents.value ?: listOf()).plus(response.body()!!.results)
+            } else {
+              currentPage.value = BaseResponse.Error(response.code())
+            }
           }
-        }
 
-        override fun onFailure(call: Call<PaginatedResponse<Document>>, t: Throwable) {
-          currentPage.value = BaseResponse.Error(0)
-        }
-      })
+          override fun onFailure(call: Call<PaginatedResponse<Document>>, t: Throwable) {
+            currentPage.value = BaseResponse.Error(0)
+          }
+        })
     }
   }
 
@@ -97,6 +108,38 @@ class DocumentsViewModel: ViewModel() {
         Toast.makeText(context, R.string.unknown_error_occurred, Toast.LENGTH_LONG).show()
       }
     })
+  }
+
+  fun loadDocumentTags() {
+    documentTags.value = BaseResponse.Loading()
+    Api.documentsService.getDocumentTags().enqueue(object : Callback<List<DocumentTag>> {
+      override fun onResponse(
+        call: Call<List<DocumentTag>>,
+        response: Response<List<DocumentTag>>
+      ) {
+        documentTags.value = if (response.isSuccessful) {
+          BaseResponse.Success(response.body()!!)
+        } else {
+          BaseResponse.Error(response.code())
+        }
+      }
+
+      override fun onFailure(call: Call<List<DocumentTag>>, t: Throwable) {
+        documentTags.value = BaseResponse.Error(0)
+      }
+    })
+  }
+
+  fun addFilterTag(tag: DocumentTag) {
+    filterTags.value = filterTags.value?.plus(tag)
+  }
+
+  fun removeFilterTag(tag: DocumentTag) {
+    filterTags.value = filterTags.value?.minus(tag)
+  }
+
+  fun clearFilter() {
+    filterTags.value = setOf()
   }
 
   fun refresh() {

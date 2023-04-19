@@ -180,7 +180,7 @@ class DocumentEditorActivity : AppCompatActivity() {
   private fun buttonLoading() {
     binding.documentUploadFormSendButton.apply {
       text = getString(
-        if (viewModel.editMode.value == true) R.string.label_uploading_form else R.string.label_editing_form)
+        if (viewModel.editMode.value == true) R.string.label_editing_form else R.string.label_uploading_form)
       isActivated = false
     }
   }
