@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="primary">#557AFF</color>
+    <color name="primary_variant">#E16AE2</color>
     <color name="primary_transparent">#1A557AFF</color>
     <color name="primary_transparent_variant">#4D557AFF</color>
-    <color name="secondary">#F0F3FF</color>
+    <color name="secondary">#FF947C</color>
+    <color name="secondary_variant">#FFC85F</color>
     <color name="warning">#CCFF8B</color>
     <color name="text">#080C19</color>
     <color name="text_alt">#000F43</color>
