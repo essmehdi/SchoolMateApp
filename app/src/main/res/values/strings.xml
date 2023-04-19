@@ -79,6 +79,8 @@
     <string name="label_documents_menu_sort_asc">Ascending</string>
     <string name="label_documents_menu_sort_desc">Descending</string>
 
+    <string name="label_documents_menu_filter">Filter</string>
+
     <string name="loading_document_deletion">Deleting…</string>
     <string name="error_document_deletion">An error has occurred while deleting the document</string>
     <string name="success_document_deletion">The document has been deleted</string>

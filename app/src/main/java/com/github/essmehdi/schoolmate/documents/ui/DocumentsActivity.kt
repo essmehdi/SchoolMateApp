@@ -7,7 +7,9 @@ import android.view.MenuItem
 import android.view.View
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.essmehdi.schoolmate.R
@@ -17,6 +19,7 @@ import com.github.essmehdi.schoolmate.documents.adapters.OnEditMenuItemClickedLi
 import com.github.essmehdi.schoolmate.documents.models.Document
 import com.github.essmehdi.schoolmate.documents.viewmodels.DocumentsViewModel
 import com.github.essmehdi.schoolmate.shared.api.BaseResponse
+import com.google.android.material.chip.Chip
 import com.google.android.material.snackbar.Snackbar
 
 class DocumentsActivity : AppCompatActivity() {
@@ -42,6 +45,7 @@ class DocumentsActivity : AppCompatActivity() {
     }
 
     viewModel = ViewModelProvider(this)[DocumentsViewModel::class.java]
+    viewModel.loadDocumentTags()
     viewModel.loadDocuments()
 
     // Initialize recycler view adapter
@@ -96,6 +100,18 @@ class DocumentsActivity : AppCompatActivity() {
       }
     }
 
+    viewModel.filterTags.observe(this) {
+      binding.documentsMain.documentsTagsFilterGroup.isVisible = it.isNotEmpty()
+      binding.documentsMain.documentsTagsFilterGroup.apply {
+        removeAllViews()
+        it.forEach {
+          addView(Chip(this@DocumentsActivity).apply {
+            text = it.name
+          })
+        }
+      }
+    }
+
     binding.documentAddButton.setOnClickListener { goToDocumentEditor() }
   }
 
@@ -107,6 +123,10 @@ class DocumentsActivity : AppCompatActivity() {
 
   override fun onOptionsItemSelected(item: MenuItem): Boolean {
     return when (item.itemId) {
+      R.id.documents_menu_filter -> {
+        showFilterTags()
+        true
+      }
       R.id.documents_menu_sort_name -> {
         item.isChecked = !item.isChecked
         viewModel.changeSortField("name")
@@ -133,6 +153,33 @@ class DocumentsActivity : AppCompatActivity() {
         true
       }
       else -> super.onContextItemSelected(item)
+    }
+  }
+
+  private fun showFilterTags() {
+    val tags = viewModel.documentTags.value?.data ?: listOf()
+    val choices = tags.map { it.name }
+    val checkedChoices = tags.map { viewModel.filterTags.value!!.contains(it) }
+    AlertDialog.Builder(this).apply {
+      setTitle(R.string.action_select_tags)
+      setCancelable(true)
+      setMultiChoiceItems(
+        choices.toTypedArray(),
+        checkedChoices.toTypedArray().toBooleanArray()
+      ) { _, index, selected ->
+        if (selected) {
+          viewModel.addFilterTag(tags[index])
+        } else {
+          viewModel.removeFilterTag(tags[index])
+        }
+      }
+      setNeutralButton(R.string.label_tags_popup_close) { dialogInterface, _ ->
+        dialogInterface.dismiss()
+      }
+      setOnDismissListener {
+        viewModel.refresh()
+      }
+      create().show()
     }
   }
 
