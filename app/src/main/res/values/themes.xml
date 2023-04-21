@@ -71,7 +71,7 @@
         <item name="android:textColor">@color/text</item>
     </style>
 
-    <style name="TextAppearance.SchoolMate.DocumentTitle" parent="TextAppearance.MaterialComponents.Subtitle1">
+    <style name="TextAppearance.SchoolMate.ListItemTitle" parent="TextAppearance.MaterialComponents.Subtitle1">
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/text</item>
     </style>

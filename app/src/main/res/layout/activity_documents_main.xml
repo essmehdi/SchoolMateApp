@@ -33,4 +33,6 @@
 
     <include android:id="@+id/documents_loading" layout="@layout/loading_overlay" tools:visibility="gone" />
 
+    <include android:id="@+id/documents_empty" layout="@layout/empty_overlay" android:visibility="gone" tools:visibility="gone" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

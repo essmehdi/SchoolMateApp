@@ -81,9 +81,18 @@
 
     <string name="label_documents_menu_filter">Filter</string>
 
-    <string name="loading_document_deletion">Deleting…</string>
+    <string name="loading_document_deletion">Deleting document…</string>
     <string name="error_document_deletion">An error has occurred while deleting the document</string>
     <string name="success_document_deletion">The document has been deleted</string>
+
+    <string name="loading_document_tag_deletion">Deleting tag…</string>
+    <string name="error_document_tag_deletion_conflict">This tag is still used in another document</string>
+    <string name="error_document_tag_deletion_unknown">An error has occurred while deleting the tag</string>
+    <string name="success_document_tag_deletion">The tag has been deleted</string>
+
+    <string name="loading_document_tag_addition">Adding tag…</string>
+    <string name="error_document_tag_addition">An error has occurred while adding the tag</string>
+    <string name="success_document_tag_addition">The tag has been added</string>
 
 
     <string name="document_item_name_placeholder">Résumé Java</string>
@@ -95,6 +104,8 @@
     <string name="label_document_item_context_menu_download">Download</string>
     <string name="label_document_item_context_menu_edit">Edit</string>
     <string name="label_document_item_context_menu_delete">Delete</string>
+
+    <string name="label_loading_documents_list">Loading more documents…</string>
 
     <string name="time_calculation_yesterday">Yesterday</string>
 
@@ -114,5 +125,24 @@
     </plurals>
 
     <string name="time_calculation_few_moments">A few moments ago</string>
+
+    <string name="document_tags_title">Your document tags</string>
+
+    <string name="document_tag_item_title_placeholder">Théorie des Graphes</string>
+    <string name="document_tag_item_date_placeholder">Yesterday</string>
+    <string name="document_tag_delete_action_description">Delete tag</string>
+    <string name="document_tag_edit_action_description">Edit tag</string>
+
+    <string name="label_document_tags_add">Add tag</string>
+
+    <string name="label_document_tags_add_dialog_title">Add a new tag</string>
+    <string name="label_document_tags_edit_dialog_title">Edit a tag</string>
+    <string name="label_document_tags_add_dialog_confirm_action">Add</string>
+    <string name="label_document_tags_edit_dialog_confirm_action">Edit</string>
+    <string name="label_document_tags_add_edit_dialog_hint">Name</string>
+
+    <string name="error_document_tag_editor_empty_name">Name is required</string>
+
+    <string name="empty_list">Nothing to see here… yet</string>
 
 </resources>

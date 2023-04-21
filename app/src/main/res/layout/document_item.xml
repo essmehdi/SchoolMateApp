@@ -36,7 +36,7 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/document_item_name_text"
-            style="@style/TextAppearance.SchoolMate.DocumentTitle"
+            style="@style/TextAppearance.SchoolMate.ListItemTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/document_item_name_placeholder" />

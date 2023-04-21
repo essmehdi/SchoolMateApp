@@ -4,7 +4,9 @@ import android.app.DownloadManager
 import android.content.Context
 import android.net.Uri
 import android.os.Environment
+import android.util.Log
 import android.widget.Toast
+import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -25,22 +27,27 @@ class DocumentsViewModel: ViewModel() {
   private val sortField: MutableLiveData<String> = MutableLiveData("uploadedAt")
   private val sortOrder: MutableLiveData<String> = MutableLiveData("desc")
   val documents: MutableLiveData<List<Document>> = MutableLiveData()
-  val currentPage: MutableLiveData<BaseResponse<PaginatedResponse<Document>>?> = MutableLiveData()
+  val currentPageStatus: MutableLiveData<BaseResponse<PaginatedResponse<Document>>> = MutableLiveData()
+  val currentPage: MutableLiveData<PaginatedResponse<Document>?> = MutableLiveData()
   val deleteStatus: MutableLiveData<BaseResponse<MessageResponse>?> = MutableLiveData(null)
 
   val documentTags: MutableLiveData<BaseResponse<List<DocumentTag>>> = MutableLiveData()
   val filterTags: MutableLiveData<Set<DocumentTag>> = MutableLiveData(setOf())
 
+  val showEmpty: MediatorLiveData<Boolean> = MediatorLiveData()
+
   fun loadDocuments() {
-    if (currentPage.value?.data?.last == true) {
+    Log.d("DocumentsViewModel", "loadDocuments")
+    currentPageStatus.value = BaseResponse.Loading()
+    if (currentPage.value?.last == true) {
+      currentPageStatus.value = BaseResponse.Success(currentPage.value!!)
       return
     }
-    currentPage.value = BaseResponse.Loading()
     viewModelScope.launch {
       Api
         .documentsService
         .getAllDocuments(
-          currentPage.value?.data?.page?.plus(1) ?: 0,
+          currentPage.value?.page?.plus(1) ?: 0,
           sort = "${sortField.value},${sortOrder.value}",
           tags = filterTags.value?.map { it.id.toString() }?.toTypedArray() ?: arrayOf()
         )
@@ -50,15 +57,16 @@ class DocumentsViewModel: ViewModel() {
             response: Response<PaginatedResponse<Document>>
           ) {
             if (response.isSuccessful) {
-              currentPage.value = BaseResponse.Success(response.body()!!)
+              currentPageStatus.value = BaseResponse.Success(response.body()!!)
+              currentPage.value = response.body()!!
               documents.value = (documents.value ?: listOf()).plus(response.body()!!.results)
             } else {
-              currentPage.value = BaseResponse.Error(response.code())
+              currentPageStatus.value = BaseResponse.Error(response.code())
             }
           }
 
           override fun onFailure(call: Call<PaginatedResponse<Document>>, t: Throwable) {
-            currentPage.value = BaseResponse.Error(0)
+            currentPageStatus.value = BaseResponse.Error(0)
           }
         })
     }
@@ -143,8 +151,8 @@ class DocumentsViewModel: ViewModel() {
   }
 
   fun refresh() {
-    currentPage.value = null
     documents.value = listOf()
+    currentPage.value = null
     loadDocuments()
   }
 
@@ -156,5 +164,14 @@ class DocumentsViewModel: ViewModel() {
   fun changeOrder(order: String) {
     sortOrder.value = order
     refresh()
+  }
+
+  fun trackEmpty() {
+    showEmpty.addSource(documents) {
+      showEmpty.value = it.isEmpty() && currentPageStatus.value is BaseResponse.Success
+    }
+    showEmpty.addSource(currentPageStatus) {
+      showEmpty.value = documents.value?.isEmpty() == true && it is BaseResponse.Success
+    }
   }
 }
