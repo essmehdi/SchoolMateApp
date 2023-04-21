@@ -1,6 +1,7 @@
 package com.github.essmehdi.schoolmate.documents.api
 
 import com.github.essmehdi.schoolmate.documents.api.dto.DocumentDetailsDto
+import com.github.essmehdi.schoolmate.documents.api.dto.DocumentTagDetails
 import com.github.essmehdi.schoolmate.documents.models.Document
 import com.github.essmehdi.schoolmate.documents.models.DocumentTag
 import com.github.essmehdi.schoolmate.shared.api.dto.MessageResponse
@@ -32,4 +33,13 @@ interface DocumentsService {
 
   @GET("documents/tags")
   fun getDocumentTags(): Call<List<DocumentTag>>
+
+  @POST("documents/tags")
+  fun addDocumentTag(@Body documentTagDetails: DocumentTagDetails): Call<DocumentTag>
+
+  @PATCH("documents/tags/{id}")
+  fun editDocumentTag(@Path("id") id: Long, @Body documentTagDetails: DocumentTagDetails): Call<DocumentTag>
+
+  @DELETE("documents/tags/{id}")
+  fun deleteDocumentTag(@Path("id") id: Long): Call<MessageResponse>
 }

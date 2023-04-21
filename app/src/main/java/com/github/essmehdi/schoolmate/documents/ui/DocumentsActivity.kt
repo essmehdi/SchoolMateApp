@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.github.essmehdi.schoolmate.R
 import com.github.essmehdi.schoolmate.databinding.ActivityDocumentsBinding
 import com.github.essmehdi.schoolmate.documents.adapters.DocumentsListAdapter
@@ -47,6 +48,7 @@ class DocumentsActivity : AppCompatActivity() {
     viewModel = ViewModelProvider(this)[DocumentsViewModel::class.java]
     viewModel.loadDocumentTags()
     viewModel.loadDocuments()
+    viewModel.trackEmpty()
 
     // Initialize recycler view adapter
     documentsAdapter = DocumentsListAdapter(listOf(), viewModel)
@@ -58,6 +60,26 @@ class DocumentsActivity : AppCompatActivity() {
     binding.documentsMain.documentsList.apply {
       adapter = documentsAdapter
       layoutManager = LinearLayoutManager(this@DocumentsActivity, LinearLayoutManager.VERTICAL, false)
+      addOnScrollListener(object : RecyclerView.OnScrollListener() {
+        override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+          super.onScrolled(recyclerView, dx, dy)
+          if (dy > 0) {
+            if (viewModel.currentPageStatus.value is BaseResponse.Loading) {
+              return
+            }
+            val visibleItemCount = layoutManager?.childCount ?: 0
+            val totalItemCount = layoutManager?.itemCount ?: 0
+            val pastVisibleItems = (layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
+            if (visibleItemCount + pastVisibleItems >= totalItemCount) {
+              viewModel.loadDocuments()
+            }
+          }
+        }
+      })
+    }
+
+    viewModel.showEmpty.observe(this) {
+      showEmpty(it)
     }
 
     // Update adapter on data change
@@ -65,17 +87,17 @@ class DocumentsActivity : AppCompatActivity() {
       documents?.let { documentsAdapter.updateData(it) }
     }
 
-    viewModel.currentPage.observe(this) { currentPage ->
+    viewModel.currentPageStatus.observe(this) { currentPage ->
       when (currentPage) {
         is BaseResponse.Loading -> {
           if (viewModel.documents.value == null || viewModel.documents.value!!.isEmpty()) {
             showLoading()
           } else {
-            hideLoading()
+            showLoading(false)
           }
         }
         is BaseResponse.Success -> {
-          hideLoading()
+          showLoading(false)
         }
         is BaseResponse.Error -> {
           handleError(currentPage.code!!)
@@ -123,6 +145,11 @@ class DocumentsActivity : AppCompatActivity() {
 
   override fun onOptionsItemSelected(item: MenuItem): Boolean {
     return when (item.itemId) {
+      R.id.documents_menu_tags -> {
+        val fragment = DocumentTagsFragment.newInstance()
+        fragment.show(supportFragmentManager, fragment.tag)
+        true
+      }
       R.id.documents_menu_filter -> {
         showFilterTags()
         true
@@ -183,12 +210,12 @@ class DocumentsActivity : AppCompatActivity() {
     }
   }
 
-  private fun showLoading() {
-    binding.documentsMain.documentsLoading.loadingOverlay.visibility = View.VISIBLE
+  private fun showEmpty(show: Boolean = true) {
+    binding.documentsMain.documentsEmpty.root.isVisible = show
   }
 
-  private fun hideLoading() {
-    binding.documentsMain.documentsLoading.loadingOverlay.visibility = View.GONE
+  private fun showLoading(show: Boolean = true) {
+    binding.documentsMain.documentsLoading.loadingOverlay.isVisible = show
   }
 
   private fun handleError(code: Int) {

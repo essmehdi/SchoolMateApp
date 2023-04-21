@@ -21,7 +21,7 @@ class DocumentsListAdapter(var data: List<Document>?, val viewModel: DocumentsVi
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DocumentItemViewHolder {
     val binding =
       DocumentItemBinding
-        .bind(LayoutInflater.from(parent.context).inflate(R.layout.document_item, parent, false))
+        .inflate(LayoutInflater.from(parent.context), parent, false)
     return DocumentItemViewHolder(binding)
   }
 
@@ -54,7 +54,7 @@ class DocumentsListAdapter(var data: List<Document>?, val viewModel: DocumentsVi
       if (document.tags.isEmpty()) {
         binding.documentItemTagsText.isVisible = false
       } else {
-        binding.documentItemTagsText.text = document.tags.joinToString(" • ") { it.name }
+        binding.documentItemTagsText.text = document.tags.map { it.name }.sorted().joinToString(" • ")
       }
     }
 
