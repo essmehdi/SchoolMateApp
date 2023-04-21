@@ -4,7 +4,6 @@ import android.app.DownloadManager
 import android.content.Context
 import android.net.Uri
 import android.os.Environment
-import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
@@ -33,11 +32,11 @@ class DocumentsViewModel: ViewModel() {
 
   val documentTags: MutableLiveData<BaseResponse<List<DocumentTag>>> = MutableLiveData()
   val filterTags: MutableLiveData<Set<DocumentTag>> = MutableLiveData(setOf())
+  val oldFilterTags: MutableLiveData<Set<DocumentTag>> = MutableLiveData(setOf())
 
   val showEmpty: MediatorLiveData<Boolean> = MediatorLiveData()
 
   fun loadDocuments() {
-    Log.d("DocumentsViewModel", "loadDocuments")
     currentPageStatus.value = BaseResponse.Loading()
     if (currentPage.value?.last == true) {
       currentPageStatus.value = BaseResponse.Success(currentPage.value!!)

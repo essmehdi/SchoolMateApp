@@ -204,7 +204,9 @@ class DocumentsActivity : AppCompatActivity() {
         dialogInterface.dismiss()
       }
       setOnDismissListener {
-        viewModel.refresh()
+        if (viewModel.oldFilterTags.value != viewModel.filterTags.value)
+          viewModel.refresh()
+        viewModel.oldFilterTags.value = viewModel.filterTags.value
       }
       create().show()
     }
