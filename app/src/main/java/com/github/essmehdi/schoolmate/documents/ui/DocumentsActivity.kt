@@ -7,6 +7,7 @@ import android.view.MenuItem
 import android.view.View
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
@@ -26,9 +27,10 @@ import com.google.android.material.snackbar.Snackbar
 class DocumentsActivity : AppCompatActivity() {
 
   private lateinit var binding: ActivityDocumentsBinding
-  private lateinit var viewModel: DocumentsViewModel
   private lateinit var launcher: ActivityResultLauncher<Intent>
   private lateinit var documentsAdapter: DocumentsListAdapter
+
+  private val viewModel: DocumentsViewModel by viewModels()
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -45,10 +47,8 @@ class DocumentsActivity : AppCompatActivity() {
       }
     }
 
-    viewModel = ViewModelProvider(this)[DocumentsViewModel::class.java]
     viewModel.loadDocumentTags()
     viewModel.loadDocuments()
-    viewModel.trackEmpty()
 
     // Initialize recycler view adapter
     documentsAdapter = DocumentsListAdapter(listOf(), viewModel)

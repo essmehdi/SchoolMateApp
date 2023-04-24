@@ -36,6 +36,10 @@ class DocumentsViewModel: ViewModel() {
 
   val showEmpty: MediatorLiveData<Boolean> = MediatorLiveData()
 
+  init {
+    trackEmpty()
+  }
+
   fun loadDocuments() {
     currentPageStatus.value = BaseResponse.Loading()
     if (currentPage.value?.last == true) {
@@ -166,6 +170,9 @@ class DocumentsViewModel: ViewModel() {
   }
 
   fun trackEmpty() {
+    // Check if showEmpty has already been tracked
+    if (showEmpty.hasActiveObservers()) return
+
     showEmpty.addSource(documents) {
       showEmpty.value = it.isEmpty() && currentPageStatus.value is BaseResponse.Success
     }
