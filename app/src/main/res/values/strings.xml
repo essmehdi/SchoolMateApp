@@ -49,6 +49,7 @@
     <string name="label_document_shared">Share document with others</string>
 
     <string name="action_select_file">Choose a file</string>
+    <string name="action_scan">Scan</string>
     <string name="action_select_tags">Select tags</string>
     <string name="action_send_upload_form">Upload</string>
     <string name="action_send_edit_form">Edit</string>
@@ -137,5 +138,11 @@
     <string name="error_document_tag_editor_empty_name">Name is required</string>
 
     <string name="empty_list">Nothing to see here… yet</string>
+
+    <string name="label_document_scanner_scan_page_button">Scan page</string>
+    <string name="label_document_scanner_confirm_button">Confirm scan</string>
+    <string name="label_document_scanner_cancel_button">Cancel</string>
+
+    <string name="error_document_scanner_pdf_result">Could not load scanned document pdf</string>
 
 </resources>

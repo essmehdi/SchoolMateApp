@@ -1,9 +1,12 @@
 package com.github.essmehdi.schoolmate.documents.ui
 
 import android.annotation.SuppressLint
+import android.content.Intent
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.text.Html
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
@@ -26,6 +29,7 @@ class DocumentEditorActivity : AppCompatActivity() {
   private lateinit var binding: ActivityDocumentEditorBinding
   private lateinit var viewModel: DocumentEditorViewModel
   private lateinit var filePickerLauncher: ActivityResultLauncher<String>
+  private lateinit var scannerLauncher: ActivityResultLauncher<Intent>
 
   @Suppress("DEPRECATION")
   @SuppressLint("Range")
@@ -49,10 +53,24 @@ class DocumentEditorActivity : AppCompatActivity() {
       viewModel.selectedFile.value = uri
     }
 
+    scannerLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+      Log.d("Scanner activity OK", (result.resultCode == RESULT_OK).toString())
+      if (result.resultCode == RESULT_OK) {
+        val uri = result.data?.extras?.getParcelable("pdf") as Uri?
+        Log.d("Document scanner", uri.toString())
+        if (uri != null) {
+          viewModel.selectedFile.value = uri
+        } else {
+          Toast.makeText(this, R.string.error_document_scanner_pdf_result, Toast.LENGTH_SHORT).show()
+        }
+      }
+    }
+
     viewModel.fetchDocumentTags()
 
     binding.documentTagsChooserButton.setOnClickListener { showTagsPopup() }
-    binding.documentFileChooserButton.setOnClickListener { openFile() }
+    binding.documentFileChooserButton.homeButtonRoot.setOnClickListener { openFile() }
+    binding.documentScannerButton.homeButtonRoot.setOnClickListener { openScanner() }
     binding.documentUploadFormSendButton.setOnClickListener { sendForm() }
 
     viewModel.documentTags.observe(this) {
@@ -110,6 +128,11 @@ class DocumentEditorActivity : AppCompatActivity() {
     }
   }
 
+  private fun openScanner() {
+    val intent = Intent(this, DocumentScannerActivity::class.java)
+    scannerLauncher.launch(intent)
+  }
+
   private fun enableEditMode(document: Document) {
     viewModel.editMode.value = true
     viewModel.editId.value = document.id
@@ -118,7 +141,7 @@ class DocumentEditorActivity : AppCompatActivity() {
       documentNameEdittext.setText(document.name)
       documentSharedCheckbox.isChecked = document.shared
       viewModel.selectedTags.value = document.tags.map { it.id }.toSet()
-      documentFileChooserButton.isVisible = false
+      documentFileChooserButton.homeButtonRoot.isVisible = false
       documentUploadFormSendButton.text = getString(R.string.action_send_edit_form)
     }
   }
