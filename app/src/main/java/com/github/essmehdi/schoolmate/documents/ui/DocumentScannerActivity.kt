@@ -8,6 +8,7 @@ import android.graphics.pdf.PdfDocument
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
+import android.view.MenuItem
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
@@ -34,6 +35,8 @@ class DocumentScannerActivity : AppCompatActivity() {
     super.onCreate(savedInstanceState)
     binding = ActivityDocumentScannerBinding.inflate(layoutInflater)
     setContentView(binding.root)
+
+    supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
     launcher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
       documentScanner.handleDocumentScanIntentResult(result)
@@ -127,5 +130,13 @@ class DocumentScannerActivity : AppCompatActivity() {
     document.writeTo(tempFile.outputStream())
     document.close()
     return Uri.fromFile(tempFile)
+  }
+
+  override fun onOptionsItemSelected(item: MenuItem): Boolean {
+    if (item.itemId == android.R.id.home) {
+      onBackPressedDispatcher.onBackPressed()
+      return true
+    }
+    return super.onOptionsItemSelected(item)
   }
 }
