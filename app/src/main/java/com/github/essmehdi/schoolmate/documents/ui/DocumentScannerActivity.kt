@@ -1,20 +1,19 @@
 package com.github.essmehdi.schoolmate.documents.ui
 
 import android.content.Intent
-import android.graphics.*
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.graphics.Paint
 import android.graphics.pdf.PdfDocument
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
-import android.provider.MediaStore
 import android.util.Log
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.github.essmehdi.schoolmate.databinding.ActivityDocumentScannerBinding
-import com.github.essmehdi.schoolmate.documents.adapters.ScannedPagesAdapter
 import com.github.essmehdi.schoolmate.documents.viewmodels.DocumentScannerViewModel
 import com.websitebeaver.documentscanner.DocumentScanner
 import java.io.File
@@ -23,27 +22,18 @@ class DocumentScannerActivity : AppCompatActivity() {
 
   private lateinit var binding: ActivityDocumentScannerBinding
   private lateinit var launcher: ActivityResultLauncher<Intent>
-  private lateinit var viewModel: DocumentScannerViewModel
-  private lateinit var scannedPagesAdapter: ScannedPagesAdapter
+  private val viewModel: DocumentScannerViewModel by viewModels()
   private val documentScanner = DocumentScanner(
     this,
-    {
-      it.forEach { image -> viewModel.addScannedPage(Uri.parse(image)) }
-    },
-    {
-      Log.e("Document scanner", it)
-    },
-    {
-      Log.i("Document scanner", "Canceled")
-    }
+    { viewModel.addScannedPages(*it.map { uriString -> Uri.parse(uriString) }.toTypedArray()) }, // Success handler
+    { Log.e("Document scanner", it) }, // Error handler
+    { Log.i("Document scanner", "Canceled") } // Canceled handler
   )
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     binding = ActivityDocumentScannerBinding.inflate(layoutInflater)
     setContentView(binding.root)
-
-    viewModel = ViewModelProvider(this)[DocumentScannerViewModel::class.java]
 
     launcher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
       documentScanner.handleDocumentScanIntentResult(result)
@@ -60,7 +50,6 @@ class DocumentScannerActivity : AppCompatActivity() {
 
     binding.documentScannerConfirmButton.setOnClickListener {
       val pdfUri = convertToPdf()
-      Log.i("Document scanner", "PDF URI: $pdfUri")
       val intent = Intent().apply {
         putExtra("pdf", pdfUri)
       }
@@ -68,15 +57,41 @@ class DocumentScannerActivity : AppCompatActivity() {
       finish()
     }
 
-    scannedPagesAdapter = ScannedPagesAdapter(listOf(), viewModel)
+    // Initialize the recycler view
     binding.documentScannerPagesList.apply {
-      adapter = scannedPagesAdapter
-      layoutManager = GridLayoutManager(this@DocumentScannerActivity, 3)
+      adapter = viewModel.adapter.value
+      layoutManager = GridLayoutManager(this@DocumentScannerActivity, 2)
     }
+
+    // Create an item touch helper to drag pages
+    val itemTouchHelper = androidx.recyclerview.widget.ItemTouchHelper(
+      object : androidx.recyclerview.widget.ItemTouchHelper.SimpleCallback(
+        androidx.recyclerview.widget.ItemTouchHelper.UP or
+                androidx.recyclerview.widget.ItemTouchHelper.DOWN or
+                androidx.recyclerview.widget.ItemTouchHelper.START or
+                androidx.recyclerview.widget.ItemTouchHelper.END,
+        0
+      ) {
+        override fun onMove(
+          recyclerView: androidx.recyclerview.widget.RecyclerView,
+          viewHolder: androidx.recyclerview.widget.RecyclerView.ViewHolder,
+          target: androidx.recyclerview.widget.RecyclerView.ViewHolder
+        ): Boolean {
+          val from = viewHolder.adapterPosition
+          val to = target.adapterPosition
+          viewModel.moveScannedPage(from, to)
+          return true
+        }
+
+        override fun onSwiped(viewHolder: androidx.recyclerview.widget.RecyclerView.ViewHolder, direction: Int) {
+          // Do nothing
+        }
+      }
+    )
+    itemTouchHelper.attachToRecyclerView(binding.documentScannerPagesList)
 
     viewModel.scannedPages.observe(this) {
       binding.documentScannerConfirmButton.isEnabled = it.isNotEmpty()
-      scannedPagesAdapter.updateData(it)
     }
   }
 
