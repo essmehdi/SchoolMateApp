@@ -139,6 +139,7 @@
 
     <string name="empty_list">Nothing to see here… yet</string>
 
+    <string name="label_document_scanner_activity">Scanner</string>
     <string name="label_document_scanner_scan_page_button">Scan page</string>
     <string name="label_document_scanner_confirm_button">Confirm scan</string>
     <string name="label_document_scanner_cancel_button">Cancel</string>
