@@ -91,7 +91,7 @@ class DocumentEditorViewModel: ViewModel() {
       if (cursor != null && cursor.moveToFirst()) {
         return cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME))
       } else {
-        return ""
+        return "Scanned file"
       }
     }
   }
