@@ -152,4 +152,6 @@
 
     <string name="error_document_scanner_pdf_result">Could not load scanned document pdf</string>
 
+    <string name="label_document_scanner_page_delete">Delete</string>
+
 </resources>

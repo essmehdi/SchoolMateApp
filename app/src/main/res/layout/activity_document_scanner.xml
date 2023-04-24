@@ -10,13 +10,17 @@
         android:id="@+id/document_scanner_pages_list"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/document_scanner_scan_page_button"
+        tools:listitem="@layout/scanned_page"
+        tools:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        tools:spanCount="2"
+        app:layout_constraintBottom_toTopOf="@+id/document_scanner_buttons"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
 
     <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/document_scanner_buttons"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -24,6 +28,12 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/document_scanner_scan_page_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/label_document_scanner_scan_page_button" />
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
@@ -49,12 +59,6 @@
                 android:text="@string/label_document_scanner_cancel_button" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/document_scanner_scan_page_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/label_document_scanner_scan_page_button" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 </androidx.constraintlayout.widget.ConstraintLayout>

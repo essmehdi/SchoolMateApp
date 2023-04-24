@@ -24,12 +24,14 @@ class ScannedPagesAdapter(var data: List<Uri>, val viewModel: DocumentScannerVie
 
   fun updateData(newData: List<Uri>) {
     this.data = newData
-    notifyDataSetChanged()
   }
 
   inner class ViewHolder(val binding: ScannedPageBinding): RecyclerView.ViewHolder(binding.root) {
     fun bind(uri: Uri) {
       binding.scannedPageImage.setImageURI(uri)
+      binding.scannedPageDeleteButton.setOnClickListener {
+        viewModel.removeScannedPage(adapterPosition)
+      }
     }
   }
 }
