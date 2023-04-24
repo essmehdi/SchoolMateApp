@@ -142,6 +142,7 @@ class DocumentEditorActivity : AppCompatActivity() {
       documentSharedCheckbox.isChecked = document.shared
       viewModel.selectedTags.value = document.tags.map { it.id }.toSet()
       documentFileChooserButton.homeButtonRoot.isVisible = false
+      documentScannerButton.homeButtonRoot.isVisible = false
       documentUploadFormSendButton.text = getString(R.string.action_send_edit_form)
     }
   }
