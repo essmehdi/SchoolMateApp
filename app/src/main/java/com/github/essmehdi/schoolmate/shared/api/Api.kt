@@ -4,8 +4,10 @@ import android.content.Context
 import android.content.SharedPreferences
 import com.github.essmehdi.schoolmate.R
 import com.github.essmehdi.schoolmate.auth.api.AuthService
+import com.github.essmehdi.schoolmate.documents.api.DocumentsService
 import com.github.essmehdi.schoolmate.schoolnavigation.api.SchoolZonesService
 import com.github.essmehdi.schoolmate.shared.api.interceptors.CookieAuthenticator
+import com.github.essmehdi.schoolmate.shared.api.interceptors.RequestLogger
 import com.github.essmehdi.schoolmate.shared.api.interceptors.SessionInjector
 import com.github.essmehdi.schoolmate.shared.api.interceptors.SessionInterceptor
 import okhttp3.OkHttpClient
@@ -18,22 +20,21 @@ object Api {
   private lateinit var retrofit: Retrofit
 
   fun setup(context: Context) {
-    if (!this::retrofit.isInitialized) {
-      val sharedPrefs =
-        context.getSharedPreferences(context.getString(R.string.app_name), Context.MODE_PRIVATE)
+    val sharedPrefs =
+      context.getSharedPreferences(context.getString(R.string.app_name), Context.MODE_PRIVATE)
 
-      val okHttpClient = OkHttpClient.Builder()
-        .addInterceptor(SessionInterceptor(sharedPrefs))
-        .addInterceptor(SessionInjector(sharedPrefs))
-        .authenticator(CookieAuthenticator(context))
-        .build()
+    val okHttpClient = OkHttpClient.Builder()
+      .addInterceptor(SessionInterceptor(sharedPrefs))
+      .addInterceptor(SessionInjector(sharedPrefs))
+      .addInterceptor(RequestLogger())
+      .authenticator(CookieAuthenticator(context))
+      .build()
 
-      retrofit = Retrofit.Builder()
-        .addConverterFactory(GsonConverterFactory.create())
-        .client(okHttpClient)
-        .baseUrl(BASE_URL)
-        .build()
-    }
+    retrofit = Retrofit.Builder()
+      .addConverterFactory(GsonConverterFactory.create())
+      .client(okHttpClient)
+      .baseUrl(BASE_URL)
+      .build()
   }
 
   val schoolZonesService: SchoolZonesService by lazy {
@@ -42,5 +43,9 @@ object Api {
 
   val authService: AuthService by lazy {
     retrofit.create(AuthService::class.java)
+  }
+
+  val documentsService: DocumentsService by lazy {
+    retrofit.create(DocumentsService::class.java)
   }
 }

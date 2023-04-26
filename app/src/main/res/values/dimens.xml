@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="button_corners_round">100dp</dimen>
+    <dimen name="document_form_chips_vertical_spacing">-5dp</dimen>
+    <dimen name="fab_margin">20dp</dimen>
+</resources>

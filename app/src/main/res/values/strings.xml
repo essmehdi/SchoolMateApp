@@ -41,7 +41,111 @@
 
     <string name="home_user_complaints_title">Your complaints</string>
 
-    <string name="unknown_error_occurred">An error has occured</string>
+    <string name="unknown_error_occurred">An error has occurred</string>
 
+    <string name="action_upload_document">Upload a document</string>
+
+    <string name="label_document_name">Name</string>
+    <string name="label_document_shared">Share document with others</string>
+
+    <string name="action_select_file">Choose a file</string>
+    <string name="action_scan">Scan</string>
+    <string name="action_select_tags">Select tags</string>
+    <string name="action_send_upload_form">Upload</string>
+    <string name="action_send_edit_form">Edit</string>
+
+    <string name="label_tags_popup_close">Close</string>
+
+    <string name="label_chosen_file"><b>Chosen file:</b> %s</string>
+
+    <string name="error_document_name_empty_edittext">Name is required</string>
+    <string name="error_document_file_empty">A file is required</string>
+    <string name="error_wrong_field_value">Please verify your input</string>
+
+    <string name="label_uploading_form">Uploading…</string>
+    <string name="label_editing_form">Editing…</string>
+
+    <string name="label_documents_menu_sort_fields">Sort by</string>
+    <string name="label_documents_menu_sort_order">Order</string>
+    <string name="label_documents_menu_sort_name">Name</string>
+    <string name="label_documents_menu_sort_upload">Upload time</string>
+    <string name="label_documents_menu_sort_shared">Shared</string>
+    <string name="label_documents_menu_sort_asc">Ascending</string>
+    <string name="label_documents_menu_sort_desc">Descending</string>
+
+    <string name="label_documents_menu_filter">Filter</string>
+
+    <string name="loading_document_deletion">Deleting document…</string>
+    <string name="error_document_deletion">An error has occurred while deleting the document</string>
+    <string name="success_document_deletion">The document has been deleted</string>
+
+    <string name="loading_document_tag_deletion">Deleting tag…</string>
+    <string name="error_document_tag_deletion_conflict">This tag is still used in another document</string>
+    <string name="error_document_tag_deletion_unknown">An error has occurred while deleting the tag</string>
+    <string name="success_document_tag_deletion">The tag has been deleted</string>
+
+    <string name="loading_document_tag_addition">Adding tag…</string>
+    <string name="error_document_tag_addition">An error has occurred while adding the tag</string>
+    <string name="success_document_tag_addition">The tag has been added</string>
+
+
+    <string name="document_item_name_placeholder">Résumé Java</string>
+    <string name="document_item_date_placeholder">Yesterday</string>
+    <string name="document_item_tags_placeholder">1ère année • PFA</string>
+
+    <string name="document_item_options_menu_description">Document options</string>
+
+    <string name="label_document_item_context_menu_download">Download</string>
+    <string name="label_document_item_context_menu_edit">Edit</string>
+    <string name="label_document_item_context_menu_delete">Delete</string>
+
+    <string name="label_loading_documents_list">Loading more documents…</string>
+
+    <string name="time_calculation_yesterday">Yesterday</string>
+
+    <plurals name="time_calculation_hours">
+        <item quantity="one">%d hour ago</item>
+        <item quantity="other">%d hours ago</item>
+    </plurals>
+
+    <plurals name="time_calculation_minutes">
+        <item quantity="one">%d minute ago</item>
+        <item quantity="other">%d minutes ago</item>
+    </plurals>
+
+    <plurals name="time_calculation_weeks">
+        <item quantity="one">%d week ago</item>
+        <item quantity="other">%d weeks ago</item>
+    </plurals>
+
+    <string name="time_calculation_few_moments">A few moments ago</string>
+
+    <string name="document_tags_title">Your document tags</string>
+
+    <string name="document_tag_item_title_placeholder">Théorie des Graphes</string>
+    <string name="document_tag_item_date_placeholder">Yesterday</string>
+    <string name="document_tag_delete_action_description">Delete tag</string>
+    <string name="document_tag_edit_action_description">Edit tag</string>
+
+    <string name="label_document_tags_add">Add tag</string>
+
+    <string name="label_document_tags_add_dialog_title">Add a new tag</string>
+    <string name="label_document_tags_edit_dialog_title">Edit a tag</string>
+    <string name="label_document_tags_add_dialog_confirm_action">Add</string>
+    <string name="label_document_tags_edit_dialog_confirm_action">Edit</string>
+    <string name="label_document_tags_add_edit_dialog_hint">Name</string>
+
+    <string name="error_document_tag_editor_empty_name">Name is required</string>
+
+    <string name="empty_list">Nothing to see here… yet</string>
+
+    <string name="label_document_scanner_activity">Scanner</string>
+    <string name="label_document_scanner_scan_page_button">Scan page</string>
+    <string name="label_document_scanner_confirm_button">Confirm scan</string>
+    <string name="label_document_scanner_cancel_button">Cancel</string>
+
+    <string name="error_document_scanner_pdf_result">Could not load scanned document pdf</string>
+
+    <string name="label_document_scanner_page_delete">Delete</string>
 
 </resources>

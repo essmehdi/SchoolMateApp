@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="@string/label_documents_menu_sort_fields">
+        <menu>
+            <group android:id="@+id/documents_menu_sort_fields" android:checkableBehavior="single">
+                <item
+                    android:id="@+id/documents_menu_sort_name"
+                    android:title="@string/label_documents_menu_sort_name" />
+                <item
+                    android:id="@+id/documents_menu_sort_upload"
+                    android:title="@string/label_documents_menu_sort_upload"
+                    android:checked="true"/>
+                <item
+                    android:id="@+id/documents_menu_sort_shared"
+                    android:title="@string/label_documents_menu_sort_shared" />
+            </group>
+        </menu>
+    </item>
+    <item android:title="@string/label_documents_menu_sort_order">
+        <menu>
+            <group android:id="@+id/documents_menu_sort_order" android:checkableBehavior="single">
+                <item
+                    android:id="@+id/documents_menu_sort_asc"
+                    android:title="@string/label_documents_menu_sort_asc" />
+                <item
+                    android:id="@+id/documents_menu_sort_desc"
+                    android:title="@string/label_documents_menu_sort_desc"
+                    android:checked="true" />
+            </group>
+        </menu>
+    </item>
+
+    <item
+        android:id="@+id/documents_menu_tags"
+        android:title="@string/document_tags_title"
+        android:icon="@drawable/ic_tag_menu"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/documents_menu_filter"
+        android:title="@string/label_documents_menu_filter"
+        android:icon="@drawable/ic_filter_menu"
+        app:showAsAction="ifRoom"/>
+</menu>

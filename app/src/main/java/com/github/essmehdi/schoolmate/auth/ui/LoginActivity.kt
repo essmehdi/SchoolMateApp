@@ -8,7 +8,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.ViewModelProvider
-import com.github.essmehdi.schoolmate.MainActivity
 import com.github.essmehdi.schoolmate.R
 import com.github.essmehdi.schoolmate.auth.api.dto.LoginDto
 import com.github.essmehdi.schoolmate.auth.viewmodels.LoginViewModel
@@ -28,9 +27,6 @@ class LoginActivity : AppCompatActivity() {
     setContentView(binding.root)
 
     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-
-    // Setup the API with context
-    Api.setup(applicationContext)
 
     viewModel = ViewModelProvider(this)[LoginViewModel::class.java]
 

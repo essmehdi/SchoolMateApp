@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".documents.ui.DocumentScannerActivity">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/document_scanner_pages_list"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        tools:listitem="@layout/scanned_page"
+        tools:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        tools:spanCount="2"
+        app:layout_constraintBottom_toTopOf="@+id/document_scanner_buttons"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/document_scanner_buttons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/document_scanner_scan_page_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/label_document_scanner_scan_page_button" />
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/document_scanner_confirm_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="50"
+                android:layout_marginEnd="10dp"
+                android:enabled="false"
+                android:backgroundTint="@color/success"
+                android:text="@string/label_document_scanner_confirm_button" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/document_scanner_cancel_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="50"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:text="@string/label_document_scanner_cancel_button" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</androidx.constraintlayout.widget.ConstraintLayout>

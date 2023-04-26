@@ -42,8 +42,6 @@ class SchoolNavigationActivity : AppCompatActivity() {
     // Force light mode temporarily
     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
-    Api.setup(this)
-
     // Initialize map
     Configuration.getInstance().load(applicationContext, PreferenceManager.getDefaultSharedPreferences(applicationContext))
     initMap()
