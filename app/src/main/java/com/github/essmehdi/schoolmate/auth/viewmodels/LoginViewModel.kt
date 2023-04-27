@@ -1,16 +1,14 @@
 package com.github.essmehdi.schoolmate.auth.viewmodels
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.github.essmehdi.schoolmate.auth.api.dto.LoginDto
 import com.github.essmehdi.schoolmate.auth.api.dto.LoginResponse
-import com.github.essmehdi.schoolmate.auth.models.User
+import com.github.essmehdi.schoolmate.users.models.User
 import com.github.essmehdi.schoolmate.shared.api.Api
 import com.github.essmehdi.schoolmate.shared.api.BaseResponse
 import kotlinx.coroutines.launch
-import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
