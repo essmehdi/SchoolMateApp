@@ -20,9 +20,13 @@
         tools:replace="android:allowBackup"
         tools:targetApi="31">
         <activity
+            android:name=".auth.ui.RegisterActivity"
+            android:exported="false"
+            android:theme="@style/Theme.SchoolMate.NoActionBar" />
+        <activity
             android:name=".documents.ui.DocumentScannerActivity"
             android:exported="false"
-            android:label="@string/label_document_scanner_activity"/>
+            android:label="@string/label_document_scanner_activity" />
         <activity
             android:name=".documents.ui.DocumentEditorActivity"
             android:exported="false"
