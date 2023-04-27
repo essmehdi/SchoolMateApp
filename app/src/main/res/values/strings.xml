@@ -173,4 +173,10 @@
     <string name="error_register_email_already_used">Email is already used</string>
     <string name="error_register_password_invalid">The password must contain at least 1 uppercase, 1 lowercase, 1 special character and 1 digit and must be at least 8 characters</string>
 
+    <string name="users_title">Users</string>
+
+    <string name="user_row_full_name_placeholder">John Doe</string>
+    <string name="user_row_email_placeholder">john.doe@um5.ac.ma</string>
+    <string name="user_row_role_placeholder">STUDENT</string>
+
 </resources>

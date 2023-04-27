@@ -20,6 +20,14 @@
         tools:replace="android:allowBackup"
         tools:targetApi="31">
         <activity
+            android:name=".users.ui.UserDetailsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".users.ui.UsersActivity"
+            android:exported="false"
+            android:label="@string/users_title"
+            android:parentActivityName=".home.ui.HomeActivity" />
+        <activity
             android:name=".auth.ui.RegisterActivity"
             android:exported="false"
             android:theme="@style/Theme.SchoolMate.NoActionBar" />

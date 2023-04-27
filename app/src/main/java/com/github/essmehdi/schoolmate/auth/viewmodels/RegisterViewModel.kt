@@ -14,6 +14,7 @@ class RegisterViewModel: ViewModel() {
   val registerStatus: MutableLiveData<BaseResponse<User>> = MutableLiveData()
 
   fun register(firstName: String, lastName: String, email: String, password: String, confirmation: String) {
+    registerStatus.value = BaseResponse.Loading()
     val registerDto = RegisterDto(firstName, lastName, email, password, confirmation)
     Api.authService.register(registerDto).enqueue(object: Callback<User> {
       override fun onResponse(call: Call<User>, response: Response<User>) {
