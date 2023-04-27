@@ -12,6 +12,7 @@ import com.github.essmehdi.schoolmate.documents.ui.DocumentsActivity
 import com.github.essmehdi.schoolmate.home.viewmodels.HomeViewModel
 import com.github.essmehdi.schoolmate.schoolnavigation.ui.SchoolNavigationActivity
 import com.github.essmehdi.schoolmate.shared.api.BaseResponse
+import com.github.essmehdi.schoolmate.users.ui.UsersActivity
 
 class HomeActivity : AppCompatActivity() {
 
@@ -28,9 +29,12 @@ class HomeActivity : AppCompatActivity() {
         val intent = Intent(this@HomeActivity, SchoolNavigationActivity::class.java)
         startActivity(intent)
       }
-
       documentsHomeButton.homeButtonRoot.setOnClickListener {
         val intent = Intent(this@HomeActivity, DocumentsActivity::class.java)
+        startActivity(intent)
+      }
+      usersHomeButton.homeButtonRoot.setOnClickListener {
+        val intent = Intent(this@HomeActivity, UsersActivity::class.java)
         startActivity(intent)
       }
     }

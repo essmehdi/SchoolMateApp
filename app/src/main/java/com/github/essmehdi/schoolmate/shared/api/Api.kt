@@ -10,6 +10,7 @@ import com.github.essmehdi.schoolmate.shared.api.interceptors.CookieAuthenticato
 import com.github.essmehdi.schoolmate.shared.api.interceptors.RequestLogger
 import com.github.essmehdi.schoolmate.shared.api.interceptors.SessionInjector
 import com.github.essmehdi.schoolmate.shared.api.interceptors.SessionInterceptor
+import com.github.essmehdi.schoolmate.users.api.UsersService
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -49,5 +50,9 @@ object Api {
 
   val documentsService: DocumentsService by lazy {
     retrofit.create(DocumentsService::class.java)
+  }
+
+  val usersService: UsersService by lazy {
+    retrofit.create(UsersService::class.java)
   }
 }

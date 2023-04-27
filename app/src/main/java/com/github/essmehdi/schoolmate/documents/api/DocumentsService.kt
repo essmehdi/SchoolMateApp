@@ -42,4 +42,7 @@ interface DocumentsService {
 
   @DELETE("documents/tags/{id}")
   fun deleteDocumentTag(@Path("id") id: Long): Call<MessageResponse>
+
+  @GET("documents/users/{id}")
+  fun getUserDocuments(@Path("id") id: Long): Call<List<Document>>
 }

@@ -73,10 +73,19 @@
                 <include
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="13dp"
                     android:id="@+id/navigation_home_button"
                     layout="@layout/home_button"
                     app:icon="@{@drawable/ic_navigation_arrow}"
                     app:text="@{@string/navigation_title}" />
+
+                <include
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/users_home_button"
+                    layout="@layout/home_button"
+                    app:icon="@{@drawable/ic_user}"
+                    app:text="@{@string/users_title}" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
