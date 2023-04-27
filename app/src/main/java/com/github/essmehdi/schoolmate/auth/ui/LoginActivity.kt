@@ -5,6 +5,9 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.ViewModelProvider
@@ -19,7 +22,8 @@ import com.github.essmehdi.schoolmate.shared.api.BaseResponse
 class LoginActivity : AppCompatActivity() {
 
   private lateinit var binding: ActivityLoginBinding
-  private lateinit var viewModel: LoginViewModel
+  private val viewModel: LoginViewModel by viewModels()
+  private lateinit var registerLauncher: ActivityResultLauncher<Intent>
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -28,10 +32,21 @@ class LoginActivity : AppCompatActivity() {
 
     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 
-    viewModel = ViewModelProvider(this)[LoginViewModel::class.java]
+    registerLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+      if (result.resultCode == RESULT_OK) {
+        val email = result.data?.getStringExtra("email")
+        val password = result.data?.getStringExtra("password")
+        email?.let { binding.emailEdittext.setText(it) }
+        password?.let { binding.passwordEdittext.setText(it) }
+      }
+    }
 
     binding.loginButton.setOnClickListener {
       validateInput()?.let { viewModel.login(it) }
+    }
+
+    binding.loginRegisterButton.setOnClickListener {
+      registerLauncher.launch(Intent(this, RegisterActivity::class.java))
     }
 
     viewModel.checkAuth()

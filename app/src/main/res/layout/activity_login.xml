@@ -81,6 +81,22 @@
             app:cornerRadius="@dimen/button_corners_round"
             android:text="@string/action_sign_in_short"/>
 
+        <com.google.android.material.divider.MaterialDivider
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:layout_gravity="center_horizontal" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/login_register_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            app:cornerRadius="@dimen/button_corners_round"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:text="@string/action_register_short"/>
+
     </androidx.appcompat.widget.LinearLayoutCompat>
 
     <include android:id="@+id/loading" layout="@layout/loading_overlay" tools:visibility="gone" />
