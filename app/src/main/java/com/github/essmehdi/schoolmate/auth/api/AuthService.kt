@@ -3,7 +3,7 @@ package com.github.essmehdi.schoolmate.auth.api
 import com.github.essmehdi.schoolmate.auth.api.dto.LoginDto
 import com.github.essmehdi.schoolmate.auth.api.dto.LoginResponse
 import com.github.essmehdi.schoolmate.auth.api.dto.RegisterDto
-import com.github.essmehdi.schoolmate.auth.models.User
+import com.github.essmehdi.schoolmate.users.models.User
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET

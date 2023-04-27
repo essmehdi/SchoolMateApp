@@ -3,7 +3,7 @@ package com.github.essmehdi.schoolmate.home.viewmodels
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.github.essmehdi.schoolmate.auth.models.User
+import com.github.essmehdi.schoolmate.users.models.User
 import com.github.essmehdi.schoolmate.shared.api.Api
 import com.github.essmehdi.schoolmate.shared.api.BaseResponse
 import kotlinx.coroutines.launch

@@ -3,7 +3,7 @@ package com.github.essmehdi.schoolmate.auth.viewmodels
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.github.essmehdi.schoolmate.auth.api.dto.RegisterDto
-import com.github.essmehdi.schoolmate.auth.models.User
+import com.github.essmehdi.schoolmate.users.models.User
 import com.github.essmehdi.schoolmate.shared.api.Api
 import com.github.essmehdi.schoolmate.shared.api.BaseResponse
 import retrofit2.Call
