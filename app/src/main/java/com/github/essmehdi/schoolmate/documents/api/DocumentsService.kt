@@ -42,4 +42,12 @@ interface DocumentsService {
 
   @DELETE("documents/tags/{id}")
   fun deleteDocumentTag(@Path("id") id: Long): Call<MessageResponse>
+
+  @GET("documents/user/{id}")
+  fun getOtherUserDocuments(
+    @Path("id") id: Long,
+    @Query("page") page: Long = 0,
+    @Query("sort") sort: String = "uploadedAt,desc",
+    @Query("tags") vararg tags: String
+  ): Call<PaginatedResponse<Document>>
 }

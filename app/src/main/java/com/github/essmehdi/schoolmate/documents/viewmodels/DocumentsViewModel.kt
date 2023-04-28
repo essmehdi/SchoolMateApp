@@ -36,24 +36,33 @@ class DocumentsViewModel: ViewModel() {
 
   val showEmpty: MediatorLiveData<Boolean> = MediatorLiveData()
 
+  val id: MutableLiveData<Long> = MutableLiveData()
+
   init {
     trackEmpty()
   }
 
-  fun loadDocuments() {
+  fun loadDocuments(id: Long? = null) {
+    id?.let { this.id.value = it }
     currentPageStatus.value = BaseResponse.Loading()
     if (currentPage.value?.last == true) {
       currentPageStatus.value = BaseResponse.Success(currentPage.value!!)
       return
     }
     viewModelScope.launch {
-      Api
-        .documentsService
-        .getAllDocuments(
-          currentPage.value?.page?.plus(1) ?: 0,
-          sort = "${sortField.value},${sortOrder.value}",
-          tags = filterTags.value?.map { it.id.toString() }?.toTypedArray() ?: arrayOf()
-        )
+      // If id is null, then we are loading the current user's documents
+      val apiMethod = if (id == null) Api.documentsService.getAllDocuments(
+        currentPage.value?.page?.plus(1) ?: 0,
+        sort = "${sortField.value},${sortOrder.value}",
+        tags = filterTags.value?.map { it.id.toString() }?.toTypedArray() ?: arrayOf()
+      ) else Api.documentsService.getOtherUserDocuments(
+        id,
+        currentPage.value?.page?.plus(1) ?: 0,
+        sort = "${sortField.value},${sortOrder.value}",
+        tags = filterTags.value?.map { it.id.toString() }?.toTypedArray() ?: arrayOf()
+      )
+
+      apiMethod
         .enqueue(object: Callback<PaginatedResponse<Document>> {
           override fun onResponse(
             call: Call<PaginatedResponse<Document>>,
@@ -107,7 +116,7 @@ class DocumentsViewModel: ViewModel() {
           val request = DownloadManager.Request(Uri.parse("${Api.BASE_URL}documents/${document.id}/file"))
           request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI or DownloadManager.Request.NETWORK_MOBILE)
           request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
-          request.addRequestHeader("Cookie", PrefsManager.getString(context, "user_cookie"))
+          request.addRequestHeader("Cookie", PrefsManager.getString(context, PrefsManager.USER_COOKIE))
           request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, filename)
           (context.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager).enqueue(request)
         } else {
@@ -156,7 +165,11 @@ class DocumentsViewModel: ViewModel() {
   fun refresh() {
     documents.value = listOf()
     currentPage.value = null
-    loadDocuments()
+    if (id.value == null) {
+      loadDocuments()
+    } else {
+      loadDocuments(id.value)
+    }
   }
 
   fun changeSortField(field: String) {

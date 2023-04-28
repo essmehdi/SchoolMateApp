@@ -22,7 +22,8 @@
     <string name="prompt_password">Password</string>
     <string name="action_sign_in">Sign in or register</string>
     <string name="action_sign_in_short">Sign in</string>
-    <string name="loading_sign_in">Signing in</string>
+    <string name="action_register_short">Register</string>
+    <string name="loading_sign_in">Signing in…</string>
     <string name="welcome">"Welcome !"</string>
     <string name="invalid_credentials">Invalid credentials</string>
 
@@ -33,6 +34,9 @@
     <string name="welcome_text">Welcome to</string>
     <string name="home_welcome_text">Welcome,</string>
     <string name="home_firstname_placeholder">John</string>
+
+    <string name="home_avatar_menu_logout">Logout</string>
+    <string name="home_avatar_menu_logout_loading">Logging out…</string>
 
     <string name="alerts_title">Alerts</string>
     <string name="toolbox_title">Toolbox</string>
@@ -147,5 +151,42 @@
     <string name="error_document_scanner_pdf_result">Could not load scanned document pdf</string>
 
     <string name="label_document_scanner_page_delete">Delete</string>
+
+    <string name="register_title">Register</string>
+    <string name="register_description">Create your account</string>
+
+    <string name="register_first_name_hint">First name</string>
+    <string name="register_last_name_hint">Last name</string>
+    <string name="register_email_hint">Email</string>
+    <string name="register_password_hint">Password</string>
+    <string name="register_confirm_password_hint">Confirm password</string>
+
+    <string name="label_register_button">Register</string>
+    <string name="label_register_button_loading">Registering…</string>
+
+    <string name="error_register_first_name_empty">First name is required</string>
+    <string name="error_register_last_name_empty">Last name is required</string>
+    <string name="error_register_email_empty">Email is required</string>
+    <string name="error_register_password_empty">Password is required</string>
+    <string name="error_register_confirm_password_empty">Confirm password is required</string>
+    <string name="error_register_passwords_mismatch">Passwords don\'t match</string>
+    <string name="error_register_email_invalid">Email is invalid</string>
+    <string name="error_register_email_invalid_school_email">You must provide a school email</string>
+    <string name="error_register_password_too_short">Password is too short</string>
+    <string name="error_register_email_already_used">Email is already used</string>
+    <string name="error_register_password_invalid">The password must contain at least 1 uppercase, 1 lowercase, 1 special character and 1 digit and must be at least 8 characters</string>
+
+    <string name="users_title">Users</string>
+
+    <string name="user_row_full_name_placeholder">John Doe</string>
+    <string name="user_row_email_placeholder">john.doe@um5.ac.ma</string>
+    <string name="user_row_role_placeholder">STUDENT</string>
+
+    <string name="user_details_avatar_description">User\'s avatar</string>
+
+    <string name="user_details_tab_documents_title">Documents</string>
+    <string name="user_details_tab_documents_description">User shared documents</string>
+    <string name="user_details_tab_place_suggestions_title">Places</string>
+    <string name="user_details_tab_place_suggestions_descriptions">Places suggested by user</string>
 
 </resources>
