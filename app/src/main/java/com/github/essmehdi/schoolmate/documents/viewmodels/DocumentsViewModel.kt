@@ -116,7 +116,7 @@ class DocumentsViewModel: ViewModel() {
           val request = DownloadManager.Request(Uri.parse("${Api.BASE_URL}documents/${document.id}/file"))
           request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI or DownloadManager.Request.NETWORK_MOBILE)
           request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
-          request.addRequestHeader("Cookie", PrefsManager.getString(context, "user_cookie"))
+          request.addRequestHeader("Cookie", PrefsManager.getString(context, PrefsManager.USER_COOKIE))
           request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, filename)
           (context.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager).enqueue(request)
         } else {
