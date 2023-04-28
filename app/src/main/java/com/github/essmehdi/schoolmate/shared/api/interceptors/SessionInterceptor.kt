@@ -3,6 +3,7 @@ package com.github.essmehdi.schoolmate.shared.api.interceptors
 import android.content.SharedPreferences
 import android.util.Log
 import androidx.core.content.edit
+import com.github.essmehdi.schoolmate.shared.utils.PrefsManager
 import okhttp3.Interceptor
 import okhttp3.Response
 import okio.Buffer
@@ -18,7 +19,7 @@ class SessionInterceptor(private val sharedPreferences: SharedPreferences): Inte
         val strippedCookie = cookie.split(";")[0]
         if (strippedCookie.contains("JSESSIONID")) {
           sharedPreferences.edit {
-            putString("user_cookie", strippedCookie)
+            putString(PrefsManager.USER_COOKIE, strippedCookie)
             apply()
           }
         }

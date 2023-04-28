@@ -6,6 +6,8 @@ import com.github.essmehdi.schoolmate.R
 
 object PrefsManager {
 
+  const val USER_COOKIE = "user_cookie"
+
   fun saveString(context: Context, key: String, value: String) {
     context
       .getSharedPreferences(context.getString(R.string.app_name), Context.MODE_PRIVATE)
