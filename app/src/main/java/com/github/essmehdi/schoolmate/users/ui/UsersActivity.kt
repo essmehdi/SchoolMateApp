@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.core.view.isVisible
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.essmehdi.schoolmate.R
 import com.github.essmehdi.schoolmate.databinding.ActivityUsersBinding
@@ -27,12 +28,7 @@ class UsersActivity : AppCompatActivity() {
       usersList.apply {
         adapter = usersAdapter
         layoutManager = LinearLayoutManager(this@UsersActivity)
-        addItemDecoration(
-          androidx.recyclerview.widget.DividerItemDecoration(
-            this@UsersActivity,
-            androidx.recyclerview.widget.DividerItemDecoration.VERTICAL
-          )
-        )
+        addItemDecoration(DividerItemDecoration(this@UsersActivity, DividerItemDecoration.VERTICAL))
       }
 
       usersListSwipeRefresh.setOnRefreshListener {
@@ -57,6 +53,8 @@ class UsersActivity : AppCompatActivity() {
         }
       }
     }
+
+
   }
 
   private fun dismissSwipe() {
