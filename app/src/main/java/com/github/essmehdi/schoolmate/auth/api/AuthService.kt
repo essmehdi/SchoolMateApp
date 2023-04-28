@@ -22,5 +22,6 @@ interface AuthService {
   @GET("me")
   fun me(): Call<User>
 
-
+  @POST("logout")
+  fun logout(): Call<Void>
 }

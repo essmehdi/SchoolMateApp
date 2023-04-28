@@ -3,6 +3,7 @@ package com.github.essmehdi.schoolmate.home.ui
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.github.essmehdi.schoolmate.R
@@ -10,14 +11,16 @@ import com.github.essmehdi.schoolmate.users.models.User
 import com.github.essmehdi.schoolmate.databinding.ActivityHomeBinding
 import com.github.essmehdi.schoolmate.documents.ui.DocumentsActivity
 import com.github.essmehdi.schoolmate.home.viewmodels.HomeViewModel
+import com.github.essmehdi.schoolmate.schoolnavigation.ui.HomeAvatarMenuFragment
 import com.github.essmehdi.schoolmate.schoolnavigation.ui.SchoolNavigationActivity
+import com.github.essmehdi.schoolmate.schoolnavigation.ui.SchoolZoneDetailsFragment
 import com.github.essmehdi.schoolmate.shared.api.BaseResponse
 import com.github.essmehdi.schoolmate.users.ui.UsersActivity
 
 class HomeActivity : AppCompatActivity() {
 
   private lateinit var binding: ActivityHomeBinding
-  private lateinit var viewModel: HomeViewModel
+  private val viewModel: HomeViewModel by viewModels()
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -37,12 +40,12 @@ class HomeActivity : AppCompatActivity() {
         val intent = Intent(this@HomeActivity, UsersActivity::class.java)
         startActivity(intent)
       }
+      homeAvatarCard.setOnClickListener {
+        showAvatarMenu()
+      }
     }
 
-    viewModel = ViewModelProvider(this)[HomeViewModel::class.java]
-
     viewModel.fetchUserData()
-
     viewModel.user.observe(this) {
       when (it) {
         is BaseResponse.Success -> handleUserSuccess(it.data!!)
@@ -50,6 +53,11 @@ class HomeActivity : AppCompatActivity() {
         is BaseResponse.Error -> handleUserError(it.message!!)
       }
     }
+  }
+
+  private fun showAvatarMenu() {
+    val fragment = HomeAvatarMenuFragment.newInstance()
+    fragment.show(supportFragmentManager, fragment.tag)
   }
 
   private fun handleUserError(message: String) {
