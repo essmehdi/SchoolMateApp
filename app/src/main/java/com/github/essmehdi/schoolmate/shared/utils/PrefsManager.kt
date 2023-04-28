@@ -28,7 +28,7 @@ object PrefsManager {
       .getSharedPreferences(context.getString(R.string.app_name), Context.MODE_PRIVATE)
       .edit()
       .apply {
-        clearString(context, key)
+        this.remove(key)
         apply()
     }
   }

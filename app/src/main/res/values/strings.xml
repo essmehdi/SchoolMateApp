@@ -35,6 +35,9 @@
     <string name="home_welcome_text">Welcome,</string>
     <string name="home_firstname_placeholder">John</string>
 
+    <string name="home_avatar_menu_logout">Logout</string>
+    <string name="home_avatar_menu_logout_loading">Logging out…</string>
+
     <string name="alerts_title">Alerts</string>
     <string name="toolbox_title">Toolbox</string>
     <string name="navigation_title">Navigation</string>
