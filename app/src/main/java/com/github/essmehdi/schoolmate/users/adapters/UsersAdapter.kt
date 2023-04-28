@@ -1,6 +1,7 @@
 package com.github.essmehdi.schoolmate.documents.adapters
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.util.TypedValue
 import android.view.*
 import androidx.annotation.ColorRes
@@ -15,6 +16,7 @@ import com.github.essmehdi.schoolmate.documents.viewmodels.DocumentsViewModel
 import com.github.essmehdi.schoolmate.shared.utils.Utils
 import com.github.essmehdi.schoolmate.users.models.User
 import com.github.essmehdi.schoolmate.users.models.UserRole
+import com.github.essmehdi.schoolmate.users.ui.UserDetailsActivity
 import org.joda.time.format.DateTimeFormat
 import java.util.*
 
@@ -56,12 +58,24 @@ class UsersAdapter(var data: List<User>): RecyclerView.Adapter<UsersAdapter.User
       binding.userRowEmailText.text = user.email
       binding.userRowRoleText.apply {
         text = user.role.name
-        if (user.role == UserRole.ADEI) {
-          setTextColor(ContextCompat.getColor(context, R.color.ensias))
-        } else if (user.role == UserRole.MODERATOR) {
-          setTextColor(ContextCompat.getColor(context, secondaryColor))
-        } else {
-          setTextColor(ContextCompat.getColor(context, primaryColor))
+        when (user.role) {
+          UserRole.ADEI -> {
+            setTextColor(ContextCompat.getColor(context, R.color.ensias))
+          }
+          UserRole.MODERATOR -> {
+            setTextColor(ContextCompat.getColor(context, secondaryColor))
+          }
+          else -> {
+            setTextColor(ContextCompat.getColor(context, primaryColor))
+          }
+        }
+      }
+
+      binding.root.apply {
+        setOnClickListener {
+          context.startActivity(Intent(context, UserDetailsActivity::class.java).apply {
+            putExtra("userId", user.id)
+          })
         }
       }
     }

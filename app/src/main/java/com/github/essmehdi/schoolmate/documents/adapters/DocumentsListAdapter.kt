@@ -14,7 +14,7 @@ import com.github.essmehdi.schoolmate.shared.utils.Utils
 import org.joda.time.format.DateTimeFormat
 import java.util.*
 
-class DocumentsListAdapter(var data: List<Document>?, val viewModel: DocumentsViewModel): RecyclerView.Adapter<DocumentsListAdapter.DocumentItemViewHolder>() {
+class DocumentsListAdapter(var data: List<Document>?, val viewModel: DocumentsViewModel, val shared: Boolean = false): RecyclerView.Adapter<DocumentsListAdapter.DocumentItemViewHolder>() {
 
   lateinit var onEditMenuItemClickedListener: OnEditMenuItemClickedListener
 
@@ -64,6 +64,7 @@ class DocumentsListAdapter(var data: List<Document>?, val viewModel: DocumentsVi
       menuInfo: ContextMenu.ContextMenuInfo?
     ) {
       menu?.add(Menu.NONE, 1, 1, binding.root.context.getString(R.string.label_document_item_context_menu_download))?.setOnMenuItemClickListener(this)
+      if (shared) return
       menu?.add(Menu.NONE, 2, 2, binding.root.context.getString(R.string.label_document_item_context_menu_edit))?.setOnMenuItemClickListener(this)
       menu?.add(Menu.NONE, 3, 3, binding.root.context.getString(R.string.label_document_item_context_menu_delete))?.setOnMenuItemClickListener(this)
     }

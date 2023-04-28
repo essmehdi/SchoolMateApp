@@ -179,4 +179,11 @@
     <string name="user_row_email_placeholder">john.doe@um5.ac.ma</string>
     <string name="user_row_role_placeholder">STUDENT</string>
 
+    <string name="user_details_avatar_description">User\'s avatar</string>
+
+    <string name="user_details_tab_documents_title">Documents</string>
+    <string name="user_details_tab_documents_description">User shared documents</string>
+    <string name="user_details_tab_place_suggestions_title">Places</string>
+    <string name="user_details_tab_place_suggestions_descriptions">Places suggested by user</string>
+
 </resources>
