@@ -13,17 +13,17 @@ import retrofit2.http.POST
 
 interface SchoolZonesService {
   @GET("school-zones")
-  suspend fun getAllSchoolZones(): Response<List<SchoolZone>>
+  fun getAllSchoolZones(): Call<List<SchoolZone>>
 
   @GET("school-zones/{id}")
-  suspend fun getSchoolZone(id: Long): Response<SchoolZone>
+  fun getSchoolZone(id: Long): Call<SchoolZone>
 
   @POST("school-zones")
-  suspend fun createSchoolZone(@Body createSchoolZoneDto: CreateSchoolZoneDto): Response<SchoolZone>
+  fun createSchoolZone(@Body createSchoolZoneDto: CreateSchoolZoneDto): Call<SchoolZone>
 
   @PATCH("school-zones/{id}")
-  suspend fun editSchoolZone(id: Long, @Body createSchoolZoneDto: CreateSchoolZoneDto): Response<SchoolZone>
+  fun editSchoolZone(id: Long, @Body createSchoolZoneDto: CreateSchoolZoneDto): Call<SchoolZone>
 
   @DELETE("school-zones/{id}")
-  suspend fun deleteSchoolZone(id: Long): Response<MessageResponse>
+  fun deleteSchoolZone(id: Long): Call<MessageResponse>
 }

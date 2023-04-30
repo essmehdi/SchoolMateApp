@@ -26,6 +26,11 @@
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+    
+    <style name="Theme.SchoolMate.Navigation" parent="Theme.SchoolMate.NoActionBar">
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+    </style>
 
     <style name="TextAppearance.SchoolMate.LoginWelcome" parent="TextAppearance.MaterialComponents.Headline5">
         <item name="android:textStyle">normal</item>

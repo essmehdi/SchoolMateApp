@@ -7,6 +7,8 @@
     <string name="zone_description_placeholder">Boys main living place</string>
     <string name="school_zones_loading_failed">Failed to load school zones</string>
 
+    <string name="loading_school_zones_fetch">Loading zones…</string>
+
     <string name="school_navigation_location_permission_not_granted_alert_title">Location unavailable</string>
     <string name="school_navigation_location_permission_not_granted_alert_message">You have disabled location access to the app. You can still navigate the app but you cannot see your live location in the map. You can still grant permissions in the settings later.</string>
     <string name="school_navigation_location_permission_not_granted_alert_neutral_button_text">Okay</string>
