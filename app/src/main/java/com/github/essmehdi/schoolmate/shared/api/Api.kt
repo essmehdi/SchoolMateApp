@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import com.github.essmehdi.schoolmate.R
 import com.github.essmehdi.schoolmate.auth.api.AuthService
+import com.github.essmehdi.schoolmate.complaints.api.ComplaintService
 import com.github.essmehdi.schoolmate.documents.api.DocumentsService
 import com.github.essmehdi.schoolmate.schoolnavigation.api.SchoolZonesService
 import com.github.essmehdi.schoolmate.shared.api.interceptors.CookieAuthenticator
@@ -47,5 +48,9 @@ object Api {
 
   val documentsService: DocumentsService by lazy {
     retrofit.create(DocumentsService::class.java)
+  }
+
+  val complaintService: ComplaintService by lazy {
+    retrofit.create(ComplaintService::class.java)
   }
 }
