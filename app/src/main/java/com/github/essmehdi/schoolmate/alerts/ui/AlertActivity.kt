@@ -1,34 +1,37 @@
 package com.github.essmehdi.schoolmate.alerts.ui
+import android.content.Intent
+import android.view.Menu
+import android.view.MenuItem
+import android.view.View
 
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
+import androidx.appcompat.app.AlertDialog
+import androidx.core.view.isVisible
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.github.essmehdi.schoolmate.alerts.viewmodels.AlertViewModel
+import com.github.essmehdi.schoolmate.alerts.adapters.AlertListAdapter
+import com.github.essmehdi.schoolmate.shared.api.BaseResponse
+import com.google.android.material.chip.Chip
+import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.activity.viewModels
-import androidx.activity.viewModels
 import com.github.essmehdi.schoolmate.R
-
-import com.github.essmehdi.schoolmate.alerts.adapters.AlertViewPagerAdapter
-import com.github.essmehdi.schoolmate.alerts.viewmodels.AlertViewModel
 import com.github.essmehdi.schoolmate.databinding.ActivityAlertBinding
-import com.google.android.material.tabs.TabLayoutMediator
 
-class AlertActivity : AppCompatActivity() {
+class AlertActivity : AppCompatActivity(){
 
     private lateinit var binding: ActivityAlertBinding
-    private val viewModel: AlertViewModel by viewModels()
+    private lateinit var viewModel: AlertViewModel
+    private lateinit var adapter: AlertListAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding= ActivityAlertBinding.inflate(layoutInflater)
+        binding = ActivityAlertBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        setupViewPager()
-    }
-    private fun setupViewPager(){
-        binding.alertViewPager.adapter= AlertViewPagerAdapter(this)
-        TabLayoutMediator(binding.alertTabLayout,binding.alertViewPager){tab,position->
-            when(position){
-                0->tab.text=getString(R.string.my_alerts)
-                else->tab.text=getString(R.string.published_alerts)
-            }
-        }.attach()
     }
 }
+

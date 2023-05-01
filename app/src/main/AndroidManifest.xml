@@ -64,11 +64,10 @@
             android:parentActivityName=".home.ui.HomeActivity"
             android:theme="@style/Theme.SchoolMate.NoActionBar" />
         <activity
-            android:name=".alerts.ui.AlertActivity"
-            android:parentActivityName=".home.ui.HomeActivity"
+            android:name=".alerts.ui.AddAlert"
             android:exported="false" />
         <activity
-            android:name=".alerts.ui.AddAlertActivity"
+            android:name=".alerts.ui.AlertActivity"
             android:exported="false" />
         <activity
             android:name=".home.ui.HomeActivity"
