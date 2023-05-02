@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="titre_textview" type="id">Titre</item>
+    <item name="petit_titre_textview" type="id">description</item>
+    <item name="status_cardview" type="id">status</item>
+    <item name="status_textview" type="id">status2</item>
+</resources>
