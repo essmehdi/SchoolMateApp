@@ -3,13 +3,11 @@ package com.github.essmehdi.schoolmate.complaints.api
 import com.github.essmehdi.schoolmate.complaints.api.dto.CreateComplaintDto
 import com.github.essmehdi.schoolmate.complaints.api.dto.EditComplaintStatusAndHandlerDto
 import com.github.essmehdi.schoolmate.complaints.models.Complaint
+import com.github.essmehdi.schoolmate.shared.api.dto.MessageResponse
+import com.github.essmehdi.schoolmate.shared.api.dto.PaginatedResponse
 import retrofit2.Call
 import retrofit2.Response
-import retrofit2.http.Body
-import retrofit2.http.DELETE
-import retrofit2.http.GET
-import retrofit2.http.PATCH
-import retrofit2.http.POST
+import retrofit2.http.*
 
 interface ComplaintService {
     @POST("complaints")
@@ -17,25 +15,27 @@ interface ComplaintService {
 
     @GET("complaints")
     fun getComplaints(
-        type: @ParameterName(name = "type") String,
-        user: @ParameterName(name = "user") String
-    ): Call<Response<List<Complaint>>>
+        @Query("page") page: Long = 0,
+        @Query("sort") sort: String = "date,desc",
+        @Query("type") type: String,
+        @Query("user") user: String
+    ): Call<PaginatedResponse<Complaint>>
 
     @GET("complaints/{id}")
-    fun getComplaintById(id: @ParameterName(name = "id") Long): Call<Complaint>
+    fun getComplaintById(@Query("id") id: Long): Call<Complaint>
 
     @PATCH("complaints/{id}/handling")
     fun updateComplaintStatusAndHandler(
-        id: @ParameterName(name = "id") Long,
+        @Query("id") id: Long,
         @Body editComplaintStatusAndHandlerDto: EditComplaintStatusAndHandlerDto
     ): Call<Complaint>
 
     @PATCH("complaints/{id}/details")
     fun updateComplaintDetails(
-        id: @ParameterName(name = "id") Long,
+        @Query("id") id: Long,
         @Body createComplaintDto: CreateComplaintDto
     ): Call<Complaint>
 
     @DELETE("complaints/{id}")
-    fun deleteComplaint(id: @ParameterName(name = "id") Long): Call<Void>
+    fun deleteComplaint(@Query("id") id: Long): Call<MessageResponse>
 }
