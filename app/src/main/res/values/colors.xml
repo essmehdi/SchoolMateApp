@@ -22,4 +22,14 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="complaint_status_background_primary">#FFEFDC</color>
+    <color name="complaint_status_background_secondary">#FFFFFF</color>
+    <color name="complaint_status_pending">#FF8A00</color>
+    <color name="complaint_status_assigned">#d5c909</color>
+    <color name="complaint_status_rejected">#FF0000</color>
+    <color name="complaint_status_confirmed">#5ea211</color>
+    <color name="complaint_status_resolving">#157315</color>
+    <color name="complaint_status_resolved">#14532D</color>
+    <color name="complaint_status_unresolved">#000000</color>
 </resources>

@@ -147,5 +147,14 @@
     <string name="error_document_scanner_pdf_result">Could not load scanned document pdf</string>
 
     <string name="label_document_scanner_page_delete">Delete</string>
+    <string name="make_complaint">+ Make</string>
+    <string name="see_all_complaints">See all</string>
+    <string name="no_complaints_yet">No complaints yet</string>
+    <string name="complaint_title_preview">Complaint\'s title</string>
+    <string name="complaint_date_preview">Submitted Jan 28</string>
+    <string name="complaint_status_preview">Pending</string>
+    <string name="label_complaint_item_context_menu_view">View details</string>
+    <string name="label_complaint_item_context_menu_delete">Delete complaint</string>
+    <string name="label_complaint_item_context_menu_edit">Edit complaint</string>
 
 </resources>

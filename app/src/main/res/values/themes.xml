@@ -66,6 +66,10 @@
         <item name="android:textSize">13sp</item>
     </style>
 
+    <style name="TextAppearance.SchoolMate.NoComplaints" parent="TextAppearance.MaterialComponents.Headline6">
+        <item name="android:textColor">@color/gray</item>
+    </style>
+
     <style name="TextAppearance.SchoolMate.HomeSectionTitle" parent="TextAppearance.MaterialComponents.Headline6">
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/text</item>

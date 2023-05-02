@@ -86,23 +86,92 @@
                 android:layout_marginTop="25dp"
                 android:orientation="horizontal">
 
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_gravity="center_vertical"
-                    android:src="@drawable/ic_megaphone"
-                    android:tint="?attr/colorPrimary" />
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/ic_megaphone"
+                        android:tint="?attr/colorPrimary" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        style="@style/TextAppearance.SchoolMate.HomeSectionTitle"
+                        android:text="@string/home_user_complaints_title"/>
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    style="@style/TextAppearance.SchoolMate.HomeSectionTitle"
-                    android:text="@string/home_user_complaints_title"/>
+                    android:layout_gravity="center"
+                    android:textColor="?attr/colorPrimary"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:paddingTop="4dp"
+                    android:paddingStart="4dp"
+                    android:paddingEnd="4dp"
+                    android:paddingBottom="3dp"
+                    android:background="?attr/selectableItemBackground"
+                    android:text="@string/make_complaint"/>
+
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/complaints_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    tools:itemCount="4"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/complaint_item" />
+
+                <include android:id="@+id/complaints_empty_view"
+                    layout="@layout/no_complaints_overlay"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    app:emptyText="@{@string/complaints_empty_text}"/>
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="center"
+                android:background="?attr/selectableItemBackground"
+                android:padding="5dp"
+                android:clickable="true"
+                android:focusable="true">
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/see_all_complaints"
+                    android:textColor="?attr/colorPrimary"
+                    android:layout_gravity="center_vertical"/>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:paddingStart="4dp"
+                    android:paddingEnd="0dp"
+                    android:contentDescription="@string/see_all_complaints"
+                    android:src="@drawable/ic_caret_right"/>
+            </androidx.appcompat.widget.LinearLayoutCompat>
         </androidx.appcompat.widget.LinearLayoutCompat>
 
         <include android:id="@+id/home_loading" layout="@layout/loading_overlay" tools:visibility="gone"/>
