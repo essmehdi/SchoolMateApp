@@ -5,8 +5,11 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.github.essmehdi.schoolmate.R
 import com.github.essmehdi.schoolmate.auth.models.User
+import com.github.essmehdi.schoolmate.complaints.adapters.ComplaintsListAdapter
 import com.github.essmehdi.schoolmate.databinding.ActivityHomeBinding
 import com.github.essmehdi.schoolmate.documents.ui.DocumentsActivity
 import com.github.essmehdi.schoolmate.home.viewmodels.HomeViewModel
@@ -17,6 +20,7 @@ class HomeActivity : AppCompatActivity() {
 
   private lateinit var binding: ActivityHomeBinding
   private lateinit var viewModel: HomeViewModel
+  private lateinit var complaintsListAdapter: ComplaintsListAdapter
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -46,6 +50,31 @@ class HomeActivity : AppCompatActivity() {
         is BaseResponse.Error -> handleUserError(it.message!!)
       }
     }
+
+    // Complaints list setup -----------------------------------------------
+    viewModel.fetchUserComplaints()
+    complaintsListAdapter = ComplaintsListAdapter(listOf())
+    binding.complaintsList.apply {
+      adapter = complaintsListAdapter
+      layoutManager = LinearLayoutManager(this@HomeActivity, RecyclerView.VERTICAL, false)
+      addOnScrollListener(object : RecyclerView.OnScrollListener() {
+        override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+          super.onScrolled(recyclerView, dx, dy)
+          if (dy > 0) {
+            if (viewModel.currentPageStatus.value is BaseResponse.Loading) {
+              return
+            }
+            val visibleItemCount = layoutManager?.childCount ?: 0
+            val totalItemCount = layoutManager?.itemCount ?: 0
+            val pastVisibleItems = (layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
+            if (visibleItemCount + pastVisibleItems >= totalItemCount) {
+              viewModel.fetchUserComplaints()
+            }
+          }
+        }
+      })
+    }
+    // ---------------------------------------------------------------------
   }
 
   private fun handleUserError(message: String) {
