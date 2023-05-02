@@ -7,7 +7,7 @@ open class Complaint : java.io.Serializable{
     private var id: Long? = null
     private lateinit var description: String
     private lateinit var status: ComplaintStatus
-    private lateinit var date: LocalDate
+    private lateinit var date: String
 
     fun getId(): Long? {
         return id
@@ -33,11 +33,11 @@ open class Complaint : java.io.Serializable{
         this.status = status
     }
 
-    fun getDate(): LocalDate {
+    fun getDate(): String {
         return date
     }
 
-    fun setDate(date: LocalDate) {
+    fun setDate(date: String) {
         this.date = date
     }
 
