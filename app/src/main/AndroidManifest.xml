@@ -19,10 +19,11 @@
         tools:replace="android:allowBackup"
         tools:targetApi="31">
         <activity
-            android:name=".alerts.ui.AddAlert"
+            android:name=".alerts.ui.AlertActivity"
+            android:parentActivityName=".home.ui.HomeActivity"
             android:exported="false" />
         <activity
-            android:name=".alerts.ui.AlertActivity"
+            android:name=".alerts.ui.AddAlert"
             android:exported="false" />
         <activity
             android:name=".home.ui.HomeActivity"
@@ -41,7 +42,7 @@
         <activity
             android:name=".schoolnavigation.ui.SchoolNavigationActivity"
             android:exported="false"
-            android:label="@string/school_navigation_title"></activity>
+            android:label="@string/school_navigation_title" />
         <activity
             android:name=".MainActivity"
             android:exported="true" />

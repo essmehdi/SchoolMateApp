@@ -6,6 +6,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.github.essmehdi.schoolmate.R
+import com.github.essmehdi.schoolmate.alerts.ui.AlertActivity
 import com.github.essmehdi.schoolmate.auth.models.User
 import com.github.essmehdi.schoolmate.databinding.ActivityHomeBinding
 import com.github.essmehdi.schoolmate.home.viewmodels.HomeViewModel
@@ -24,6 +25,10 @@ class HomeActivity : AppCompatActivity() {
 
     binding.navigationHomeButton.homeButtonRoot.setOnClickListener {
       val intent = Intent(this@HomeActivity, SchoolNavigationActivity::class.java)
+      startActivity(intent)
+    }
+    binding.alertsHomeButton.homeButtonRoot.setOnClickListener {
+      val intent = Intent(this@HomeActivity, AlertActivity::class.java)
       startActivity(intent)
     }
 
