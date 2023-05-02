@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     tools:context=".alerts.ui.MyAlertsFragment">
 
-    
+    <!-- TODO: Update blank fragment layout -->
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/my_alerts_swipe_refresh"
         android:layout_width="match_parent"

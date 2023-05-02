@@ -1,4 +1,6 @@
 package com.github.essmehdi.schoolmate.alerts.viewmodels
 
-class AlertViewModel {
+import androidx.lifecycle.ViewModel
+
+class AlertViewModel : ViewModel(){
 }

@@ -176,6 +176,9 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="alerts_title_placeholder">Alerts</string>
+    <string name="my_alerts">My alerts</string>
+    <string name="published_alerts">Published Alerts</string>
+    <string name="empty_list">There is no alerts yet</string>
 
     <string name="label_document_tags_add">Add tag</string>
 
