@@ -13,9 +13,9 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class SchoolNavigationViewModel: ViewModel() {
+open class SchoolNavigationViewModel: ViewModel() {
   val fetchStatus: MutableLiveData<BaseResponse<List<SchoolZone>>> = MutableLiveData()
-  val schoolZones: LiveData<List<Polygon>> = fetchStatus.map { fetchedZones ->
+  val schoolZonesPolygons: LiveData<List<Polygon>> = fetchStatus.map { fetchedZones ->
     if (fetchedZones is BaseResponse.Success) {
       fetchedZones.data!!.map { fetchedZone ->
         val geoPoints = fetchedZone.geometry.points.map { GeoPoint(it.x, it.y) }
@@ -35,7 +35,7 @@ class SchoolNavigationViewModel: ViewModel() {
     fetchZones()
   }
 
-  private fun fetchZones() {
+  fun fetchZones() {
     fetchStatus.value = BaseResponse.Loading()
     Api.schoolZonesService.getAllSchoolZones().enqueue(object: Callback<List<SchoolZone>> {
       override fun onResponse(call: Call<List<SchoolZone>>, response: Response<List<SchoolZone>>) {

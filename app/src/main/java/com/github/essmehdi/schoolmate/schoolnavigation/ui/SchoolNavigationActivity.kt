@@ -3,10 +3,10 @@ package com.github.essmehdi.schoolmate.schoolnavigation.ui
 import android.Manifest
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
-import android.view.ViewGroup
 import android.view.ViewGroup.MarginLayoutParams
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.widget.Toast
@@ -55,7 +55,11 @@ class SchoolNavigationActivity : AppCompatActivity() {
       isAppearanceLightStatusBars = true
     }
 
-    listOf(binding.schoolNavigationBackButton, binding.schoolNavigationRefreshCard).forEach {
+    listOf(
+      binding.schoolNavigationBackButton,
+      binding.schoolNavigationRefreshCard,
+      binding.schoolNavigationEditButton
+    ).forEach {
       ViewCompat.setOnApplyWindowInsetsListener(it) { view, windowInsets ->
         val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
         view.updateLayoutParams<MarginLayoutParams> {
@@ -127,10 +131,14 @@ class SchoolNavigationActivity : AppCompatActivity() {
       }
     }
 
-    viewModel.schoolZones.observe(this) { populateMap() }
+    viewModel.schoolZonesPolygons.observe(this) { populateMap() }
 
     binding.schoolNavigationBackButton.setOnClickListener {
       onBackPressedDispatcher.onBackPressed()
+    }
+
+    binding.schoolNavigationEditButton.setOnClickListener {
+      startActivity(Intent(this, SchoolZonesActivity::class.java))
     }
   }
 
@@ -169,7 +177,7 @@ class SchoolNavigationActivity : AppCompatActivity() {
    * Populates map with fetched zones polygons
    */
   private fun populateMap() {
-    viewModel.schoolZones.value?.forEach {
+    viewModel.schoolZonesPolygons.value?.forEach {
       it.apply {
         setOnClickListener { _, _, _ ->
           val fragment = SchoolZoneDetailsFragment.newInstance(it.title, it.subDescription)
@@ -193,6 +201,7 @@ class SchoolNavigationActivity : AppCompatActivity() {
       }
       map.overlayManager.addAll(listOf(it, marker))
     }
+    map.invalidate()
   }
 
   /**
@@ -211,6 +220,7 @@ class SchoolNavigationActivity : AppCompatActivity() {
 
   override fun onResume() {
     super.onResume()
+    viewModel.fetchZones()
     map.onResume()
   }
 

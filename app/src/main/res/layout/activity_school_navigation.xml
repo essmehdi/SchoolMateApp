@@ -26,6 +26,26 @@
     </com.google.android.material.card.MaterialCardView>
 
     <com.google.android.material.card.MaterialCardView
+        android:id="@+id/school_navigation_edit_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:clickable="true"
+        android:focusable="true"
+        app:cardCornerRadius="100dp"
+        app:layout_constraintStart_toEndOf="@+id/school_navigation_back_button"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:padding="10dp"
+            android:tint="?attr/colorPrimary"
+            app:srcCompat="@drawable/ic_pencil" />
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/school_navigation_refresh_card"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
