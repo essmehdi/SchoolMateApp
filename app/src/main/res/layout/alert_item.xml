@@ -7,22 +7,22 @@
     android:padding="16dp">
 
     <TextView
-        android:id="@+id/titre_textview"
+        android:id="@+id/alert_titre"
         android:layout_width="80dp"
         android:layout_height="wrap_content"
         tools:text="Titre"
         android:textSize="16sp" />
 
     <TextView
-        android:id="@+id/petit_titre_textview"
+        android:id="@+id/alert_description"
         android:layout_width="80dp"
         android:layout_height="wrap_content"
-        android:layout_below="@id/titre_textview"
+        android:layout_below="@id/alert_titre"
         tools:text="petit titre"
         android:textSize="14sp" />
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/status_cardview"
+        android:id="@+id/alert_sta"
         android:layout_width="80dp"
         android:layout_height="40dp"
         android:layout_alignParentEnd="true"
@@ -31,7 +31,7 @@
         android:padding="8dp">
 
         <TextView
-            android:id="@+id/status_textview"
+            android:id="@+id/alert_status"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
