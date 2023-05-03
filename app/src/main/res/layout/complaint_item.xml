@@ -4,13 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingVertical="10dp"
+    android:paddingHorizontal="15dp"
     android:background="?attr/selectableItemBackground">
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -26,16 +26,16 @@
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/complaint_title"
+                    style="@style/TextAppearance.SchoolMate.ListItemTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    style="@style/TextAppearance.SchoolMate.ListItemTitle"
-                    android:text="@string/complaint_title_preview"/>
+                    android:text="@string/complaint_title_preview" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/complaint_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/complaint_date_preview"/>
+                    android:text="@string/complaint_date_preview" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -45,9 +45,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            app:cardBackgroundColor="@color/complaint_status_background_primary"
             app:cardCornerRadius="5dp"
-            app:cardElevation="0dp"
-            app:cardBackgroundColor="@color/complaint_status_background_primary">
+            app:cardElevation="0dp">
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/complaint_status"
@@ -56,9 +56,9 @@
                 android:layout_gravity="center"
                 android:paddingHorizontal="27dp"
                 android:paddingVertical="4dp"
-                android:textStyle="bold"
                 android:text="@string/complaint_status_preview"
-                android:textColor="@color/complaint_status_pending"/>
+                android:textColor="@color/complaint_status_pending"
+                android:textStyle="bold" />
 
         </androidx.cardview.widget.CardView>
 

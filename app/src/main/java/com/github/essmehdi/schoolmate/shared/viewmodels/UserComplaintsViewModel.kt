@@ -1,13 +1,12 @@
 package com.github.essmehdi.schoolmate.shared.viewmodels
 
+import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.github.essmehdi.schoolmate.complaints.models.Complaint
-import com.github.essmehdi.schoolmate.documents.models.Document
 import com.github.essmehdi.schoolmate.shared.api.Api
 import com.github.essmehdi.schoolmate.shared.api.BaseResponse
-import com.github.essmehdi.schoolmate.shared.api.dto.MessageResponse
 import com.github.essmehdi.schoolmate.shared.api.dto.PaginatedResponse
 import kotlinx.coroutines.launch
 import retrofit2.Call
@@ -21,6 +20,12 @@ open class UserComplaintsViewModel : ViewModel() {
     val currentPageStatus: MutableLiveData<BaseResponse<PaginatedResponse<Complaint>>> = MutableLiveData()
     val currentPage: MutableLiveData<PaginatedResponse<Complaint>?> = MutableLiveData()
     var userComplaints : MutableLiveData<BaseResponse<List<Complaint>>> = MutableLiveData()
+
+    val showEmpty: MediatorLiveData<Boolean> = MediatorLiveData()
+
+    init {
+        trackEmpty()
+    }
 
     fun fetchUserComplaints() {
         currentPageStatus.value = BaseResponse.Loading()
@@ -50,6 +55,18 @@ open class UserComplaintsViewModel : ViewModel() {
                     userComplaints.value = BaseResponse.Error(0)
                 }
             })
+        }
+    }
+
+    fun trackEmpty() {
+        // Check if showEmpty has already been tracked
+        if (showEmpty.hasActiveObservers()) return
+
+        showEmpty.addSource(complaints) {
+            showEmpty.value = it.isEmpty() && currentPageStatus.value is BaseResponse.Success
+        }
+        showEmpty.addSource(currentPageStatus) {
+            showEmpty.value = complaints.value?.isEmpty() == true && it is BaseResponse.Success
         }
     }
 }

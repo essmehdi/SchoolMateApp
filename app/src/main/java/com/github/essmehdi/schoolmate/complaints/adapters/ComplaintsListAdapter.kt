@@ -1,6 +1,5 @@
 package com.github.essmehdi.schoolmate.complaints.adapters
 
-import android.content.Intent
 import android.view.*
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
@@ -25,6 +24,10 @@ class ComplaintsListAdapter(var data: List<Complaint>?, val viewModel: Complaint
 
     override fun onBindViewHolder(holder: ComplaintsViewHolder, position: Int) {
         data?.let { holder.bind(it[position]) }
+    }
+
+    fun updateComplaints(it: List<Complaint>) {
+
     }
 
     inner class ComplaintsViewHolder(private val binding: ComplaintItemBinding) : RecyclerView.ViewHolder(binding.root),

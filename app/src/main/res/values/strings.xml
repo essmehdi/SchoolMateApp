@@ -156,5 +156,6 @@
     <string name="label_complaint_item_context_menu_view">View details</string>
     <string name="label_complaint_item_context_menu_delete">Delete complaint</string>
     <string name="label_complaint_item_context_menu_edit">Edit complaint</string>
+    <string name="complaints_title">Complaints</string>
 
 </resources>
