@@ -18,6 +18,36 @@
     <string name="school_navigation_location_permission_educational_positive_button_text">Okay</string>
     <string name="school_navigation_location_permission_educational_negative_button_text">No, thanks</string>
 
+    <string name="label_map_selector_add_button">Add point</string>
+    <string name="label_map_selector_confirm_button">Confirm points</string>
+    <string name="label_map_selector_reset_button">Reset points</string>
+    <string name="school_zone_selector_notice">Place points to delimit the area</string>
+    <string name="school_zone_selector_notice_single_mode">Select a place</string>
+
+    <string name="school_zone_editor_add_title">Add zone</string>
+    <string name="school_zone_editor_edit_title">Edit zone</string>
+    <string name="label_school_zone_editor_name">Name</string>
+    <string name="label_school_zone_editor_description">Description</string>
+    <string name="label_school_zone_editor_area">Area</string>
+    <string name="label_school_zone_editor_area_change_button">Select area</string>
+    <string name="label_school_zone_editor_confirm_add_button">Add</string>
+    <string name="label_school_zone_editor_confirm_add_button_loading">Adding…</string>
+    <string name="label_school_zone_editor_confirm_edit_button">Edit</string>
+    <string name="label_school_zone_editor_confirm_edit_button_loading">Editing…</string>
+    <string name="label_school_zone_editor_delete_button">Delete</string>
+    <string name="label_school_zone_editor_delete_button_loading">Deleting…</string>
+
+    <plurals name="label_school_zone_editor_chosen_points">
+        <item quantity="one">1 point</item>
+        <item quantity="other">%d points</item>
+    </plurals>
+
+    <string name="label_school_zone_editor_menu_add">Add zone</string>
+    <string name="label_school_zone_editor_name_required">You must provide a name</string>
+    <string name="label_school_zone_editor_description_required">You must provide a description</string>
+    <string name="label_school_zone_editor_points_required">You must select an area</string>
+
+
     <string name="schoolmate_account">SchoolMate account</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="prompt_email">Email</string>
