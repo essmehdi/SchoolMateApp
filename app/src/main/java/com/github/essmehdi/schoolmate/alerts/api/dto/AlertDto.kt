@@ -8,5 +8,4 @@ data class AlertDto(
     val description:String,
     val type:AlertType,
     val coordinates:List<Double>,
-    val status:AlertStatus
 )
