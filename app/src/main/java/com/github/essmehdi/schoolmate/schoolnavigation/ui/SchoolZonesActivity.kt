@@ -1,17 +1,15 @@
 package com.github.essmehdi.schoolmate.schoolnavigation.ui
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.essmehdi.schoolmate.R
 import com.github.essmehdi.schoolmate.databinding.ActivitySchoolZonesBinding
-import com.github.essmehdi.schoolmate.documents.ui.DocumentTagsFragment
 import com.github.essmehdi.schoolmate.schoolnavigation.adapters.SchoolZonesAdapter
-import com.github.essmehdi.schoolmate.schoolnavigation.models.SchoolZone
 import com.github.essmehdi.schoolmate.schoolnavigation.viewmodels.SchoolZonesViewModel
 import com.github.essmehdi.schoolmate.shared.api.BaseResponse
 
@@ -25,6 +23,8 @@ class SchoolZonesActivity : AppCompatActivity() {
     super.onCreate(savedInstanceState)
     binding = ActivitySchoolZonesBinding.inflate(layoutInflater)
     setContentView(binding.root)
+
+    supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
     binding.schoolZonesListSwipeRefresh.setOnRefreshListener {
       viewModel.fetchZones()
@@ -65,6 +65,10 @@ class SchoolZonesActivity : AppCompatActivity() {
 
   override fun onOptionsItemSelected(item: MenuItem): Boolean {
     return when (item.itemId) {
+      android.R.id.home -> {
+          onBackPressedDispatcher.onBackPressed()
+          true
+      }
       R.id.school_zone_editor_menu_add -> {
         showAddFragment()
         true
