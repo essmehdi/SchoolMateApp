@@ -21,6 +21,9 @@
     <string name="label_map_selector_add_button">Add point</string>
     <string name="label_map_selector_confirm_button">Confirm points</string>
     <string name="label_map_selector_reset_button">Reset points</string>
+
+    <string name="school_zones_title">School zones</string>
+
     <string name="school_zone_selector_notice">Place points to delimit the area</string>
     <string name="school_zone_selector_notice_single_mode">Select a place</string>
 
