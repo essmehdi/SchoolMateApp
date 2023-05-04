@@ -36,7 +36,6 @@ class UserDetailsActivity : AppCompatActivity() {
     supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_navigation_left_colored)
 
     val userId = intent.getLongExtra("userId", 0)
-
     if (userId == 0L) {
       Log.e("UserDetailsActivity", "User id is not provided")
       finish()
