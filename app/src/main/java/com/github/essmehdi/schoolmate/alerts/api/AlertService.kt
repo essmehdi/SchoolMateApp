@@ -11,8 +11,7 @@ interface AlertService {
 
     @GET("alerts")
     fun getAllUserAlerts(
-        @Query("page") page: Long = 0,
-        @Query("sort") sort: String = "desc",
+        @Query("page") page: Long = 0
     ): Call<PaginatedResponse<Alert>>
 
 

@@ -1,6 +1,5 @@
 package com.github.essmehdi.schoolmate.alerts.models
 
-import android.graphics.Point
 import com.github.essmehdi.schoolmate.auth.models.User
 
 data class Alert(val id: Long,
@@ -10,3 +9,5 @@ data class Alert(val id: Long,
                  val type: AlertType,
                  val coordinates: Point,
                  val status: AlertStatus)
+
+data class Point(val x: Double, val y: Double)
