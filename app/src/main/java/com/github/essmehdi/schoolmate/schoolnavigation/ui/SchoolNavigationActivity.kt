@@ -6,7 +6,6 @@ import android.animation.AnimatorListenerAdapter
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.util.Log
 import android.view.ViewGroup.MarginLayoutParams
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.widget.Toast
@@ -143,7 +142,6 @@ class SchoolNavigationActivity : AppCompatActivity() {
   }
 
   private fun showLoadingIndicator(show: Boolean = true) {
-    Log.d("SchoolNavActivity", "Show loading indicator: $show")
     binding.schoolNavigationRefreshCard.apply {
       animate()
         .setInterpolator(AccelerateDecelerateInterpolator())
@@ -180,8 +178,7 @@ class SchoolNavigationActivity : AppCompatActivity() {
     viewModel.schoolZonesPolygons.value?.forEach {
       it.apply {
         setOnClickListener { _, _, _ ->
-          val fragment = SchoolZoneDetailsFragment.newInstance(it.title, it.subDescription)
-          fragment.show(supportFragmentManager, fragment.tag)
+          showZoneDetails(it.title, it.subDescription)
           true
         }
         fillPaint.apply {
@@ -198,10 +195,20 @@ class SchoolNavigationActivity : AppCompatActivity() {
         setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_CENTER)
         textLabelBackgroundColor = Color.TRANSPARENT.ordinal
         setTextIcon(it.title)
+        setOnMarkerClickListener { _, _ ->
+          showZoneDetails(it.title, it.subDescription)
+          true
+        }
+        infoWindow = null
       }
       map.overlayManager.addAll(listOf(it, marker))
     }
     map.invalidate()
+  }
+
+  private fun showZoneDetails(title: String, description: String) {
+    val fragment = SchoolZoneDetailsFragment.newInstance(title, description)
+    fragment.show(supportFragmentManager, fragment.tag)
   }
 
   /**
