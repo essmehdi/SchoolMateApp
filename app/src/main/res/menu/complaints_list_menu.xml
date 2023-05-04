@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:title="@string/select_type_complaint">
+        <menu>
+            <group android:id="@+id/complaints_type_menu" android:checkableBehavior="single">
+                <item
+                    android:id="@+id/complaints_type_menu_all"
+                    android:checked="true"
+                    android:title="@string/type_complaints_all" />
+                <item
+                    android:id="@+id/complaints_type_menu_building"
+                    android:title="@string/type_complaints_all_building" />
+                <item
+                    android:id="@+id/complaints_type_menu_room"
+                    android:title="@string/type_complaints_all_room" />
+                <item
+                    android:id="@+id/complaints_type_menu_facilities"
+                    android:title="@string/type_complaints_all_facilities" />
+            </group>
+        </menu>
+    </item>
+    <item android:title="@string/sort_by_complaints">
+        <menu>
+            <group android:id="@+id/complaints_menu_sort" android:checkableBehavior="single">
+                <item
+                    android:id="@+id/complaints_menu_sort_desc"
+                    android:checked="true"
+                    android:title="@string/newest_complaints" />
+                <item
+                    android:id="@+id/complaints_menu_sort_asc"
+                    android:title="@string/oldest_complaints" />
+            </group>
+        </menu>
+    </item>
+</menu>
