@@ -28,6 +28,7 @@ import com.github.essmehdi.schoolmate.databinding.ActivitySchoolNavigationBindin
 import com.github.essmehdi.schoolmate.schoolnavigation.viewmodels.SchoolNavigationViewModel
 import com.github.essmehdi.schoolmate.shared.api.BaseResponse
 import com.github.essmehdi.schoolmate.shared.utils.GeoUtils
+import com.github.essmehdi.schoolmate.users.models.UserRole
 import org.mapsforge.core.graphics.Color
 import org.osmdroid.config.Configuration
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory
@@ -121,6 +122,10 @@ class SchoolNavigationActivity : AppCompatActivity() {
         requestPermissionLauncher.launch(
           Manifest.permission.ACCESS_FINE_LOCATION)
       }
+    }
+
+    viewModel.user.observe(this) {
+      binding.schoolNavigationEditButton.isVisible = it is BaseResponse.Success && it.data!!.role == UserRole.MODERATOR
     }
 
     viewModel.fetchStatus.observe(this) {

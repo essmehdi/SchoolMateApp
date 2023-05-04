@@ -7,6 +7,7 @@ import androidx.lifecycle.map
 import com.github.essmehdi.schoolmate.schoolnavigation.models.SchoolZone
 import com.github.essmehdi.schoolmate.shared.api.Api
 import com.github.essmehdi.schoolmate.shared.api.BaseResponse
+import com.github.essmehdi.schoolmate.users.models.User
 import org.osmdroid.util.GeoPoint
 import org.osmdroid.views.overlay.Polygon
 import retrofit2.Call
@@ -30,6 +31,7 @@ open class SchoolNavigationViewModel: ViewModel() {
       listOf()
     }
   }
+  val user: MutableLiveData<BaseResponse<User>> = MutableLiveData()
 
   init {
     fetchZones()
@@ -48,6 +50,23 @@ open class SchoolNavigationViewModel: ViewModel() {
 
       override fun onFailure(call: Call<List<SchoolZone>>, t: Throwable) {
         fetchStatus.value = BaseResponse.Error(0)
+      }
+    })
+  }
+
+  fun fetchMe() {
+    user.value = BaseResponse.Loading()
+    Api.authService.me().enqueue(object: Callback<User> {
+      override fun onResponse(call: Call<User>, response: Response<User>) {
+        if (response.isSuccessful) {
+          user.value = BaseResponse.Success(response.body()!!)
+        } else {
+          user.value = BaseResponse.Error(response.code())
+        }
+      }
+
+      override fun onFailure(call: Call<User>, t: Throwable) {
+        user.value = BaseResponse.Error(0)
       }
     })
   }
