@@ -52,10 +52,9 @@ class SchoolZoneDetailsFragment : BottomSheetDialogFragment() {
      * @param description School zone description.
      * @return A new instance of fragment SchoolZoneDetailsFragment.
      */
-    // TODO: Rename and change types and number of parameters
     @JvmStatic
     fun newInstance(name: String, description: String) =
-      SchoolZoneEditorFragment().apply {
+      SchoolZoneDetailsFragment().apply {
         arguments = Bundle().apply {
           putString(ARG_NAME, name)
           putString(ARG_DESCRIPTION, description)
