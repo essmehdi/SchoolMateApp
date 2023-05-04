@@ -7,11 +7,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.github.essmehdi.schoolmate.alerts.models.Alert
-import com.github.essmehdi.schoolmate.auth.models.User
 import com.github.essmehdi.schoolmate.shared.api.Api
 import com.github.essmehdi.schoolmate.shared.api.BaseResponse
 import com.github.essmehdi.schoolmate.shared.api.dto.MessageResponse
 import com.github.essmehdi.schoolmate.shared.api.dto.PaginatedResponse
+import com.github.essmehdi.schoolmate.users.models.User
 import kotlinx.coroutines.launch
 import retrofit2.Response
 import retrofit2.Callback
@@ -51,8 +51,9 @@ class AlertViewModel : ViewModel() {
         })
     }
 
-    fun loadAlerts(id: Long? = null) {
-        id?.let { this.id.value = it }
+
+    fun loadAlerts(id: Long) {
+        id.let { this.id.value = it }
         currentPageStatus.value = BaseResponse.Loading()
         if (currentPage.value?.last == true) {
             currentPageStatus.value = BaseResponse.Success(currentPage.value!!)
@@ -95,7 +96,6 @@ class AlertViewModel : ViewModel() {
                         deleteStatus.value = BaseResponse.Error(response.code())
                     }
                 }
-
                 override fun onFailure(call: retrofit2.Call<MessageResponse>, t: Throwable) {
                     deleteStatus.value = BaseResponse.Error(0)
                 }

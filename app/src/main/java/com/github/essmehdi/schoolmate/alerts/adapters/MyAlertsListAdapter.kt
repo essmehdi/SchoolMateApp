@@ -11,9 +11,13 @@ import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.RecyclerView
 import com.github.essmehdi.schoolmate.alerts.models.Alert
 import com.github.essmehdi.schoolmate.alerts.viewmodels.AlertViewModel
+import com.github.essmehdi.schoolmate.alerts.viewmodels.PublishedAlertsFragmentViewModel
 import com.github.essmehdi.schoolmate.databinding.AlertItemBinding
 
-class MyAlertsListAdapter(var data:List<Alert>?,val viewModel: AlertViewModel,val shared:Boolean=false): RecyclerView.Adapter<MyAlertsListAdapter.MyAlertsListViewHolder>(){
+class MyAlertsListAdapter(
+    var data:List<Alert>?,
+    val viewModel: ViewModel,
+    val shared:Boolean=false): RecyclerView.Adapter<MyAlertsListAdapter.MyAlertsListViewHolder>(){
 
 
     override fun onCreateViewHolder(
@@ -75,7 +79,8 @@ class MyAlertsListAdapter(var data:List<Alert>?,val viewModel: AlertViewModel,va
                 }
 
                 2 -> {
-                    viewModel.deleteAlert(currentAlert)
+                    //cast to AlertViewModel
+                    (viewModel as AlertViewModel).deleteAlert(currentAlert)
                     true
 
                 }

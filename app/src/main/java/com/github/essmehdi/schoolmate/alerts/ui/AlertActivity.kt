@@ -14,7 +14,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 class AlertActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityAlertBinding
-    private val viewModel: AlertViewModel by viewModels()
+    //private val viewModel: AlertViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -1,20 +1,17 @@
 package com.github.essmehdi.schoolmate.alerts.ui
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.essmehdi.schoolmate.R
 import com.github.essmehdi.schoolmate.alerts.adapters.MyAlertsListAdapter
 import com.github.essmehdi.schoolmate.alerts.viewmodels.AlertViewModel
-import com.github.essmehdi.schoolmate.auth.models.User
 import com.github.essmehdi.schoolmate.databinding.FragmentMyAlertsBinding
-import com.github.essmehdi.schoolmate.shared.api.Api
 import com.github.essmehdi.schoolmate.shared.api.BaseResponse
 
 // TODO: Rename parameter arguments, choose names that match
@@ -32,7 +29,7 @@ class MyAlertsFragment : Fragment() {
 
 
     private lateinit var binding: FragmentMyAlertsBinding
-    private lateinit var viewModel: AlertViewModel
+    private val viewModel: AlertViewModel by viewModels()
     private lateinit var alertAdapter: MyAlertsListAdapter
 
 
@@ -54,12 +51,14 @@ class MyAlertsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(this)[AlertViewModel::class.java]
+       // viewModel = ViewModelProvider(this)[AlertViewModel::class.java]
+
         viewModel.fetchUser()
         viewModel.user.observe(viewLifecycleOwner){
             if (it is BaseResponse.Success){
                 viewModel.loadAlerts(it.data!!.id)
             }
+
         }
 
         alertAdapter = MyAlertsListAdapter(listOf(),viewModel,true)

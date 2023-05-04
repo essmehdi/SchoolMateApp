@@ -1,6 +1,7 @@
 package com.github.essmehdi.schoolmate.alerts.models
 
-import com.github.essmehdi.schoolmate.auth.models.User
+
+import com.github.essmehdi.schoolmate.users.models.User
 
 data class Alert(val id: Long,
                  val user: User,
