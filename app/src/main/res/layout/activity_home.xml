@@ -109,6 +109,7 @@
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
                 <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/make_complaint_button_home"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -144,11 +145,16 @@
                     layout="@layout/no_complaints_overlay"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:visibility="gone"
-                    app:emptyText="@{@string/complaints_empty_text}"/>
+                    android:visibility="gone" />
+
+                <include android:id="@+id/complaints_loading" layout="@layout/loading_overlay" tools:visibility="gone" />
+
+                <include android:id="@+id/complaints_empty" layout="@layout/empty_overlay" android:visibility="gone" tools:visibility="gone" />
+
 
             </androidx.appcompat.widget.LinearLayoutCompat>
             <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/see_all_complaints_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"

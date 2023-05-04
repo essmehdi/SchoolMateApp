@@ -157,5 +157,30 @@
     <string name="label_complaint_item_context_menu_delete">Delete complaint</string>
     <string name="label_complaint_item_context_menu_edit">Edit complaint</string>
     <string name="complaints_title">Complaints</string>
+    <string name="all_complaints_title">All Complaints</string>
+    <string name="user_complaints_title">My Complaints</string>
+    <string name="select_type_complaint">Select type</string>
+    <string name="type_complaints_all">All</string>
+    <string name="type_complaints_all_building">Building</string>
+    <string name="type_complaints_all_room">Room</string>
+    <string name="type_complaints_all_facilities">Facilities</string>
+    <string name="sort_by_complaints">Sort by</string>
+    <string name="newest_complaints">Newest</string>
+    <string name="oldest_complaints">Oldest</string>
+    <string name="confirm_delete_complaint">Are you sure that you want to delete this complaint?</string>
+    <string name="label_yes">Confirm</string>
+    <string name="label_no">Cancel</string>
+    <string name="action_add_complaint">Add a new complaint</string>
+    <string name="complaints_tab_layout_description">Tab layout, My complaints and All complaints</string>
+    <string name="add_complaint_title">Add a new complaint</string>
+    <string name="add_complaint_message">Please select the type of the complaint you want to make:</string>
+    <string name="add_building_complaint">Building complaint</string>
+    <string name="add_facilities_complaint">Facilities complaint</string>
+    <string name="add_room_complaint">Room complaint</string>
+    <string name="view_complaint_details">View complaints details</string>
+    <string name="add_edit_complaint">Add or edit a complaint</string>
+    <string name="success_complaint_deletion">The complaint has been deleted</string>
+    <string name="loading_complaint_deletion">Deleting complaint...</string>
+    <string name="error_complaint_deletion">An error has occured while deleting the complaint!</string>
 
 </resources>

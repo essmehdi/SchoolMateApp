@@ -14,12 +14,15 @@ import retrofit2.Callback
 import retrofit2.Response
 
 open class UserComplaintsViewModel : ViewModel() {
+
     val sortField: MutableLiveData<String> = MutableLiveData("date")
     val sortOrder: MutableLiveData<String> = MutableLiveData("desc")
+    val complaintType: MutableLiveData<String> = MutableLiveData("all")
+
     val complaints: MutableLiveData<List<Complaint>> = MutableLiveData()
+    val userComplaints: MutableLiveData<List<Complaint>> = MutableLiveData()
     val currentPageStatus: MutableLiveData<BaseResponse<PaginatedResponse<Complaint>>> = MutableLiveData()
     val currentPage: MutableLiveData<PaginatedResponse<Complaint>?> = MutableLiveData()
-    var userComplaints : MutableLiveData<BaseResponse<List<Complaint>>> = MutableLiveData()
 
     val showEmpty: MediatorLiveData<Boolean> = MediatorLiveData()
 
@@ -39,26 +42,26 @@ open class UserComplaintsViewModel : ViewModel() {
                 .getComplaints(
                     page=currentPage.value?.page?.plus(1) ?: 0,
                     sort = "${sortField.value},${sortOrder.value}",
-                    type="all",
+                    type=complaintType.value!!,
                     user="me")
                 .enqueue(object: Callback<PaginatedResponse<Complaint>> {
                 override fun onResponse(call: Call<PaginatedResponse<Complaint>>, response: Response<PaginatedResponse<Complaint>>) {
                     if (response.isSuccessful) {
                         currentPageStatus.value = BaseResponse.Success(response.body()!!)
                         currentPage.value = response.body()!!
-                        complaints.value = (complaints.value ?: listOf()).plus(response.body()!!.results)
+                        userComplaints.value = (userComplaints.value ?: listOf()).plus(response.body()!!.results)
                     } else {
                         currentPageStatus.value = BaseResponse.Error(response.code())
                     }
                 }
                 override fun onFailure(call: Call<PaginatedResponse<Complaint>>, t: Throwable) {
-                    userComplaints.value = BaseResponse.Error(0)
+                    currentPageStatus.value = BaseResponse.Error(0)
                 }
             })
         }
     }
 
-    fun trackEmpty() {
+    private fun trackEmpty() {
         // Check if showEmpty has already been tracked
         if (showEmpty.hasActiveObservers()) return
 

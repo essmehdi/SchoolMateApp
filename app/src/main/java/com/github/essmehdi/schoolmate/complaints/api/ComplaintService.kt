@@ -22,20 +22,20 @@ interface ComplaintService {
     ): Call<PaginatedResponse<Complaint>>
 
     @GET("complaints/{id}")
-    fun getComplaintById(@Query("id") id: Long): Call<Complaint>
+    fun getComplaintById(@Path("id") id: Long): Call<Complaint>
 
     @PATCH("complaints/{id}/handling")
     fun updateComplaintStatusAndHandler(
-        @Query("id") id: Long,
+        @Path("id") id: Long,
         @Body editComplaintStatusAndHandlerDto: EditComplaintStatusAndHandlerDto
     ): Call<Complaint>
 
     @PATCH("complaints/{id}/details")
     fun updateComplaintDetails(
-        @Query("id") id: Long,
+        @Path("id") id: Long,
         @Body createComplaintDto: CreateComplaintDto
     ): Call<Complaint>
 
     @DELETE("complaints/{id}")
-    fun deleteComplaint(@Query("id") id: Long): Call<MessageResponse>
+    fun deleteComplaint(@Path("id") id: Long): Call<MessageResponse>
 }

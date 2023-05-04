@@ -54,9 +54,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:paddingHorizontal="27dp"
+                android:paddingHorizontal="19dp"
                 android:paddingVertical="4dp"
                 android:text="@string/complaint_status_preview"
+                style="@style/TextAppearance.Material3.BodySmall"
                 android:textColor="@color/complaint_status_pending"
                 android:textStyle="bold" />
 

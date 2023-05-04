@@ -2,6 +2,7 @@ package com.github.essmehdi.schoolmate.complaints.viewmodels
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.github.essmehdi.schoolmate.auth.models.User
 import com.github.essmehdi.schoolmate.complaints.models.Complaint
 import com.github.essmehdi.schoolmate.shared.api.Api
 import com.github.essmehdi.schoolmate.shared.api.BaseResponse
@@ -15,10 +16,11 @@ import retrofit2.Response
 
 class ComplaintsViewModel : UserComplaintsViewModel() {
 
+    val complainant: MutableLiveData<User> = MutableLiveData<User>()
     private val complaint: MutableLiveData<BaseResponse<Complaint>> = MutableLiveData<BaseResponse<Complaint>>()
     val deleteStatus: MutableLiveData<BaseResponse<MessageResponse>?> = MutableLiveData(null)
 
-    fun fetchComplaints(type: String, user: String) {
+    fun fetchComplaints(user: String = "all") {
         currentPageStatus.value = BaseResponse.Loading()
         if (currentPage.value?.last == true) {
             currentPageStatus.value = BaseResponse.Success(currentPage.value!!)
@@ -30,7 +32,7 @@ class ComplaintsViewModel : UserComplaintsViewModel() {
                 .getComplaints(
                     page=currentPage.value?.page?.plus(1) ?: 0,
                     sort = "${sortField.value},${sortOrder.value}",
-                    type=type,
+                    type=complaintType.value!!,
                     user=user)
                 .enqueue(object: Callback<PaginatedResponse<Complaint>> {
                     override fun onResponse(call: Call<PaginatedResponse<Complaint>>, response: Response<PaginatedResponse<Complaint>>) {
@@ -43,7 +45,7 @@ class ComplaintsViewModel : UserComplaintsViewModel() {
                         }
                     }
                     override fun onFailure(call: Call<PaginatedResponse<Complaint>>, t: Throwable) {
-                        userComplaints.value = BaseResponse.Error(0)
+                        currentPageStatus.value = BaseResponse.Error(0)
                     }
                 })
         }
@@ -65,6 +67,19 @@ class ComplaintsViewModel : UserComplaintsViewModel() {
         })
     }
 
+    fun fetchComplainant(){
+        Api.authService.me().enqueue(object: Callback<User> {
+            override fun onResponse(call: Call<User>, response: Response<User>) {
+                if (response.isSuccessful) {
+                    complainant.value = response.body()
+                }
+            }
+            override fun onFailure(call: Call<User>, t: Throwable) {
+            }
+        })
+
+    }
+
     fun getComplaint(id: Long) {
         complaint.value = BaseResponse.Loading()
         Api.complaintService.getComplaintById(id).enqueue(object: Callback<Complaint> {
@@ -81,5 +96,22 @@ class ComplaintsViewModel : UserComplaintsViewModel() {
         })
     }
 
+    fun changeComplaintType(type: String) {
+        complaintType.value = type
+        refresh()
+    }
+
+    fun refresh() {
+        complaints.value = listOf()
+        userComplaints.value = listOf()
+        currentPage.value = null
+        fetchComplaints()
+        fetchUserComplaints()
+    }
+
+    fun changeOrder(order: String) {
+        sortOrder.value = order
+        refresh()
+    }
 
 }

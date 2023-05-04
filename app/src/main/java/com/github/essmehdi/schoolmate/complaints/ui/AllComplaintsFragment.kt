@@ -7,12 +7,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.github.essmehdi.schoolmate.R
 import com.github.essmehdi.schoolmate.complaints.adapters.ComplaintsListAdapter
 import com.github.essmehdi.schoolmate.complaints.viewmodels.ComplaintsViewModel
 import com.github.essmehdi.schoolmate.databinding.FragmentAllComplaintsBinding
 import com.github.essmehdi.schoolmate.shared.api.BaseResponse
+import com.google.android.material.snackbar.Snackbar
 
 class AllComplaintsFragment : Fragment() {
 
@@ -27,7 +30,7 @@ class AllComplaintsFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentAllComplaintsBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -35,18 +38,36 @@ class AllComplaintsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // TODO: get complaints by type
-        viewModel.fetchComplaints(
-            type = "all",
-            user = "all"
-        )
-        complaintsAdapter = ComplaintsListAdapter(listOf(), viewModel)
+        val activity = requireActivity() as ComplaintsActivity
+        complaintsAdapter = ComplaintsListAdapter(listOf(), viewModel, activity.launcher)
         binding.allComplaintsList.apply {
             adapter = complaintsAdapter
+            addItemDecoration(DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL))
             layoutManager = LinearLayoutManager(requireContext())
+            addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    super.onScrolled(recyclerView, dx, dy)
+                    if (dy > 0) {
+                        if (viewModel.currentPageStatus.value is BaseResponse.Loading) {
+                            return
+                        }
+                        val visibleItemCount = layoutManager?.childCount ?: 0
+                        val totalItemCount = layoutManager?.itemCount ?: 0
+                        val pastVisibleItems = (layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
+                        if (visibleItemCount + pastVisibleItems >= totalItemCount) {
+                            viewModel.fetchComplaints()
+                        }
+                    }
+                }
+            })
         }
 
         binding.allComplaintsSwipeRefresh.layoutTransition?.setAnimateParentHierarchy(false)
+        binding.allComplaintsSwipeRefresh.setOnRefreshListener {
+            viewModel.refresh()
+            // cancel the refresh animation after the data is fetched
+            binding.allComplaintsSwipeRefresh.isRefreshing = false
+        }
 
         viewModel.showEmpty.observe(viewLifecycleOwner) {
             showEmpty(it)
@@ -73,6 +94,7 @@ class AllComplaintsFragment : Fragment() {
                 }
             }
         }
+
     }
 
 

@@ -7,12 +7,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.github.essmehdi.schoolmate.R
 import com.github.essmehdi.schoolmate.complaints.adapters.ComplaintsListAdapter
 import com.github.essmehdi.schoolmate.complaints.viewmodels.ComplaintsViewModel
 import com.github.essmehdi.schoolmate.databinding.FragmentUserComplaintsBinding
 import com.github.essmehdi.schoolmate.shared.api.BaseResponse
+import com.google.android.material.snackbar.Snackbar
 
 class UserComplaintsFragment : Fragment() {
 
@@ -25,34 +28,57 @@ class UserComplaintsFragment : Fragment() {
     private val viewModel: ComplaintsViewModel by viewModels(ownerProducer = { requireActivity() })
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+                              savedInstanceState: Bundle?): View {
         binding = FragmentUserComplaintsBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.fetchUserComplaints()
-        complaintsAdapter = ComplaintsListAdapter(listOf(), viewModel)
+
+        val activity = requireActivity() as ComplaintsActivity
+        complaintsAdapter = ComplaintsListAdapter(listOf(), viewModel, activity.launcher)
         binding.userComplaintsList.apply {
             adapter = complaintsAdapter
+            addItemDecoration(DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL))
             layoutManager = LinearLayoutManager(requireContext())
+            addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    super.onScrolled(recyclerView, dx, dy)
+                    if (dy > 0) {
+                        if (viewModel.currentPageStatus.value is BaseResponse.Loading) {
+                            return
+                        }
+                        val visibleItemCount = layoutManager?.childCount ?: 0
+                        val totalItemCount = layoutManager?.itemCount ?: 0
+                        val pastVisibleItems = (layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
+                        if (visibleItemCount + pastVisibleItems >= totalItemCount) {
+                            viewModel.fetchUserComplaints()
+                        }
+                    }
+                }
+            })
         }
 
         binding.allComplaintsSwipeRefresh.layoutTransition?.setAnimateParentHierarchy(false)
+        binding.allComplaintsSwipeRefresh.setOnRefreshListener {
+            viewModel.refresh()
+            // cancel the refresh animation after the data is fetched
+            binding.allComplaintsSwipeRefresh.isRefreshing = false
+        }
 
         viewModel.showEmpty.observe(viewLifecycleOwner) {
             showEmpty(it)
         }
 
-        viewModel.complaints.observe(viewLifecycleOwner) {complaints ->
-            complaints?.let { complaintsAdapter.updateComplaints(it) }
+        viewModel.userComplaints.observe(viewLifecycleOwner) {userComplaints ->
+            userComplaints?.let { complaintsAdapter.updateComplaints(it) }
         }
 
         viewModel.currentPageStatus.observe(viewLifecycleOwner) { currentPage ->
             when (currentPage) {
                 is BaseResponse.Loading -> {
-                    if (viewModel.complaints.value == null || viewModel.complaints.value!!.isEmpty()) {
+                    if (viewModel.userComplaints.value == null || viewModel.userComplaints.value!!.isEmpty()) {
                         showLoading()
                     } else {
                         showLoading(false)

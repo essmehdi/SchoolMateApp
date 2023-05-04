@@ -1,5 +1,6 @@
 package com.github.essmehdi.schoolmate.complaints.models
 
+import com.github.essmehdi.schoolmate.auth.models.User
 import com.github.essmehdi.schoolmate.complaints.enumerations.ComplaintStatus
 import java.time.LocalDate
 
@@ -8,6 +9,8 @@ open class Complaint : java.io.Serializable{
     private lateinit var description: String
     private lateinit var status: ComplaintStatus
     private lateinit var date: String
+    private lateinit var complainant: User
+    private lateinit var handler: User
 
     fun getId(): Long? {
         return id
@@ -41,8 +44,20 @@ open class Complaint : java.io.Serializable{
         this.date = date
     }
 
-    override fun toString(): String {
-        return "Complaint(id=$id, description='$description', status=$status, date=$date)"
+    fun getComplainant(): User {
+        return complainant
+    }
+
+    fun setComplainant(complainant: User) {
+        this.complainant = complainant
+    }
+
+    fun getHandler(): User {
+        return handler
+    }
+
+    fun setHandler(handler: User) {
+        this.handler = handler
     }
 
 }
