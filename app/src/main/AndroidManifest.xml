@@ -34,7 +34,8 @@
             android:theme="@style/Theme.SchoolMate.Navigation"/>
         <activity
             android:name=".schoolnavigation.ui.SchoolZonesActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:label="@string/school_zones_title" />
         <activity
             android:name=".users.ui.UserDetailsActivity"
             android:exported="false"
