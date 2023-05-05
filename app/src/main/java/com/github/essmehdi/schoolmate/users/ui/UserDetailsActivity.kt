@@ -1,23 +1,16 @@
 package com.github.essmehdi.schoolmate.users.ui
 
-import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.util.TypedValue
 import android.view.MenuItem
 import androidx.activity.viewModels
-import androidx.annotation.ColorRes
-import androidx.appcompat.app.ActionBar
-import androidx.core.content.ContextCompat
-import androidx.core.view.WindowCompat
 import androidx.core.view.isVisible
 import com.github.essmehdi.schoolmate.R
 import com.github.essmehdi.schoolmate.databinding.ActivityUserDetailsBinding
 import com.github.essmehdi.schoolmate.shared.api.BaseResponse
 import com.github.essmehdi.schoolmate.users.adapters.UserDetailsViewPagerAdapter
 import com.github.essmehdi.schoolmate.users.models.User
-import com.github.essmehdi.schoolmate.users.models.UserRole
 import com.github.essmehdi.schoolmate.users.viewmodels.UserDetailsViewModel
 import com.google.android.material.tabs.TabLayoutMediator
 
@@ -84,7 +77,7 @@ class UserDetailsActivity : AppCompatActivity() {
     // Fill user data
     binding.userDetailsNameText.text = user.fullName
     binding.userDetailsEmailText.text = user.email
-    binding.userDetailsRoleChip.text = user.role.name
+    binding.userDetailsRoleChip.text = getString(user.roleNameString)
 
     supportActionBar?.title = user.fullName
   }
