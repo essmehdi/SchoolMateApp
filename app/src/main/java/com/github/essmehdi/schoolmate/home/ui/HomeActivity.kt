@@ -47,7 +47,7 @@ class HomeActivity : AppCompatActivity() {
       when (it) {
         is BaseResponse.Success -> handleUserSuccess(it.data!!)
         is BaseResponse.Loading -> {}
-        is BaseResponse.Error -> handleUserError(it.message!!)
+        is BaseResponse.Error -> handleUserError(it.code!!)
       }
     }
   }
@@ -57,7 +57,7 @@ class HomeActivity : AppCompatActivity() {
     fragment.show(supportFragmentManager, fragment.tag)
   }
 
-  private fun handleUserError(message: String) {
+  private fun handleUserError(code: Int) {
     binding.homeLoading.loadingProgressBar.visibility = View.GONE
     binding.homeLoading.loadingErrorMessage.apply {
       text = getString(R.string.unknown_error_occurred)
