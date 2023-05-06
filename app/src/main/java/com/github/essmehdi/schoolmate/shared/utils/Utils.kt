@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.content.Context
 import com.github.essmehdi.schoolmate.R
 import java.text.DateFormat
-import java.text.Normalizer
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -59,11 +58,4 @@ object Utils {
       context.resources.getString(R.string.time_calculation_few_moments)
     }
   }
-
-  fun slugify(word: String, replacement: String = "-") = Normalizer
-    .normalize(word, Normalizer.Form.NFD)
-    .replace("[^\\p{ASCII}]".toRegex(), "")
-    .replace("[^a-zA-Z0-9\\s]+".toRegex(), "").trim()
-    .replace("\\s+".toRegex(), replacement)
-    .toLowerCase()
 }
