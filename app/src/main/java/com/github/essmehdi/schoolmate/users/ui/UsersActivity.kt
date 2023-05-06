@@ -61,6 +61,7 @@ class UsersActivity : AppCompatActivity() {
     binding.usersListSwipeRefresh.isRefreshing = false
   }
 
+  @Suppress("UNUSED_PARAMETER")
   private fun handleError(code: Int) {
     showError()
   }

@@ -1,21 +1,12 @@
 package com.github.essmehdi.schoolmate.schoolnavigation.adapters
 
 import android.annotation.SuppressLint
-import android.content.Intent
-import android.util.TypedValue
 import android.view.*
-import androidx.annotation.ColorRes
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.github.essmehdi.schoolmate.R
 import com.github.essmehdi.schoolmate.databinding.SchoolZoneItemBinding
-import com.github.essmehdi.schoolmate.databinding.UserRowBinding
 import com.github.essmehdi.schoolmate.schoolnavigation.models.SchoolZone
 import com.github.essmehdi.schoolmate.schoolnavigation.ui.SchoolZoneEditorFragment
 import com.github.essmehdi.schoolmate.schoolnavigation.ui.SchoolZonesActivity
-import com.github.essmehdi.schoolmate.users.models.User
-import com.github.essmehdi.schoolmate.users.models.UserRole
-import com.github.essmehdi.schoolmate.users.ui.UserDetailsActivity
 import java.util.*
 
 class SchoolZonesAdapter(var data: List<SchoolZone>): RecyclerView.Adapter<SchoolZonesAdapter.SchoolZoneItemViewHolder>() {

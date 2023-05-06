@@ -82,6 +82,7 @@ class UserDetailsActivity : AppCompatActivity() {
     supportActionBar?.title = user.fullName
   }
 
+  @Suppress("UNUSED_PARAMETER")
   private fun handleError(code: Int) {
     showError()
   }

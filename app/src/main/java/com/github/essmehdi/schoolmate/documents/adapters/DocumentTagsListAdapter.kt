@@ -3,7 +3,6 @@ package com.github.essmehdi.schoolmate.documents.adapters
 import android.annotation.SuppressLint
 import android.view.*
 import androidx.recyclerview.widget.RecyclerView
-import com.github.essmehdi.schoolmate.R
 import com.github.essmehdi.schoolmate.databinding.DocumentTagItemBinding
 import com.github.essmehdi.schoolmate.documents.models.DocumentTag
 import com.github.essmehdi.schoolmate.documents.viewmodels.DocumentTagsViewModel

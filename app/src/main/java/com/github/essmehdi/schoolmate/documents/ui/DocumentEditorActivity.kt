@@ -177,7 +177,7 @@ class DocumentEditorActivity : AppCompatActivity() {
 
   private fun sendForm() {
     val name = binding.documentNameEdittext.text?.toString()
-    if (name == null || name.isBlank()) {
+    if (name.isNullOrBlank()) {
       binding.documentNameEdittextLayout.error = getString(R.string.error_document_name_empty_edittext)
       return
     } else {

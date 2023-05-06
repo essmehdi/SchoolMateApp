@@ -57,6 +57,7 @@ class HomeActivity : AppCompatActivity() {
     fragment.show(supportFragmentManager, fragment.tag)
   }
 
+  @Suppress("UNUSED_PARAMETER")
   private fun handleUserError(code: Int) {
     binding.homeLoading.loadingProgressBar.visibility = View.GONE
     binding.homeLoading.loadingErrorMessage.apply {

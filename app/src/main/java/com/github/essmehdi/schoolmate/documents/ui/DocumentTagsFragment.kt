@@ -13,17 +13,14 @@ import com.github.essmehdi.schoolmate.R
 import com.github.essmehdi.schoolmate.databinding.DialogNewTagBinding
 import com.github.essmehdi.schoolmate.databinding.FragmentDocumentTagsBinding
 import com.github.essmehdi.schoolmate.documents.adapters.DocumentTagsListAdapter
-import com.github.essmehdi.schoolmate.documents.models.Document
 import com.github.essmehdi.schoolmate.documents.models.DocumentTag
 import com.github.essmehdi.schoolmate.documents.viewmodels.DocumentTagsViewModel
 import com.github.essmehdi.schoolmate.shared.api.BaseResponse
-import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.snackbar.Snackbar
 
 class DocumentTagsFragment : BottomSheetDialogFragment() {
 
-  private lateinit var onTagsListUpdateListener: OnTagsListUpdateListener
   private lateinit var binding: FragmentDocumentTagsBinding
   private lateinit var tagsListAdapter: DocumentTagsListAdapter
   private lateinit var viewModel: DocumentTagsViewModel
@@ -147,6 +144,7 @@ class DocumentTagsFragment : BottomSheetDialogFragment() {
     binding.documentTagsLoading.loadingOverlay.isVisible = show
   }
 
+  @Suppress("UNUSED_PARAMETER")
   private fun handleDocumentError(code: Int) {
     showLoading(true)
     binding.documentTagsLoading.loadingProgressBar.isVisible = false
@@ -162,9 +160,5 @@ class DocumentTagsFragment : BottomSheetDialogFragment() {
     } else {
       showToast(R.string.error_document_tag_deletion_unknown, Snackbar.LENGTH_LONG)
     }
-  }
-
-  interface OnTagsListUpdateListener {
-    fun onTagsListUpdateListener()
   }
 }
