@@ -10,7 +10,6 @@ import com.github.essmehdi.schoolmate.users.models.User
 import com.github.essmehdi.schoolmate.databinding.ActivityHomeBinding
 import com.github.essmehdi.schoolmate.documents.ui.DocumentsActivity
 import com.github.essmehdi.schoolmate.home.viewmodels.HomeViewModel
-import com.github.essmehdi.schoolmate.schoolnavigation.ui.HomeAvatarMenuFragment
 import com.github.essmehdi.schoolmate.schoolnavigation.ui.SchoolNavigationActivity
 import com.github.essmehdi.schoolmate.shared.api.BaseResponse
 import com.github.essmehdi.schoolmate.users.ui.UsersActivity

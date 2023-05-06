@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.essmehdi.schoolmate.R
 import com.github.essmehdi.schoolmate.databinding.ActivityUsersBinding
-import com.github.essmehdi.schoolmate.documents.adapters.UsersAdapter
+import com.github.essmehdi.schoolmate.users.adapters.UsersAdapter
 import com.github.essmehdi.schoolmate.shared.api.BaseResponse
 import com.github.essmehdi.schoolmate.users.viewmodels.UsersViewModel
 

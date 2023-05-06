@@ -1,4 +1,4 @@
-package com.github.essmehdi.schoolmate.schoolnavigation.ui
+package com.github.essmehdi.schoolmate.home.ui
 
 import android.content.Intent
 import android.os.Bundle

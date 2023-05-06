@@ -1,4 +1,4 @@
-package com.github.essmehdi.schoolmate.documents.adapters
+package com.github.essmehdi.schoolmate.users.adapters
 
 import android.annotation.SuppressLint
 import android.content.Intent
