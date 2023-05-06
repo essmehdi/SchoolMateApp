@@ -7,6 +7,7 @@ import android.os.Build
 import android.os.Bundle
 import android.text.Html
 import android.util.Log
+import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
@@ -37,6 +38,8 @@ class DocumentEditorActivity : AppCompatActivity() {
     super.onCreate(savedInstanceState)
     binding = ActivityDocumentEditorBinding.inflate(layoutInflater)
     setContentView(binding.root)
+
+    supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
     viewModel = ViewModelProvider(this)[DocumentEditorViewModel::class.java]
 
@@ -116,6 +119,14 @@ class DocumentEditorActivity : AppCompatActivity() {
         }
       }
     }
+  }
+
+  override fun onOptionsItemSelected(item: MenuItem): Boolean {
+    if (item.itemId == android.R.id.home) {
+      onBackPressedDispatcher.onBackPressed()
+      return true
+    }
+    return super.onOptionsItemSelected(item)
   }
 
   private fun fillChipsGroup(selectedTags: Set<Long>) {
