@@ -9,7 +9,10 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.github.essmehdi.schoolmate.R
+import com.github.essmehdi.schoolmate.complaints.models.BuildingComplaint
 import com.github.essmehdi.schoolmate.complaints.models.Complaint
+import com.github.essmehdi.schoolmate.complaints.models.FacilitiesComplaint
+import com.github.essmehdi.schoolmate.complaints.models.RoomComplaint
 import com.github.essmehdi.schoolmate.complaints.ui.ComplaintDetailsActivity
 import com.github.essmehdi.schoolmate.complaints.ui.ComplaintEditorActivity
 import com.github.essmehdi.schoolmate.complaints.viewmodels.ComplaintsViewModel
@@ -52,14 +55,24 @@ class ComplaintsListAdapter(var data: List<Complaint>?, val viewModel: Complaint
         fun bind(complaint: Complaint) {
             val formatter = DateTimeFormat.forPattern("yyyy-MM-dd")
             val date = formatter.parseDateTime(complaint.getDate())
-            val dateText =
-                ("Submitted " + Utils.calculatePastTime(date.toDate(), binding.root.context))
-            val title = complaint.getComplainant().firstName +
-                    " " + complaint.getComplainant().lastName +
-                    " - " + complaint.getDescription().subSequence(0, 10).toString() + "..."
+            val dateText = ("Submitted " + Utils.calculatePastTime(date.toDate(), binding.root.context))
+
+            // the title of the complaint will be: firstName lastName • Room/Building/Facilities
+            var title = complaint.getComplainant().firstName + " " + complaint.getComplainant().lastName + " "
+            title += if(complaint is RoomComplaint){
+                "• Room"
+            } else if (complaint is BuildingComplaint) {
+                "• Building"
+            } else if (complaint is FacilitiesComplaint) {
+                "• Facilities"
+            } else {
+                "• Unknown"
+            }
+
             binding.complaintTitle.text = title
             binding.complaintDate.text = dateText
             binding.complaintStatus.text = complaint.getStatus().name
+
             when (complaint.getStatus().name) {
                 "PENDING" -> {
                     binding.complaintStatus.setTextColor(ContextCompat.getColor(binding.root.context, R.color.complaint_status_pending))

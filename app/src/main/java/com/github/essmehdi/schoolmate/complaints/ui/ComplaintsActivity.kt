@@ -99,7 +99,7 @@ class ComplaintsActivity : AppCompatActivity() {
             }
             R.id.complaints_type_menu_facilities -> {
                 item.isChecked = !item.isChecked
-                viewModel.changeComplaintType("facility")
+                viewModel.changeComplaintType("facilities")
                 true
             }
             else -> super.onOptionsItemSelected(item)
