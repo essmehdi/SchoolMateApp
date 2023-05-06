@@ -11,6 +11,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import com.github.essmehdi.schoolmate.R
 import com.github.essmehdi.schoolmate.complaints.adapters.ComplaintsViewPagerAdapter
+import com.github.essmehdi.schoolmate.complaints.ui.ComplaintDetailsActivity.Companion.RESULT_ACTION_DELETED
 import com.github.essmehdi.schoolmate.complaints.viewmodels.ComplaintsViewModel
 import com.github.essmehdi.schoolmate.databinding.ActivityComplaintsBinding
 import com.github.essmehdi.schoolmate.shared.api.BaseResponse
@@ -34,6 +35,9 @@ class ComplaintsActivity : AppCompatActivity() {
 
         launcher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == RESULT_OK) {
+                viewModel.refresh()
+            } else if(result.resultCode == RESULT_ACTION_DELETED) {
+                Snackbar.make(binding.root, R.string.success_complaint_deletion, Snackbar.LENGTH_SHORT).show()
                 viewModel.refresh()
             }
         }

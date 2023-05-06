@@ -17,7 +17,6 @@ import retrofit2.Response
 class ComplaintsViewModel : UserComplaintsViewModel() {
 
     val complainant: MutableLiveData<User> = MutableLiveData<User>()
-    private val complaint: MutableLiveData<BaseResponse<Complaint>> = MutableLiveData<BaseResponse<Complaint>>()
     val deleteStatus: MutableLiveData<BaseResponse<MessageResponse>?> = MutableLiveData(null)
 
     fun fetchComplaints(user: String = "all") {
@@ -78,22 +77,6 @@ class ComplaintsViewModel : UserComplaintsViewModel() {
             }
         })
 
-    }
-
-    fun getComplaint(id: Long) {
-        complaint.value = BaseResponse.Loading()
-        Api.complaintService.getComplaintById(id).enqueue(object: Callback<Complaint> {
-            override fun onResponse(call: Call<Complaint>, response: Response<Complaint>) {
-                if (response.isSuccessful) {
-                    complaint.value = BaseResponse.Success(response.body()!!)
-                } else {
-                    complaint.value = BaseResponse.Error(response.code())
-                }
-            }
-            override fun onFailure(call: Call<Complaint>, t: Throwable) {
-                complaint.value = BaseResponse.Error(0)
-            }
-        })
     }
 
     fun changeComplaintType(type: String) {

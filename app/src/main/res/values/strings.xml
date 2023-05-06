@@ -182,5 +182,31 @@
     <string name="success_complaint_deletion">The complaint has been deleted</string>
     <string name="loading_complaint_deletion">Deleting complaint...</string>
     <string name="error_complaint_deletion">An error has occured while deleting the complaint!</string>
+    <string name="complainant_name">John WICK</string>
+    <string name="complaint_date_icon_description">Icon for the complaint date</string>
+    <string name="complaint_date">01/01/2020</string>
+    <string name="complaint_status_raw">Status:</string>
+    <string name="complaint_type">Building complaint</string>
+    <string name="complaint_date_raw">Created at: </string>
+    <string name="complaint_type_raw">Type: </string>
+    <string name="complaint_handler_raw">Assigned to: </string>
+    <string name="complaint_handler">Rick GRIMES</string>
+    <string name="complaint_problem">SHOWER</string>
+    <string name="complaint_specific_problem_raw">Specific problem:</string>
+    <string name="complaint_specific_problem">SHOWER</string>
+    <string name="complaint_room_raw">Room number:</string>
+    <string name="complaint_room">Building B, Room 41</string>
+    <string name="complaint_building_raw">Building: </string>
+    <string name="complaint_building">B</string>
+    <string name="complaint_facility_classroom">Amphi 1</string>
+    <string name="complaint_facility_class_raw">Classroom:</string>
+    <string name="complaint_description_class_raw">Description:</string>
+    <string name="complaint_description">lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet</string>
+    <string name="complainant_name_raw">Complaint by</string>
+    <string name="room_complaint">Room complaint</string>
+    <string name="building_complaint">Building complaint</string>
+    <string name="facility_complaint">Facility complaint</string>
+    <string name="complaint_not_editable">You can\'t edit the complaint if it\'s already assigned to someone. You can still delete your complaint if you think it is not necessary anymore. And you can also make another complaint !</string>
+    <string name="label_ok">OK</string>
 
 </resources>

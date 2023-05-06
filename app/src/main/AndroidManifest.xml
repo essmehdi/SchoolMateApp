@@ -22,10 +22,14 @@
         <activity
             android:name=".complaints.ui.ComplaintEditorActivity"
             android:label="@string/add_edit_complaint"
+            android:parentActivityName=".complaints.ui.ComplaintsActivity"
+            android:theme="@style/Theme.SchoolMate.NoActionBar"
             android:exported="false" />
         <activity
             android:name=".complaints.ui.ComplaintDetailsActivity"
             android:label="@string/view_complaint_details"
+            android:parentActivityName=".complaints.ui.ComplaintsActivity"
+            android:theme="@style/Theme.SchoolMate.NoActionBar"
             android:exported="false" />
         <activity
             android:name=".complaints.ui.ComplaintsActivity"

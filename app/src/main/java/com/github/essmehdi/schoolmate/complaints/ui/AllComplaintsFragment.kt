@@ -15,7 +15,6 @@ import com.github.essmehdi.schoolmate.complaints.adapters.ComplaintsListAdapter
 import com.github.essmehdi.schoolmate.complaints.viewmodels.ComplaintsViewModel
 import com.github.essmehdi.schoolmate.databinding.FragmentAllComplaintsBinding
 import com.github.essmehdi.schoolmate.shared.api.BaseResponse
-import com.google.android.material.snackbar.Snackbar
 
 class AllComplaintsFragment : Fragment() {
 
