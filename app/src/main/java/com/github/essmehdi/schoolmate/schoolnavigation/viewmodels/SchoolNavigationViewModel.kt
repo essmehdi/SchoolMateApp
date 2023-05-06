@@ -35,6 +35,7 @@ open class SchoolNavigationViewModel: ViewModel() {
 
   init {
     fetchZones()
+    fetchMe()
   }
 
   fun fetchZones() {
@@ -54,7 +55,7 @@ open class SchoolNavigationViewModel: ViewModel() {
     })
   }
 
-  fun fetchMe() {
+  private fun fetchMe() {
     user.value = BaseResponse.Loading()
     Api.authService.me().enqueue(object: Callback<User> {
       override fun onResponse(call: Call<User>, response: Response<User>) {
