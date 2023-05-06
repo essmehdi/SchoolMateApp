@@ -96,7 +96,7 @@ class LoginActivity : AppCompatActivity() {
    if (code == 400) {
      binding.emailEdittext.error = getString(R.string.invalid_credentials)
    } else {
-     Toast.makeText(this, message ?: "Error", Toast.LENGTH_LONG).show()
+     Toast.makeText(this, R.string.unknown_error_occurred, Toast.LENGTH_LONG).show()
    }
   }
 
