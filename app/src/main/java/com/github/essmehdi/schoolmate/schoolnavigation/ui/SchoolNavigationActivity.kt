@@ -226,6 +226,7 @@ class SchoolNavigationActivity : AppCompatActivity() {
     map.overlayManager.add(locationOverlay)
   }
 
+  @Suppress("UNUSED_PARAMETER")
   private fun handleError(code: Int) {
     Toast.makeText(this, R.string.unknown_error_occurred, Toast.LENGTH_LONG).show()
   }

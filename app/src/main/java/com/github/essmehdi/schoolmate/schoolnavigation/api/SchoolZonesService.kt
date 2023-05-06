@@ -16,9 +16,6 @@ interface SchoolZonesService {
   @GET("school-zones")
   fun getAllSchoolZones(): Call<List<SchoolZone>>
 
-  @GET("school-zones/{id}")
-  fun getSchoolZone(@Path("id") id: Long): Call<SchoolZone>
-
   @POST("school-zones")
   fun createSchoolZone(@Body createSchoolZoneDto: CreateSchoolZoneDto): Call<SchoolZone>
 

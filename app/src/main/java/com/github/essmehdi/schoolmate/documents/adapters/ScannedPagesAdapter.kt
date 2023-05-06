@@ -30,7 +30,7 @@ class ScannedPagesAdapter(var data: List<Uri>, val viewModel: DocumentScannerVie
     fun bind(uri: Uri) {
       binding.scannedPageImage.setImageURI(uri)
       binding.scannedPageDeleteButton.setOnClickListener {
-        viewModel.removeScannedPage(adapterPosition)
+        viewModel.removeScannedPage(bindingAdapterPosition)
       }
     }
   }

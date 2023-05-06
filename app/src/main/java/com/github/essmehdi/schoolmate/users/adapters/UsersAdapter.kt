@@ -1,4 +1,4 @@
-package com.github.essmehdi.schoolmate.documents.adapters
+package com.github.essmehdi.schoolmate.users.adapters
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -6,18 +6,12 @@ import android.util.TypedValue
 import android.view.*
 import androidx.annotation.ColorRes
 import androidx.core.content.ContextCompat
-import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.github.essmehdi.schoolmate.R
-import com.github.essmehdi.schoolmate.databinding.DocumentItemBinding
 import com.github.essmehdi.schoolmate.databinding.UserRowBinding
-import com.github.essmehdi.schoolmate.documents.models.Document
-import com.github.essmehdi.schoolmate.documents.viewmodels.DocumentsViewModel
-import com.github.essmehdi.schoolmate.shared.utils.Utils
 import com.github.essmehdi.schoolmate.users.models.User
 import com.github.essmehdi.schoolmate.users.models.UserRole
 import com.github.essmehdi.schoolmate.users.ui.UserDetailsActivity
-import org.joda.time.format.DateTimeFormat
 import java.util.*
 
 class UsersAdapter(var data: List<User>): RecyclerView.Adapter<UsersAdapter.UserRowViewHolder>() {
@@ -57,7 +51,7 @@ class UsersAdapter(var data: List<User>): RecyclerView.Adapter<UsersAdapter.User
       binding.userRowFullNameText.text = user.fullName
       binding.userRowEmailText.text = user.email
       binding.userRowRoleText.apply {
-        text = user.role.name
+        text = context.getString(user.roleNameString)
         when (user.role) {
           UserRole.ADEI -> {
             setTextColor(ContextCompat.getColor(context, R.color.ensias))

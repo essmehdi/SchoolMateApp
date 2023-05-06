@@ -80,8 +80,8 @@ class DocumentScannerActivity : AppCompatActivity() {
           viewHolder: androidx.recyclerview.widget.RecyclerView.ViewHolder,
           target: androidx.recyclerview.widget.RecyclerView.ViewHolder
         ): Boolean {
-          val from = viewHolder.adapterPosition
-          val to = target.adapterPosition
+          val from = viewHolder.bindingAdapterPosition
+          val to = target.bindingAdapterPosition
           viewModel.moveScannedPage(from, to)
           return true
         }

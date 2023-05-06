@@ -224,4 +224,8 @@
     <string name="user_details_tab_place_suggestions_title">Places</string>
     <string name="user_details_tab_place_suggestions_descriptions">Places suggested by user</string>
 
+    <string name="user_role_student">Student</string>
+    <string name="user_role_moderator">Moderator</string>
+    <string name="user_role_adei">ADEI</string>
+
 </resources>

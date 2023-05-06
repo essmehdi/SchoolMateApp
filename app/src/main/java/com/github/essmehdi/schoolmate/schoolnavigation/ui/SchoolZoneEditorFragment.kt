@@ -4,8 +4,6 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,9 +11,9 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.github.essmehdi.schoolmate.R
-import com.github.essmehdi.schoolmate.databinding.FragmentSchoolZoneDetailsBinding
 import com.github.essmehdi.schoolmate.databinding.FragmentSchoolZoneEditorBinding
 import com.github.essmehdi.schoolmate.schoolnavigation.api.dto.CreateSchoolZoneDto
 import com.github.essmehdi.schoolmate.schoolnavigation.api.dto.EditSchoolZoneDto
@@ -50,6 +48,7 @@ class SchoolZoneEditorFragment : BottomSheetDialogFragment() {
       val passedZone = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
         it.getSerializable(ARG_ZONE, SchoolZone::class.java)
       } else {
+        @Suppress("DEPRECATION")
         it.getSerializable(ARG_ZONE) as SchoolZone
       }
       if (passedZone != null) {
@@ -67,6 +66,7 @@ class SchoolZoneEditorFragment : BottomSheetDialogFragment() {
     return binding.root
   }
 
+  @Suppress("UNCHECKED_CAST", "DEPRECATION")
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
 

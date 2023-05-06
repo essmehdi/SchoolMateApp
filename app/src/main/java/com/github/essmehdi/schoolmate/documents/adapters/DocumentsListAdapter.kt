@@ -70,7 +70,7 @@ class DocumentsListAdapter(var data: List<Document>?, val viewModel: DocumentsVi
     }
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
-      val currentDocument = data!![adapterPosition]
+      val currentDocument = data!![bindingAdapterPosition]
       return when (item.order) {
         1 -> {
           viewModel.downloadDocument(currentDocument, binding.root.context)

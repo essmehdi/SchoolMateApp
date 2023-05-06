@@ -89,6 +89,7 @@ class UserDocumentsFragment : Fragment() {
     binding.userDetailsSharedDocumentsLoading.loadingOverlay.isVisible = show
   }
 
+  @Suppress("UNUSED_PARAMETER")
   private fun handleError(code: Int) {
     binding.userDetailsSharedDocumentsLoading.loadingErrorMessage.text = getString(R.string.unknown_error_occurred)
     binding.userDetailsSharedDocumentsLoading.loadingErrorMessage.visibility = View.VISIBLE

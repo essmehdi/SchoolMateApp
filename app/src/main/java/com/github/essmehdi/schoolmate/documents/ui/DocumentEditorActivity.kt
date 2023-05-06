@@ -7,6 +7,7 @@ import android.os.Build
 import android.os.Bundle
 import android.text.Html
 import android.util.Log
+import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
@@ -37,6 +38,8 @@ class DocumentEditorActivity : AppCompatActivity() {
     super.onCreate(savedInstanceState)
     binding = ActivityDocumentEditorBinding.inflate(layoutInflater)
     setContentView(binding.root)
+
+    supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
     viewModel = ViewModelProvider(this)[DocumentEditorViewModel::class.java]
 
@@ -118,6 +121,14 @@ class DocumentEditorActivity : AppCompatActivity() {
     }
   }
 
+  override fun onOptionsItemSelected(item: MenuItem): Boolean {
+    if (item.itemId == android.R.id.home) {
+      onBackPressedDispatcher.onBackPressed()
+      return true
+    }
+    return super.onOptionsItemSelected(item)
+  }
+
   private fun fillChipsGroup(selectedTags: Set<Long>) {
     val chips = selectedTags.map { selectedTagId -> Chip(this).apply {
       text = viewModel.documentTags.value?.data?.find { tag -> tag.id == selectedTagId }?.name ?: ""
@@ -177,7 +188,7 @@ class DocumentEditorActivity : AppCompatActivity() {
 
   private fun sendForm() {
     val name = binding.documentNameEdittext.text?.toString()
-    if (name == null || name.isBlank()) {
+    if (name.isNullOrBlank()) {
       binding.documentNameEdittextLayout.error = getString(R.string.error_document_name_empty_edittext)
       return
     } else {

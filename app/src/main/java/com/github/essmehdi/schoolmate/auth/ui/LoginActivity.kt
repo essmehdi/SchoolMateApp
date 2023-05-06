@@ -10,13 +10,11 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.lifecycle.ViewModelProvider
 import com.github.essmehdi.schoolmate.R
 import com.github.essmehdi.schoolmate.auth.api.dto.LoginDto
 import com.github.essmehdi.schoolmate.auth.viewmodels.LoginViewModel
 import com.github.essmehdi.schoolmate.databinding.ActivityLoginBinding
 import com.github.essmehdi.schoolmate.home.ui.HomeActivity
-import com.github.essmehdi.schoolmate.shared.api.Api
 import com.github.essmehdi.schoolmate.shared.api.BaseResponse
 
 class LoginActivity : AppCompatActivity() {
@@ -92,11 +90,12 @@ class LoginActivity : AppCompatActivity() {
   /**
    * Handles UI in case of sign in error
    */
+  @Suppress("UNUSED_PARAMETER")
   private fun handleError(message: String?, code: Int) {
    if (code == 400) {
      binding.emailEdittext.error = getString(R.string.invalid_credentials)
    } else {
-     Toast.makeText(this, message ?: "Error", Toast.LENGTH_LONG).show()
+     Toast.makeText(this, R.string.unknown_error_occurred, Toast.LENGTH_LONG).show()
    }
   }
 

@@ -11,7 +11,6 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.github.essmehdi.schoolmate.R
@@ -220,6 +219,7 @@ class DocumentsActivity : AppCompatActivity() {
     binding.documentsMain.documentsLoading.loadingOverlay.isVisible = show
   }
 
+  @Suppress("UNUSED_PARAMETER")
   private fun handleError(code: Int) {
     binding.documentsMain.documentsLoading.loadingErrorMessage.text = getString(R.string.unknown_error_occurred)
     binding.documentsMain.documentsLoading.loadingErrorMessage.visibility = View.VISIBLE

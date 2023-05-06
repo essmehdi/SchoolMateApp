@@ -87,6 +87,7 @@ class SchoolZonesActivity : AppCompatActivity() {
     binding.schoolZonesListSwipeRefresh.isRefreshing = false
   }
 
+  @Suppress("UNUSED_PARAMETER")
   private fun handleError(code: Int) {
     showError()
   }

@@ -10,7 +10,6 @@ import com.github.essmehdi.schoolmate.users.models.User
 import com.github.essmehdi.schoolmate.databinding.ActivityHomeBinding
 import com.github.essmehdi.schoolmate.documents.ui.DocumentsActivity
 import com.github.essmehdi.schoolmate.home.viewmodels.HomeViewModel
-import com.github.essmehdi.schoolmate.schoolnavigation.ui.HomeAvatarMenuFragment
 import com.github.essmehdi.schoolmate.schoolnavigation.ui.SchoolNavigationActivity
 import com.github.essmehdi.schoolmate.shared.api.BaseResponse
 import com.github.essmehdi.schoolmate.users.ui.UsersActivity
@@ -48,7 +47,7 @@ class HomeActivity : AppCompatActivity() {
       when (it) {
         is BaseResponse.Success -> handleUserSuccess(it.data!!)
         is BaseResponse.Loading -> {}
-        is BaseResponse.Error -> handleUserError(it.message!!)
+        is BaseResponse.Error -> handleUserError(it.code!!)
       }
     }
   }
@@ -58,7 +57,8 @@ class HomeActivity : AppCompatActivity() {
     fragment.show(supportFragmentManager, fragment.tag)
   }
 
-  private fun handleUserError(message: String) {
+  @Suppress("UNUSED_PARAMETER")
+  private fun handleUserError(code: Int) {
     binding.homeLoading.loadingProgressBar.visibility = View.GONE
     binding.homeLoading.loadingErrorMessage.apply {
       text = getString(R.string.unknown_error_occurred)
