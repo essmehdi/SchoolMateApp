@@ -37,7 +37,6 @@ class DocumentEditorViewModel: ViewModel() {
         uploadStatus.value = BaseResponse.Error(response.code())
       }
     }
-
     override fun onFailure(call: Call<Document>, t: Throwable) {
       uploadStatus.value = BaseResponse.Error(0)
     }
