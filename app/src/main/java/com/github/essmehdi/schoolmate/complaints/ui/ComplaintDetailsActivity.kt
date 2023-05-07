@@ -55,11 +55,15 @@ class ComplaintDetailsActivity : AppCompatActivity() {
                     is BaseResponse.Success -> {
                         showLoading(false)
                         showComplaintDetails()
+                        if(intent.hasExtra("created")) {
+                            Snackbar.make(binding.root, getString(R.string.complaint_created, if (intent.getBooleanExtra("created", true)) "submitted" else "updated"), Snackbar.LENGTH_SHORT).show()
+                        }
                     }
                     is BaseResponse.Loading -> {
                         showLoading()
                     }
                     is BaseResponse.Error -> {
+                        showLoading(false)
                         handleError(0)
                     }
                     else -> {}
@@ -68,7 +72,7 @@ class ComplaintDetailsActivity : AppCompatActivity() {
         }
 
         viewModel.deleteStatus.observe(this) {
-            when (it) { // when the complaint is deleted, show the activity will be closed
+            when (it) { // when the complaint is deleted, the activity will be closed
                 is BaseResponse.Loading -> {
                     Snackbar.make(binding.root, R.string.loading_complaint_deletion, Snackbar.LENGTH_INDEFINITE).show()
                 }

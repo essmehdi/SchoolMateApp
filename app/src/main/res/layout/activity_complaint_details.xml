@@ -19,7 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-            tools:title="Complaint details" />
+            tools:title="@string/complaint_details_title" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -71,6 +71,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:cardCornerRadius="30dp"
+            android:layout_marginHorizontal="20dp"
             android:layout_gravity="center">
 
             <androidx.appcompat.widget.LinearLayoutCompat
@@ -82,34 +83,34 @@
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingVertical="5dp"
-                    android:orientation="horizontal"
+                    android:layout_gravity="center"
                     android:background="?attr/selectableItemBackground"
-                    android:layout_gravity="center">
+                    android:orientation="horizontal"
+                    android:paddingVertical="5dp">
 
                     <ImageView
+                        style="@style/ComplaintDetailsIcon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        style="@style/ComplaintDetailsIcon"
                         android:layout_gravity="center"
+                        android:contentDescription="@string/complaint_date_icon_description"
                         android:scaleType="fitCenter"
-                        android:src="@drawable/ic_calendar"
-                        android:contentDescription="@string/complaint_date_icon_description" />
+                        android:src="@drawable/ic_calendar" />
 
                     <TextView
+                        style="@style/TextAppearance.SchoolMate.ComplaintDetails"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="@string/complaint_date_raw"
-                        style="@style/TextAppearance.SchoolMate.ComplaintDetails"/>
+                        android:text="@string/complaint_date_raw" />
 
                     <TextView
                         android:id="@+id/complaint_date"
+                        style="@style/TextAppearance.SchoolMate.ComplaintItemDetail"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="@string/complaint_date"
-                        style="@style/TextAppearance.SchoolMate.ComplaintItemDetail" />
+                        android:text="@string/complaint_date" />
 
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
@@ -117,32 +118,33 @@
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingVertical="5dp"
+                    android:layout_gravity="center"
                     android:background="?attr/selectableItemBackground"
                     android:orientation="horizontal"
-                    android:layout_gravity="center">
+                    android:paddingVertical="5dp">
 
                     <ImageView
+                        style="@style/ComplaintDetailsIcon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        style="@style/ComplaintDetailsIcon"
                         android:layout_gravity="center"
-                        android:src="@drawable/ic_tree_structure"
-                        android:contentDescription="@string/complaint_date_icon_description" />
+                        android:contentDescription="@string/complaint_type_icon_description"
+                        android:src="@drawable/ic_tree_structure" />
 
                     <TextView
+                        style="@style/TextAppearance.SchoolMate.ComplaintDetails"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="@string/complaint_type_raw"
-                        style="@style/TextAppearance.SchoolMate.ComplaintDetails" />
+                        android:text="@string/complaint_type_raw" />
+
                     <TextView
                         android:id="@+id/complaint_type"
+                        style="@style/TextAppearance.SchoolMate.ComplaintItemDetail"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="@string/complaint_type"
-                        style="@style/TextAppearance.SchoolMate.ComplaintItemDetail" />
+                        android:text="@string/complaint_type" />
 
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
@@ -150,44 +152,44 @@
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingVertical="5dp"
+                    android:layout_gravity="center"
                     android:background="?attr/selectableItemBackground"
                     android:orientation="horizontal"
-                    android:layout_gravity="center">
+                    android:paddingVertical="5dp">
 
                     <ImageView
+                        style="@style/ComplaintDetailsIcon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        style="@style/ComplaintDetailsIcon"
                         android:layout_gravity="center"
-                        android:src="@drawable/ic_hourglass_medium"
-                        android:contentDescription="@string/complaint_date_icon_description" />
+                        android:contentDescription="@string/complaint_status_icon_description"
+                        android:src="@drawable/ic_hourglass_medium" />
 
                     <TextView
+                        style="@style/TextAppearance.SchoolMate.ComplaintDetails"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="@string/complaint_status_raw"
-                        style="@style/TextAppearance.SchoolMate.ComplaintDetails" />
+                        android:text="@string/complaint_status_raw" />
 
                     <androidx.cardview.widget.CardView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_marginStart="8dp"
+                        android:layout_marginStart="9dp"
                         app:cardBackgroundColor="@color/complaint_status_background_primary"
                         app:cardCornerRadius="5dp"
                         app:cardElevation="0dp">
 
                         <androidx.appcompat.widget.AppCompatTextView
                             android:id="@+id/complaint_status"
+                            style="@style/TextAppearance.Material3.BodySmall"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:paddingHorizontal="19dp"
                             android:paddingVertical="4dp"
                             android:text="@string/complaint_status_preview"
-                            style="@style/TextAppearance.Material3.BodySmall"
                             android:textColor="@color/complaint_status_pending"
                             android:textStyle="bold" />
 
@@ -199,66 +201,66 @@
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingVertical="5dp"
+                    android:layout_gravity="center"
                     android:background="?attr/selectableItemBackground"
                     android:orientation="horizontal"
-                    android:layout_gravity="center">
+                    android:paddingVertical="5dp">
 
                     <ImageView
+                        style="@style/ComplaintDetailsIcon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        style="@style/ComplaintDetailsIcon"
                         android:layout_gravity="center"
-                        android:src="@drawable/ic_user_circle"
-                        android:contentDescription="@string/complaint_date_icon_description" />
+                        android:contentDescription="@string/complaint_handler_icon_description"
+                        android:src="@drawable/ic_user_circle" />
 
                     <TextView
+                        style="@style/TextAppearance.SchoolMate.ComplaintDetails"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="@string/complaint_handler_raw"
-                        style="@style/TextAppearance.SchoolMate.ComplaintDetails"/>
+                        android:text="@string/complaint_handler_raw" />
 
                     <TextView
                         android:id="@+id/complaint_handler"
+                        style="@style/TextAppearance.SchoolMate.ComplaintItemDetail"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="@string/complaint_handler"
-                        style="@style/TextAppearance.SchoolMate.ComplaintItemDetail" />
+                        android:text="@string/complaint_handler" />
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingVertical="5dp"
+                    android:layout_gravity="center"
                     android:background="?attr/selectableItemBackground"
                     android:orientation="horizontal"
-                    android:layout_gravity="center">
+                    android:paddingVertical="5dp">
 
                     <ImageView
+                        style="@style/ComplaintDetailsIcon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        style="@style/ComplaintDetailsIcon"
                         android:layout_gravity="center"
-                        android:src="@drawable/ic_warning_2"
-                        android:contentDescription="@string/complaint_date_icon_description" />
+                        android:contentDescription="@string/complaint_spec_prob_icon_description"
+                        android:src="@drawable/ic_warning_2" />
 
                     <TextView
+                        style="@style/TextAppearance.SchoolMate.ComplaintDetails"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="@string/complaint_specific_problem_raw"
-                        style="@style/TextAppearance.SchoolMate.ComplaintDetails"/>
+                        android:text="@string/complaint_specific_problem_raw" />
 
                     <TextView
                         android:id="@+id/complaint_problem"
+                        style="@style/TextAppearance.SchoolMate.ComplaintItemDetail"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="@string/complaint_specific_problem"
-                        style="@style/TextAppearance.SchoolMate.ComplaintItemDetail" />
+                        android:text="@string/complaint_specific_problem" />
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -266,34 +268,34 @@
                     android:id="@+id/room_complaint_card"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingVertical="5dp"
-                    android:visibility="gone"
+                    android:layout_gravity="center"
                     android:background="?attr/selectableItemBackground"
                     android:orientation="horizontal"
-                    android:layout_gravity="center">
+                    android:paddingVertical="5dp"
+                    android:visibility="gone">
 
                     <ImageView
+                        style="@style/ComplaintDetailsIcon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        style="@style/ComplaintDetailsIcon"
                         android:layout_gravity="center"
-                        android:src="@drawable/ic_door_open"
-                        android:contentDescription="@string/complaint_date_icon_description" />
+                        android:contentDescription="@string/complaint_date_icon_description"
+                        android:src="@drawable/ic_door_open" />
 
                     <TextView
+                        style="@style/TextAppearance.SchoolMate.ComplaintDetails"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="@string/complaint_room_raw"
-                        style="@style/TextAppearance.SchoolMate.ComplaintDetails"/>
+                        android:text="@string/complaint_room_raw" />
 
                     <TextView
                         android:id="@+id/complaint_room"
+                        style="@style/TextAppearance.SchoolMate.ComplaintItemDetail"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="@string/complaint_room"
-                        style="@style/TextAppearance.SchoolMate.ComplaintItemDetail" />
+                        android:text="@string/complaint_room" />
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -301,34 +303,34 @@
                     android:id="@+id/building_complaint_card"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingVertical="5dp"
-                    android:visibility="gone"
+                    android:layout_gravity="center"
                     android:background="?attr/selectableItemBackground"
                     android:orientation="horizontal"
-                    android:layout_gravity="center">
+                    android:paddingVertical="5dp"
+                    android:visibility="gone">
 
                     <ImageView
+                        style="@style/ComplaintDetailsIcon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        style="@style/ComplaintDetailsIcon"
                         android:layout_gravity="center"
-                        android:src="@drawable/ic_buildings"
-                        android:contentDescription="@string/complaint_date_icon_description" />
+                        android:contentDescription="@string/complaint_date_icon_description"
+                        android:src="@drawable/ic_buildings" />
 
                     <TextView
+                        style="@style/TextAppearance.SchoolMate.ComplaintDetails"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="@string/complaint_building_raw"
-                        style="@style/TextAppearance.SchoolMate.ComplaintDetails"/>
+                        android:text="@string/complaint_building_raw" />
 
                     <TextView
                         android:id="@+id/complaint_building"
+                        style="@style/TextAppearance.SchoolMate.ComplaintItemDetail"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="@string/complaint_building"
-                        style="@style/TextAppearance.SchoolMate.ComplaintItemDetail" />
+                        android:text="@string/complaint_building" />
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -336,61 +338,61 @@
                     android:id="@+id/facility_complaint_card"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingVertical="5dp"
-                    android:visibility="gone"
+                    android:layout_gravity="center"
                     android:background="?attr/selectableItemBackground"
                     android:orientation="horizontal"
-                    android:layout_gravity="center">
+                    android:paddingVertical="5dp"
+                    android:visibility="gone">
 
                     <ImageView
+                        style="@style/ComplaintDetailsIcon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        style="@style/ComplaintDetailsIcon"
                         android:layout_gravity="center"
-                        android:src="@drawable/ic_student"
-                        android:contentDescription="@string/complaint_date_icon_description" />
+                        android:contentDescription="@string/complaint_date_icon_description"
+                        android:src="@drawable/ic_student" />
 
                     <TextView
+                        style="@style/TextAppearance.SchoolMate.ComplaintDetails"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="@string/complaint_facility_class_raw"
-                        style="@style/TextAppearance.SchoolMate.ComplaintDetails"/>
+                        android:text="@string/complaint_facility_class_raw" />
 
                     <TextView
                         android:id="@+id/complaint_facility"
+                        style="@style/TextAppearance.SchoolMate.ComplaintItemDetail"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="@string/complaint_facility_classroom"
-                        style="@style/TextAppearance.SchoolMate.ComplaintItemDetail" />
+                        android:text="@string/complaint_facility_classroom" />
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingVertical="5dp"
+                    android:layout_gravity="center"
                     android:background="?attr/selectableItemBackground"
                     android:orientation="vertical"
-                    android:layout_gravity="center">
+                    android:paddingVertical="5dp">
 
                     <TextView
+                        style="@style/TextAppearance.SchoolMate.ComplaintDetails"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="start"
                         android:paddingHorizontal="15dp"
-                        android:text="@string/complaint_description_class_raw"
-                        style="@style/TextAppearance.SchoolMate.ComplaintDetails"/>
+                        android:text="@string/complaint_description_class_raw" />
 
                     <TextView
                         android:id="@+id/complaint_description"
+                        style="@style/TextAppearance.SchoolMate.ComplaintItemDetail"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="start"
                         android:layout_marginStart="7dp"
-                        android:text="@string/complaint_description"
-                        style="@style/TextAppearance.SchoolMate.ComplaintItemDetail" />
+                        android:text="@string/complaint_description" />
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
 

@@ -11,7 +11,7 @@ import retrofit2.http.*
 
 interface ComplaintService {
     @POST("complaints")
-    fun createComplaint(@Body createComplaintDto: CreateComplaintDto): Call<Response<Complaint>>
+    fun createComplaint(@Body createComplaintDto: CreateComplaintDto): Call<Complaint>
 
     @GET("complaints")
     fun getComplaints(

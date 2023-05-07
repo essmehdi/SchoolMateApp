@@ -106,7 +106,7 @@ class ComplaintsListAdapter(var data: List<Complaint>?, val viewModel: Complaint
                     val intent = Intent(binding.root.context, ComplaintEditorActivity::class.java)
                     // if the complaint is passed to the editor, it will be edited
                     // otherwise, a new complaint will be created
-                    intent.putExtra("complaint", currentComplaint)
+                    intent.putExtra("complaintId", currentComplaint.id)
                     launcher?.launch(intent)
                     true
                 }
