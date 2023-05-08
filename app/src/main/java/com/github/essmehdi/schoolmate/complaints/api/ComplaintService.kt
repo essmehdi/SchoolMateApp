@@ -1,7 +1,6 @@
 package com.github.essmehdi.schoolmate.complaints.api
 
-import com.github.essmehdi.schoolmate.complaints.api.dto.CreateComplaintDto
-import com.github.essmehdi.schoolmate.complaints.api.dto.EditComplaintStatusAndHandlerDto
+import com.github.essmehdi.schoolmate.complaints.api.dto.*
 import com.github.essmehdi.schoolmate.complaints.models.Complaint
 import com.github.essmehdi.schoolmate.shared.api.dto.MessageResponse
 import com.github.essmehdi.schoolmate.shared.api.dto.PaginatedResponse
@@ -10,8 +9,16 @@ import retrofit2.Response
 import retrofit2.http.*
 
 interface ComplaintService {
+    // 3 overloads for createComplaint to handle different types of complaints
     @POST("complaints")
-    fun createComplaint(@Body createComplaintDto: CreateComplaintDto): Call<Complaint>
+    fun createComplaint(@Body createRoomComplaintDto: CreateRoomComplaintDto): Call<Complaint>
+
+    @POST("complaints")
+    fun createComplaint(@Body createBuildingComplaintDto: CreateBuildingComplaintDto): Call<Complaint>
+
+    @POST("complaints")
+    fun createComplaint(@Body createFacilityComplaintDto: CreateFacilityComplaintDto): Call<Complaint>
+    // ---------------------------------------------------------------
 
     @GET("complaints")
     fun getComplaints(
@@ -30,11 +37,25 @@ interface ComplaintService {
         @Body editComplaintStatusAndHandlerDto: EditComplaintStatusAndHandlerDto
     ): Call<Complaint>
 
+    // 3 overloads for updateComplaintDetails to handle different types of complaints
     @PATCH("complaints/{id}/details")
     fun updateComplaintDetails(
         @Path("id") id: Long,
-        @Body createComplaintDto: CreateComplaintDto
+        @Body createRoomComplaintDto: CreateRoomComplaintDto
     ): Call<Complaint>
+
+    @PATCH("complaints/{id}/details")
+    fun updateComplaintDetails(
+        @Path("id") id: Long,
+        @Body createBuildingComplaintDto: CreateBuildingComplaintDto
+    ): Call<Complaint>
+
+    @PATCH("complaints/{id}/details")
+    fun updateComplaintDetails(
+        @Path("id") id: Long,
+        @Body createFacilityComplaintDto: CreateFacilityComplaintDto
+    ): Call<Complaint>
+    // ---------------------------------------------------------------
 
     @DELETE("complaints/{id}")
     fun deleteComplaint(@Path("id") id: Long): Call<MessageResponse>
