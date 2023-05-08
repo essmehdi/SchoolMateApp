@@ -47,6 +47,7 @@
                 app:tint="@color/primary" />
 
             <TextView
+                android:id="@+id/edit_or_add_complaint_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -57,6 +58,7 @@
         </androidx.appcompat.widget.LinearLayoutCompat>
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/complaint_type_input_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
@@ -87,6 +89,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:minLines="5"
+                android:maxLength="@integer/max_complaint_description_length"
                 android:inputType="textMultiLine"/>
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -98,13 +101,11 @@
             android:layout_margin="16dp"
             app:cornerRadius="100dp"
             android:text="@string/submit_complaint"
-            android:enabled="false"
             android:backgroundTint="?attr/colorPrimary"
             android:textColor="@color/white"/>
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
     <include android:id="@+id/complaint_edit_loading" layout="@layout/loading_overlay" tools:visibility="gone" />
-    <include android:id="@+id/complaint_edit_empty" layout="@layout/loading_overlay" tools:visibility="gone" />
-
+    <include android:id="@+id/complaint_edit_empty" layout="@layout/empty_overlay" android:visibility="gone" tools:visibility="gone" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

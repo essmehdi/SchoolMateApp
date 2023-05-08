@@ -3,16 +3,18 @@ package com.github.essmehdi.schoolmate.complaints.ui
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
-import android.view.View.GONE
-import android.view.View.VISIBLE
+import android.text.InputType
+import android.util.Log
+import android.view.View.*
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.core.view.isVisible
+import androidx.core.widget.doOnTextChanged
 import com.github.essmehdi.schoolmate.R
 import com.github.essmehdi.schoolmate.complaints.api.dto.CreateBuildingComplaintDto
+import com.github.essmehdi.schoolmate.complaints.api.dto.CreateComplaintDto
 import com.github.essmehdi.schoolmate.complaints.api.dto.CreateFacilityComplaintDto
 import com.github.essmehdi.schoolmate.complaints.api.dto.CreateRoomComplaintDto
 import com.github.essmehdi.schoolmate.complaints.enumerations.BuildingProb
@@ -28,7 +30,8 @@ import com.github.essmehdi.schoolmate.shared.api.BaseResponse
 class ComplaintEditorActivity : AppCompatActivity() {
 
     companion object {
-        const val RESULT_ACTION_CREATED = 1
+        const val RESULT_ACTION_CREATED = 11
+        const val RESULT_ACTION_UPDATED = 22
     }
 
     private lateinit var binding: ActivityComplaintEditorBinding
@@ -48,6 +51,7 @@ class ComplaintEditorActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_navigation_left)
 
+        // Set up the complaint type dropdown
         autoCompleteTextViewType = binding.complaintType
         arrayAdapter = ArrayAdapter(this, R.layout.list_item_dropdown, resources.getStringArray(R.array.complaint_type_options))
         autoCompleteTextViewType!!.setAdapter(arrayAdapter)
@@ -55,7 +59,17 @@ class ComplaintEditorActivity : AppCompatActivity() {
             showFields(position)
         }
 
+        // show a toast when reaching the max length of the description field using the text watcher
+        binding.complaintDescriptionEditText.doOnTextChanged { text, _, _, _ ->
+            if(text!!.length == resources.getInteger(R.integer.max_complaint_description_length)) {
+                Toast.makeText(this, resources.getString(R.string.complaint_description_max_length), Toast.LENGTH_SHORT).show()
+            }
+        }
+
+
         if(intent.hasExtra("complaintId")) {
+            // Set the page title
+            binding.editOrAddComplaintTextView.text = resources.getString(R.string.add_edit_complaint_text_view, "Edit")
             val complaintId = intent.getLongExtra("complaintId", 0)
             viewModel.editMode.value = true
             viewModel.editId.value = complaintId
@@ -77,6 +91,9 @@ class ComplaintEditorActivity : AppCompatActivity() {
                 }
             }
         } else if(intent.hasExtra("complaint_type")){
+            showLoading(false)
+            // Set the page title
+            binding.editOrAddComplaintTextView.text = resources.getString(R.string.add_edit_complaint_text_view, "Add")
             when (intent.getStringExtra("complaint_type")) {
                 "building" -> {
                     binding.complaintType.setText(resources.getStringArray(R.array.complaint_type_options)[0], false)
@@ -91,11 +108,11 @@ class ComplaintEditorActivity : AppCompatActivity() {
                     showFields(2)
                 }
             }
-        }
-      /*  else {
+        } else { // If no complaint type is passed (shouldn't happen) set the default complaint type to building
+            showLoading(false)
             binding.complaintType.setText(resources.getStringArray(R.array.complaint_type_options)[0], false)
             showFields(0)
-        }*/
+        }
 
         binding.complaintSubmitButton.setOnClickListener{
             sendForm()
@@ -110,11 +127,21 @@ class ComplaintEditorActivity : AppCompatActivity() {
                     buttonLoading()
                 }
                 is BaseResponse.Success -> {
-                    val intent = Intent()
-                    intent.putExtra("complaintId", it.data!!.id)
-                    intent.putExtra("created", viewModel.editMode.value)
-                    setResult(RESULT_ACTION_CREATED, intent)
-                    finish()
+                    // If the complaint was edited from the details activity, return to the details activity with the result
+                    if(intent.hasExtra("source")){
+                        if(viewModel.editMode.value!!) {
+                            setResult(RESULT_ACTION_UPDATED, Intent().putExtra("complaintId", viewModel.editId.value!!))
+                        } else {
+                            setResult(RESULT_ACTION_CREATED, Intent().putExtra("complaintId", it.data!!.id))
+                        }
+                        finish()
+                    } else {
+                        // else go to the complaint details activity by starting a new intent
+                        val intent = Intent(this, ComplaintDetailsActivity::class.java)
+                        intent.putExtra("edited", viewModel.editMode.value!!)
+                        intent.putExtra("complaintId", if (viewModel.editMode.value!!) viewModel.editId.value!! else it.data!!.id)
+                        startActivity(intent)
+                    }
                 }
                 is BaseResponse.Error -> {
                     handleError(it.code!!, it.message)
@@ -124,28 +151,34 @@ class ComplaintEditorActivity : AppCompatActivity() {
     }
 
     private fun showComplaintDetails() {
-        // Set complaint type
-        autoCompleteTextViewType!!.setText(
-            when(viewModel.complaint.value?.data){
-            is BuildingComplaint -> resources.getStringArray(R.array.complaint_type_options)[0]
-            is RoomComplaint -> resources.getStringArray(R.array.complaint_type_options)[1]
-            else -> resources.getStringArray(R.array.complaint_type_options)[2] }, false)
-
-        // Set complaint details (specific to each type)
-        when (viewModel.complaint.value?.data) {
+        // Set complaint type and its details depending on the type
+        when(viewModel.complaint.value?.data){
             is BuildingComplaint -> {
+                binding.complaintType.setText(resources.getStringArray(R.array.complaint_type_options)[0], false)
+                showFields(0)
                 val complaint = viewModel.complaint.value?.data as BuildingComplaint
-                binding.buildingComplaintCard.buildingProblem.setSelection(complaint.buildingProb.ordinal)
+                binding.buildingComplaintCard.buildingProblem.setText(complaint.buildingProb.name, false)
                 binding.buildingComplaintCard.buildingEditText.setText(complaint.building)
             }
             is RoomComplaint -> {
+                binding.complaintType.setText(resources.getStringArray(R.array.complaint_type_options)[1], false)
+                showFields(1)
                 val complaint = viewModel.complaint.value?.data as RoomComplaint
-                binding.roomComplaintCard.roomProblem.setSelection(complaint.roomProb.ordinal)
+                binding.roomComplaintCard.roomProblem.setText(complaint.roomProb.name, false)
                 binding.roomComplaintCard.roomNumberEditText.setText(complaint.room)
             }
-            else -> {
+            else -> { // Facilities complaint
+                binding.complaintType.setText(resources.getStringArray(R.array.complaint_type_options)[2], false)
+                showFields(2)
                 val complaint = viewModel.complaint.value?.data as FacilitiesComplaint
-                binding.facilitiesComplaintCard.facilityType.setSelection(complaint.facilityType.ordinal)
+                binding.facilitiesComplaintCard.facilityType.setText(complaint.facilityType.name, false)
+                if(complaint.facilityType == FacilityType.CLASS) {
+                    binding.facilitiesComplaintCard.classroomNameField.visibility = VISIBLE
+                    binding.facilitiesComplaintCard.classroomNameEditText.setText(complaint.className)
+                    // the facility type shouldn't be changed in edit mode if it's a class problem
+                    // (just like in the complaint type)
+                    binding.facilitiesComplaintCard.facilityTypeInputLayout.isEnabled = false
+                }
             }
         }
         // Set complaint description
@@ -153,6 +186,10 @@ class ComplaintEditorActivity : AppCompatActivity() {
     }
 
     private fun showFields(position: Int) {
+        // If the edit mode is on, the complaint type is already set and cannot be changed
+        if(viewModel.editMode.value!!) {
+            binding.complaintTypeInputLayout.isEnabled = false
+        }
         when(position) {
             0 -> { // Building
                 binding.buildingComplaintCard.root.visibility = VISIBLE
@@ -186,6 +223,7 @@ class ComplaintEditorActivity : AppCompatActivity() {
                 }
             }
         }
+
     }
 
     private fun sendForm() {
@@ -193,23 +231,35 @@ class ComplaintEditorActivity : AppCompatActivity() {
             // Create the dto object to send
             val complaintType = autoCompleteTextViewType!!.text.toString()
             val description = binding.complaintDescriptionEditText.text.toString()
-            val dto = when(complaintType) {
+            val dto: CreateComplaintDto
+            when(complaintType) {
                 getString(R.string.building_complaint) -> {
                     val buildingProblem = autoCompleteTextViewBuilding!!.text.toString()
-                    val building = binding.buildingComplaintCard.buildingEditText.text.toString()
-                    CreateBuildingComplaintDto(building, BuildingProb.valueOf(buildingProblem), description, getString(R.string.building_complaint_type_dto))
+                    val building = binding.buildingComplaintCard.buildingEditText.text.toString().replace("\\s+".toRegex(), "")
+                    dto = CreateBuildingComplaintDto(building, BuildingProb.valueOf(buildingProblem))
+                    dto.type = getString(R.string.building_complaint_type_dto)
                 }
                 getString(R.string.room_complaint) -> {
                     val roomProblem = autoCompleteTextViewRoom!!.text.toString()
-                    val room = binding.roomComplaintCard.roomNumberEditText.text.toString()
-                    CreateRoomComplaintDto(room, RoomProb.valueOf(roomProblem), description, getString(R.string.room_complaint_type_dto))
+                    val room = binding.roomComplaintCard.roomNumberEditText.text.toString().replace("\\s+".toRegex(), "")
+                    dto = CreateRoomComplaintDto(room, RoomProb.valueOf(roomProblem))
+                    dto.type = getString(R.string.room_complaint_type_dto)
                 }
                 else -> {
                     val facilityType = autoCompleteTextViewFacility!!.text.toString()
-                    val classroomName = binding.facilitiesComplaintCard.classroomNameEditText.text.toString()
-                    CreateFacilityComplaintDto(FacilityType.valueOf(facilityType), classroomName, description, getString(R.string.facilities_complaint_type_dto))
+                    val classroomName = binding.facilitiesComplaintCard.classroomNameEditText.text.toString().replace("\\s+".toRegex(), " ")
+                    Log.d("classroomName", classroomName)
+                    // if the classroom name is not empty, send the complaint with the classroom name
+                    // we are sure that the classroom name is not empty if the facility type is class room (thanks to the validation)
+                    if(classroomName.isNotEmpty())
+                        dto = CreateFacilityComplaintDto(FacilityType.valueOf(facilityType), classroomName)
+                    else
+                        dto = CreateFacilityComplaintDto(FacilityType.valueOf(facilityType))
+                    dto.type = getString(R.string.facilities_complaint_type_dto)
                 }
             }
+            // Set the description and type
+            dto.description = description
             // Send the complaint
             if(viewModel.editMode.value!!) {
                 viewModel.editComplaint(dto)
@@ -270,8 +320,8 @@ class ComplaintEditorActivity : AppCompatActivity() {
         return valid
     }
 
-    private fun showLoading(show: Boolean = true) {
-        binding.complaintEditLoading.loadingOverlay.isVisible = show
+    private fun showLoading(show: Boolean = false) {
+       binding.complaintEditLoading.loadingOverlay.isVisible = show
     }
 
     private fun buttonLoading() {
@@ -291,8 +341,8 @@ class ComplaintEditorActivity : AppCompatActivity() {
 
     private fun handleError(code: Int, message: String?) {
         if (code == 400) {
-            //Toast.makeText(this, R.string.error_wrong_field_value, Toast.LENGTH_LONG).show()
-            Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+            Toast.makeText(this, R.string.error_wrong_field_value, Toast.LENGTH_LONG).show()
+            //Toast.makeText(this, message, Toast.LENGTH_LONG).show()
         } else {
             Toast.makeText(this, R.string.unknown_error_occurred, Toast.LENGTH_LONG).show()
         }

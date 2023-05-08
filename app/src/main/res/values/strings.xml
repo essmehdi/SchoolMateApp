@@ -179,6 +179,7 @@
     <string name="add_room_complaint">Room complaint</string>
     <string name="view_complaint_details">View complaints details</string>
     <string name="add_edit_complaint">Add or edit a complaint</string>
+    <string name="add_edit_complaint_text_view">%s a complaint</string>
     <string name="success_complaint_deletion">The complaint has been deleted</string>
     <string name="loading_complaint_deletion">Deleting complaint…</string>
     <string name="error_complaint_deletion">An error has occurred while deleting the complaint!</string>
@@ -187,7 +188,7 @@
     <string name="complaint_date">01/01/2020</string>
     <string name="complaint_status_raw">Status:</string>
     <string name="complaint_type">Building complaint</string>
-    <string name="complaint_date_raw">Created at: </string>
+    <string name="complaint_date_raw">Created: </string>
     <string name="complaint_type_raw">Type: </string>
     <string name="complaint_handler_raw">Assigned to: </string>
     <string name="complaint_handler">Rick GRIMES</string>
@@ -205,7 +206,7 @@
     <string name="complainant_name_raw">Complaint by</string>
     <string name="room_complaint">Room complaint</string>
     <string name="building_complaint">Building complaint</string>
-    <string name="facility_complaint">Facility complaint</string>
+    <string name="facility_complaint">Facilities complaint</string>
     <string name="complaint_not_editable">You can\'t edit the complaint if it\'s already assigned to someone. You can still delete your complaint if you think it is not necessary anymore. And you can also make another complaint !</string>
     <string name="label_ok">OK</string>
     <string name="complaint_details_title">Complaint details</string>
@@ -241,5 +242,7 @@
     <string name="edit_complaint">Update Complaint</string>
     <string name="submitting_complaint">Submitting complaint …</string>
     <string name="updating_complaint">Updating complaint …</string>
+    <string name="delete_complaint">Delete complaint</string>
+    <string name="complaint_description_max_length">The maximum length of the description is 255. Be more consise please!</string>
 
 </resources>

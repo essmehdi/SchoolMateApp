@@ -9,6 +9,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.github.essmehdi.schoolmate.R
+import com.github.essmehdi.schoolmate.complaints.enumerations.ComplaintStatus
 import com.github.essmehdi.schoolmate.complaints.models.BuildingComplaint
 import com.github.essmehdi.schoolmate.complaints.models.Complaint
 import com.github.essmehdi.schoolmate.complaints.models.FacilitiesComplaint
@@ -29,8 +30,8 @@ class ComplaintsListAdapter(var data: List<Complaint>?, val viewModel: Complaint
     }
 
     override fun getItemCount(): Int {
-        // show only 4 items in the list if complaintsViewModel is null (home activity)
-        if(viewModel == null && data!=null && data!!.isNotEmpty()) return 4
+        // show only 4 items in the list if complaintsViewModel is null (home activity) and there are more than 4 complaints
+        if(viewModel == null && data!=null && data!!.isNotEmpty() && data!!.size>=4) return 4
         return data?.size?: 0
     }
 
@@ -53,7 +54,7 @@ class ComplaintsListAdapter(var data: List<Complaint>?, val viewModel: Complaint
         }
 
         fun bind(complaint: Complaint) {
-            val formatter = DateTimeFormat.forPattern("yyyy-MM-dd")
+            val formatter = DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm:ss.SSSZZ")
             val date = formatter.parseDateTime(complaint.date)
             val dateText = ("Submitted " + Utils.calculatePastTime(date.toDate(), binding.root.context))
 
@@ -73,7 +74,11 @@ class ComplaintsListAdapter(var data: List<Complaint>?, val viewModel: Complaint
             binding.complaintDate.text = dateText
             binding.complaintStatus.text = complaint.status.name
             binding.complaintStatus.setTextColor(ContextCompat.getColor(binding.root.context, getStatusColor(complaint.status.name)))
-
+            binding.root.setOnClickListener {
+                val intent = Intent(binding.root.context, ComplaintDetailsActivity::class.java)
+                intent.putExtra("complaintId", complaint.id)
+                launcher?.launch(intent)
+            }
         }
 
         override fun onCreateContextMenu(
@@ -87,8 +92,11 @@ class ComplaintsListAdapter(var data: List<Complaint>?, val viewModel: Complaint
                 menu?.add(this.adapterPosition, 3, 3, binding.root.context.getString(R.string.label_complaint_item_context_menu_delete))?.setOnMenuItemClickListener(this)
                 if(data!![adapterPosition].complainant.id != viewModel.complainant.value?.id){
                     // Make the edit and delete options disabled
-                    menu?.getItem(1)?.isEnabled = false
-                    menu?.getItem(2)?.isEnabled = false
+                    menu?.getItem(1)?.isEnabled = false // edit (order 2)
+                    menu?.getItem(2)?.isEnabled = false // delete (order 3)
+                } else if(data!![adapterPosition].status != ComplaintStatus.PENDING){
+                    // Make the edit options disabled
+                    menu?.getItem(1)?.isEnabled = false // edit (order 2)
                 }
             }
         }

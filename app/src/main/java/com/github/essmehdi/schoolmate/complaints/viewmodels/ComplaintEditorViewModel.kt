@@ -1,8 +1,12 @@
 package com.github.essmehdi.schoolmate.complaints.viewmodels
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.github.essmehdi.schoolmate.complaints.api.dto.CreateBuildingComplaintDto
 import com.github.essmehdi.schoolmate.complaints.api.dto.CreateComplaintDto
+import com.github.essmehdi.schoolmate.complaints.api.dto.CreateFacilityComplaintDto
+import com.github.essmehdi.schoolmate.complaints.api.dto.CreateRoomComplaintDto
 import com.github.essmehdi.schoolmate.complaints.models.Complaint
 import com.github.essmehdi.schoolmate.shared.api.Api
 import com.github.essmehdi.schoolmate.shared.api.BaseResponse
@@ -14,11 +18,18 @@ class ComplaintEditorViewModel : ViewModel() {
     val editMode: MutableLiveData<Boolean> = MutableLiveData(false)
     val editId: MutableLiveData<Long?> = MutableLiveData(null)
     val complaint: MutableLiveData<BaseResponse<Complaint>> = MutableLiveData()
-    val editStatus: MutableLiveData<BaseResponse<Complaint>> = MutableLiveData()
+    val editStatus: MutableLiveData<BaseResponse<Complaint>> = MutableLiveData(null)
 
+    // the edit complaint needs to take as
     fun editComplaint(createComplaintDto: CreateComplaintDto){
         editStatus.value = BaseResponse.Loading()
-        Api.complaintService.updateComplaintDetails(editId.value!!, createComplaintDto).enqueue(object : retrofit2.Callback<Complaint> {
+        val apiMethod = when(createComplaintDto){
+            is CreateRoomComplaintDto -> Api.complaintService.updateComplaintDetails(editId.value!!, createComplaintDto)
+            is CreateBuildingComplaintDto -> Api.complaintService.updateComplaintDetails(editId.value!!, createComplaintDto)
+            is CreateFacilityComplaintDto -> Api.complaintService.updateComplaintDetails(editId.value!!, createComplaintDto)
+            else -> throw Exception("Invalid complaint type")
+        }
+        apiMethod.enqueue(object : Callback<Complaint> {
             override fun onResponse(call: Call<Complaint>, response: Response<Complaint>) {
                 if (response.isSuccessful) {
                     editStatus.value = BaseResponse.Success(response.body()!!)
@@ -50,7 +61,13 @@ class ComplaintEditorViewModel : ViewModel() {
 
     fun createComplaint(createComplaintDto: CreateComplaintDto){
         editStatus.value = BaseResponse.Loading()
-        Api.complaintService.createComplaint(createComplaintDto).enqueue(object : Callback<Complaint> {
+        val apiMethod = when(createComplaintDto){
+            is CreateRoomComplaintDto -> Api.complaintService.createComplaint(createComplaintDto)
+            is CreateBuildingComplaintDto -> Api.complaintService.createComplaint(createComplaintDto)
+            is CreateFacilityComplaintDto -> Api.complaintService.createComplaint(createComplaintDto)
+            else -> throw Exception("Invalid complaint type")
+        }
+        apiMethod.enqueue(object : Callback<Complaint> {
             override fun onResponse(call: Call<Complaint>, response: Response<Complaint>) {
                 if (response.isSuccessful) {
                     editStatus.value = BaseResponse.Success(response.body()!!)
@@ -59,6 +76,7 @@ class ComplaintEditorViewModel : ViewModel() {
                 }
             }
             override fun onFailure(call: Call<Complaint>, t: Throwable) {
+                Log.e("ComplaintEditor", "onFailure: ", t)
                 editStatus.value = BaseResponse.Error(0)
             }
         })

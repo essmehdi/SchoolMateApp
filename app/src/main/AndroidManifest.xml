@@ -21,8 +21,8 @@
         tools:targetApi="31">
         <activity
             android:name=".complaints.ui.ComplaintEditorActivity"
-            android:label="@string/add_edit_complaint"
-            android:parentActivityName=".complaints.ui.ComplaintsActivity"
+            android:label="@string/complaint_editor_title"
+            android:parentActivityName=".complaints.ui.ComplaintDetailsActivity"
             android:theme="@style/Theme.SchoolMate.NoActionBar"
             android:exported="false" />
         <activity

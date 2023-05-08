@@ -144,6 +144,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
+                        android:maxLines="1"
+                        android:ellipsize="end"
                         android:text="@string/complaint_type" />
 
 
@@ -227,6 +229,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
+                        android:maxLines="1"
+                        android:ellipsize="end"
                         android:text="@string/complaint_handler" />
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
@@ -260,6 +264,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
+                        android:maxLines="1"
+                        android:ellipsize="end"
                         android:text="@string/complaint_specific_problem" />
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
@@ -416,7 +422,7 @@
         android:visibility="gone"
         android:backgroundTint="@color/black"
         app:tint="@color/white"
-        android:contentDescription="@string/action_add_complaint"/>
+        android:contentDescription="@string/edit_complaint"/>
 
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -429,5 +435,5 @@
         android:visibility="gone"
         android:backgroundTint="@color/red"
         app:tint="@color/white"
-        android:contentDescription="@string/action_add_complaint"/>
+        android:contentDescription="@string/delete_complaint"/>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

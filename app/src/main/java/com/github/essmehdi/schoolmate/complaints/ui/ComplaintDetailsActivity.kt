@@ -12,13 +12,18 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import com.github.essmehdi.schoolmate.R
+import com.github.essmehdi.schoolmate.complaints.enumerations.FacilityType
 import com.github.essmehdi.schoolmate.complaints.models.BuildingComplaint
 import com.github.essmehdi.schoolmate.complaints.models.FacilitiesComplaint
 import com.github.essmehdi.schoolmate.complaints.models.RoomComplaint
+import com.github.essmehdi.schoolmate.complaints.ui.ComplaintEditorActivity.Companion.RESULT_ACTION_CREATED
+import com.github.essmehdi.schoolmate.complaints.ui.ComplaintEditorActivity.Companion.RESULT_ACTION_UPDATED
 import com.github.essmehdi.schoolmate.complaints.viewmodels.ComplaintDetailsViewModel
 import com.github.essmehdi.schoolmate.databinding.ActivityComplaintDetailsBinding
 import com.github.essmehdi.schoolmate.shared.api.BaseResponse
+import com.github.essmehdi.schoolmate.shared.utils.Utils
 import com.google.android.material.snackbar.Snackbar
+import org.joda.time.format.DateTimeFormat
 
 class ComplaintDetailsActivity : AppCompatActivity() {
 
@@ -39,14 +44,19 @@ class ComplaintDetailsActivity : AppCompatActivity() {
         supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_navigation_left)
 
         launcher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-            if (result.resultCode == RESULT_OK) {
+            if(result.resultCode == RESULT_ACTION_CREATED) {
+                viewModel.id.value = result.data?.getLongExtra("complaintId", 0)
                 viewModel.refresh()
+                Snackbar.make(binding.root, getString(R.string.complaint_created, "submitted"), Snackbar.LENGTH_SHORT).show()
+            } else if(result.resultCode == RESULT_ACTION_UPDATED) {
+                viewModel.id.value = result.data?.getLongExtra("complaintId", 0)
+                viewModel.refresh()
+                Snackbar.make(binding.root, getString(R.string.complaint_created, "updated"), Snackbar.LENGTH_SHORT).show()
             }
         }
 
         if(intent.hasExtra("complaintId")) {
             val complaintId = intent.getLongExtra("complaintId", 0)
-            Log.d("ComplaintDetails", "Complaint id: $complaintId")
             viewModel.id.value = complaintId
             viewModel.fetchCurrentComplainant()
             viewModel.getComplaint()
@@ -55,9 +65,8 @@ class ComplaintDetailsActivity : AppCompatActivity() {
                     is BaseResponse.Success -> {
                         showLoading(false)
                         showComplaintDetails()
-                        if(intent.hasExtra("created")) {
-                            Snackbar.make(binding.root, getString(R.string.complaint_created, if (intent.getBooleanExtra("created", true)) "submitted" else "updated"), Snackbar.LENGTH_SHORT).show()
-                        }
+                        if(intent.hasExtra("edited"))
+                            Snackbar.make(binding.root, getString(R.string.complaint_created, if (intent.getBooleanExtra("edited",false)) "updated" else "submitted"), Snackbar.LENGTH_SHORT).show()
                     }
                     is BaseResponse.Loading -> {
                         showLoading()
@@ -90,7 +99,9 @@ class ComplaintDetailsActivity : AppCompatActivity() {
         val complainant = complaint?.complainant?.firstName + " " + complaint?.complainant?.lastName
         binding.complainantName.text = complainant
         // Set the complaint date
-        binding.complaintDate.text = complaint?.date
+        val formatter = DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm:ss.SSSZZ")
+        val date = formatter.parseDateTime(complaint?.date)
+        binding.complaintDate.text = Utils.calculatePastTime(date.toDate(), binding.root.context)
         // Set the complaint status (color and text)
         binding.complaintStatus.text = complaint?.status?.name
         binding.complaintStatus.setTextColor(ContextCompat.getColor(binding.root.context, getStatusColor(complaint?.status?.name)))
@@ -112,8 +123,11 @@ class ComplaintDetailsActivity : AppCompatActivity() {
         } else if (complaint is FacilitiesComplaint) {
             binding.complaintType.text = getString(R.string.facility_complaint)
             binding.complaintProblem.text = complaint.facilityType.name
-            binding.facilityComplaintCard.visibility = View.VISIBLE
-            binding.complaintFacility.text = complaint.className
+            // Only show the class name if the complaint is about a class
+            if(complaint.facilityType == FacilityType.CLASS){
+                binding.facilityComplaintCard.visibility = View.VISIBLE
+                binding.complaintFacility.text = complaint.className
+            }
         }
         // Set the complaint description
         binding.complaintDescription.text = complaint?.description
@@ -130,6 +144,7 @@ class ComplaintDetailsActivity : AppCompatActivity() {
             if(viewModel.complaint.value?.data?.status?.name == "PENDING") {
                 val intent = Intent(this, ComplaintEditorActivity::class.java)
                 intent.putExtra("complaintId", viewModel.id.value)
+                intent.putExtra("source", "detailsActivity")
                 launcher.launch(intent)
             } else {
                 // show a dialog to inform the user that the complaint can't be edited
