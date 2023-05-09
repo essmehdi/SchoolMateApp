@@ -71,8 +71,7 @@ class LoginActivity : AppCompatActivity() {
           handleError(it.message, it.code!!)
         }
         is BaseResponse.Success -> {
-          restoreUI()
-          proceed()
+          viewModel.checkAuth()
         }
       }
     }

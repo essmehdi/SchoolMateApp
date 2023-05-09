@@ -8,6 +8,7 @@ import com.github.essmehdi.schoolmate.auth.api.dto.LoginResponse
 import com.github.essmehdi.schoolmate.users.models.User
 import com.github.essmehdi.schoolmate.shared.api.Api
 import com.github.essmehdi.schoolmate.shared.api.BaseResponse
+import com.onesignal.OneSignal
 import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
@@ -24,6 +25,13 @@ class LoginViewModel: ViewModel() {
       Api.authService.me().enqueue(object: Callback<User> {
         override fun onResponse(call: Call<User>, response: Response<User>) {
           authed.value = BaseResponse.Success(response.isSuccessful)
+          if (!response.isSuccessful) {
+            OneSignal.removeExternalUserId()
+            OneSignal.deleteTag("user_role")
+          } else {
+            OneSignal.setExternalUserId(response.body()!!.email)
+            OneSignal.sendTag("user_role", response.body()!!.role.name)
+          }
         }
 
         override fun onFailure(call: Call<User>, t: Throwable) {
