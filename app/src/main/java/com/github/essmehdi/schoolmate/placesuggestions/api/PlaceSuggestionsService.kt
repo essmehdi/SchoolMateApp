@@ -1,0 +1,48 @@
+package com.github.essmehdi.schoolmate.placesuggestions.api
+
+import com.github.essmehdi.schoolmate.placesuggestions.api.dto.CreateSuggestionDto
+import com.github.essmehdi.schoolmate.placesuggestions.enumerations.SuggestionType
+import com.github.essmehdi.schoolmate.placesuggestions.models.PlaceSuggestions
+import com.github.essmehdi.schoolmate.shared.api.dto.PaginatedResponse
+import retrofit2.Call
+import retrofit2.http.*
+
+interface PlaceSuggestionsService {
+    @GET("placesuggestions")
+    fun getAllSuggestions(
+        @Query("page") page: Long = 0,
+        @Query("sort") sort: String = "uploadedAt,desc",
+        @Query("type") vararg type: SuggestionType
+    ): Call<PaginatedResponse<PlaceSuggestions>>
+
+    @POST("placesuggestions")
+    fun suggestPlace(
+        @Body createSuggestionDto: CreateSuggestionDto
+    ): Call<PlaceSuggestions>
+
+    @GET("placesuggestions/user/me")
+    fun getCurrentUserSuggestions(
+        @Query("page") page: Long = 0,
+        @Query("sort") sort: String = "uploadedAt,desc",
+        @Query("type") vararg type: SuggestionType,
+        @Header("Authorization") token: String
+    ): Call<PaginatedResponse<PlaceSuggestions>>
+
+    @GET("placesuggestions/user/{id}")
+    fun getUserSuggestions(
+        @Query("page") page: Long = 0,
+        @Query("sort") sort: String = "uploadedAt,desc",
+        @Query("type") vararg type: SuggestionType,
+        @Path("id") id: Long
+    ): Call<PaginatedResponse<PlaceSuggestions>>
+
+    @GET("placesuggestions/{id}")
+    fun getSuggestion(
+        @Path("id") id: Long,
+    ): Call<PlaceSuggestions>
+
+    @DELETE("placesuggestions/{id}")
+    fun deleteSuggestion(
+        @Path("id") id: Long,
+    ): Call<Void>
+}
