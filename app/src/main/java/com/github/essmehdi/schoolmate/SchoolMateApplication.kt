@@ -1,7 +1,6 @@
 package com.github.essmehdi.schoolmate
 
 import android.app.Application
-import android.graphics.Bitmap
 import com.github.essmehdi.schoolmate.shared.api.Api
 import com.onesignal.OneSignal
 
@@ -16,7 +15,7 @@ class SchoolMateApplication: Application() {
     OneSignal.initWithContext(this)
     OneSignal.setAppId(ONESIGNAL_APP_ID)
 
-    OneSignal.promptForPushNotifications();
+    OneSignal.promptForPushNotifications()
 
     // Initialize the API
     Api.setup(applicationContext)
