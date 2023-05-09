@@ -28,6 +28,9 @@
             android:name="MAPQUEST_ACCESS_TOKEN"
             android:value="EKMpqeOlj0j6sz19ugjC8H4ORII1V57w" />
 
+        <meta-data android:name="com.onesignal.NotificationServiceExtension"
+            android:value="com.github.essmehdi.schoolmate.onesignal.NotificationsServiceExtension" />
+
         <activity
             android:name=".shared.ui.MapSelectorActivity"
             android:exported="false"
