@@ -228,4 +228,10 @@
     <string name="user_role_moderator">Moderator</string>
     <string name="user_role_adei">ADEI</string>
 
+
+    <string name="suggestions_title">Suggestions</string>
+    <string name="suggester_placeholder">Mouad EL OUARTI</string>
+    <string name="suggestion_type_placeholder">Study Place</string>
+    <string name="suggestion_description_placeholder">This is a description for a place suggestion</string>
+
 </resources>

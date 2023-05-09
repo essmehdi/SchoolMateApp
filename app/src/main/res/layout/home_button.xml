@@ -23,7 +23,7 @@
             android:id="@+id/home_button_icon"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:maxWidth="30dp"
+            android:maxWidth="20dp"
             android:maxHeight="25dp"
             android:paddingVertical="10dp"
             android:paddingHorizontal="20dp"
