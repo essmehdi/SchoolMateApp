@@ -3,6 +3,7 @@ package com.github.essmehdi.schoolmate.users.ui
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.core.view.isVisible
@@ -11,6 +12,7 @@ import com.github.essmehdi.schoolmate.databinding.ActivityUserDetailsBinding
 import com.github.essmehdi.schoolmate.shared.api.BaseResponse
 import com.github.essmehdi.schoolmate.users.adapters.UserDetailsViewPagerAdapter
 import com.github.essmehdi.schoolmate.users.models.User
+import com.github.essmehdi.schoolmate.users.models.UserRole
 import com.github.essmehdi.schoolmate.users.viewmodels.UserDetailsViewModel
 import com.google.android.material.tabs.TabLayoutMediator
 
@@ -18,6 +20,7 @@ class UserDetailsActivity : AppCompatActivity() {
 
   private lateinit var binding: ActivityUserDetailsBinding
   private val viewModel: UserDetailsViewModel by viewModels()
+  private var menu: Menu? = null
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -52,15 +55,45 @@ class UserDetailsActivity : AppCompatActivity() {
       }
     }
 
+    viewModel.showPrivilegeMenu.observe(this) { shouldShowMenu ->
+      Log.d("UserDetailsActivity", "shouldShowMenu: $shouldShowMenu")
+      menu?.findItem(R.id.user_details_menu_edit_privileges)?.apply {
+        isVisible = shouldShowMenu
+        isEnabled = shouldShowMenu
+      }
+    }
+
     setupViewPager()
   }
 
+  override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+    menuInflater.inflate(R.menu.user_details_menu, menu)
+    this.menu = menu!!
+    return true
+  }
+
   override fun onOptionsItemSelected(item: MenuItem): Boolean {
-    if (item.itemId == android.R.id.home) {
-      onBackPressedDispatcher.onBackPressed()
-      return true
+    return when (item.itemId) {
+      R.id.user_details_menu_edit_privileges_student -> {
+        viewModel.changeUserStatus(UserRole.STUDENT)
+        true
+      }
+      R.id.user_details_menu_edit_privileges_adei -> {
+        viewModel.changeUserStatus(UserRole.ADEI)
+        true
+      }
+      R.id.user_details_menu_edit_privileges_moderator -> {
+        viewModel.changeUserStatus(UserRole.MODERATOR)
+        true
+      }
+      android.R.id.home -> {
+        onBackPressedDispatcher.onBackPressed()
+        true
+      }
+      else -> {
+        super.onOptionsItemSelected(item)
+      }
     }
-    return super.onOptionsItemSelected(item)
   }
 
   private fun setupViewPager() {
@@ -74,6 +107,8 @@ class UserDetailsActivity : AppCompatActivity() {
   }
 
   private fun fillData(user: User) {
+    Log.d("UserDetailsActivity", "Fill user: $user")
+
     // Fill user data
     binding.userDetailsNameText.text = user.fullName
     binding.userDetailsEmailText.text = user.email
