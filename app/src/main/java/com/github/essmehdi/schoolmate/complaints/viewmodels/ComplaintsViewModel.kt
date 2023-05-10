@@ -89,7 +89,7 @@ class ComplaintsViewModel : UserComplaintsViewModel() {
         userComplaints.value = listOf()
         currentPage.value = null
         fetchComplaints()
-        fetchUserComplaints()
+        fetchUserComplaints("me")
     }
 
     fun changeOrder(order: String) {

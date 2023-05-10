@@ -15,6 +15,7 @@ import com.github.essmehdi.schoolmate.shared.api.interceptors.RequestLogger
 import com.github.essmehdi.schoolmate.shared.api.interceptors.SessionInjector
 import com.github.essmehdi.schoolmate.shared.api.interceptors.SessionInterceptor
 import com.github.essmehdi.schoolmate.shared.utils.RuntimeTypeAdapterFactory
+import com.github.essmehdi.schoolmate.users.api.UsersService
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -23,7 +24,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object Api {
 
-  const val BASE_URL = "http://192.168.11.100:9080/schoolmate/api/"
+  const val BASE_URL = "http://192.168.11.102:9080/schoolmate/api/"
   private lateinit var retrofit: Retrofit
 
   fun setup(context: Context) {
@@ -52,6 +53,10 @@ object Api {
       .client(okHttpClient)
       .baseUrl(BASE_URL)
       .build()
+  }
+
+  val usersService: UsersService by lazy {
+    retrofit.create(UsersService::class.java)
   }
 
   val schoolZonesService: SchoolZonesService by lazy {

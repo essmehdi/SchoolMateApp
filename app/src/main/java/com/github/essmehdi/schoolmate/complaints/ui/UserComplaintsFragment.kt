@@ -53,7 +53,7 @@ class UserComplaintsFragment : Fragment() {
                         val totalItemCount = layoutManager?.itemCount ?: 0
                         val pastVisibleItems = (layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
                         if (visibleItemCount + pastVisibleItems >= totalItemCount) {
-                            viewModel.fetchUserComplaints()
+                            viewModel.fetchUserComplaints("me")
                         }
                     }
                 }

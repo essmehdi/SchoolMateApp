@@ -244,5 +244,23 @@
     <string name="updating_complaint">Updating complaint …</string>
     <string name="delete_complaint">Delete complaint</string>
     <string name="complaint_description_max_length">The maximum length of the description is 255. Be more consise please!</string>
+    <string name="complaints_status_title">Status of the complaints</string>
+    <string name="label_complaint_filter_by_handler">Filter complaints by their handler</string>
+    <string name="label_complaint_item_context_menu_handle_complaint">Handle complaint</string>
+    <string name="label_complaint_item_context_menu_assign_complaint">Assign</string>
+    <string name="label_complaint_item_context_menu_handle_complaint_message">Are you sure you want to take care of this complaint? Once you do this, you will be responsible of solving this complaint and you can always assign it to another person. If you are ready to handle it, then GOOD LUCK!</string>
+    <string name="label_complaint_item_context_menu_handle_complaint_positive_button">Take care of it</string>
+    <string name="label_complaint_item_context_menu_handle_complaint_negative_button">Cancel</string>
+    <string name="filter_by_status">Filter complaints by status</string>
+    <string name="label_close_status_filter">Close</string>
+    <string name="handler_name_preview">Mike Ross</string>
+    <string name="handled_complaints_preview">Handled %s complaints</string>
+    <string name="see_handler_complaints">Complaints</string>
+    <string name="handlers_list_title">Complaints handlers</string>
+    <string name="complaints_handlers_icon">Complaints handlers icon</string>
+    <string name="label_clear_filter">Remove filter</string>
+    <string name="label_show_mine">My complaints</string>
+    <string name="current_user_display_word">You</string>
+    <string name="handler_changed_to_me">You are now handling this complaint !</string>
 
 </resources>

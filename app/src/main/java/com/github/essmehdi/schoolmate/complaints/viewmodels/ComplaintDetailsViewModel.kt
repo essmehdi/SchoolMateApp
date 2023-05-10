@@ -4,6 +4,8 @@ import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.github.essmehdi.schoolmate.auth.models.User
+import com.github.essmehdi.schoolmate.complaints.api.dto.EditComplaintStatusAndHandlerDto
+import com.github.essmehdi.schoolmate.complaints.enumerations.ComplaintStatus
 import com.github.essmehdi.schoolmate.complaints.models.Complaint
 import com.github.essmehdi.schoolmate.shared.api.Api
 import com.github.essmehdi.schoolmate.shared.api.BaseResponse
@@ -19,8 +21,8 @@ class ComplaintDetailsViewModel : ViewModel() {
     val complaint: MutableLiveData<BaseResponse<Complaint>> = MutableLiveData<BaseResponse<Complaint>>()
     val deleteStatus: MutableLiveData<BaseResponse<MessageResponse>?> = MutableLiveData(null)
 
-
-    val showEmpty: MediatorLiveData<Boolean> = MediatorLiveData()
+    // For the handlers - this is the edit status of the complaint when they try to change its status/assignee
+    val editStatus: MutableLiveData<BaseResponse<Complaint>> = MutableLiveData(null)
 
 
     fun getComplaint() {
@@ -63,6 +65,22 @@ class ComplaintDetailsViewModel : ViewModel() {
                 }
             }
             override fun onFailure(call: Call<User>, t: Throwable) {
+            }
+        })
+    }
+
+    fun editComplaintStautsAndHandler(editComplaintStatusAndHandlerDto: EditComplaintStatusAndHandlerDto){
+        editStatus.value = BaseResponse.Loading()
+        Api.complaintService.updateComplaintStatusAndHandler(id.value!!, editComplaintStatusAndHandlerDto).enqueue(object: Callback<Complaint> {
+            override fun onResponse(call: Call<Complaint>, response: Response<Complaint>) {
+                if (response.isSuccessful) {
+                    editStatus.value = BaseResponse.Success(response.body()!!)
+                } else {
+                    editStatus.value = BaseResponse.Error(response.code())
+                }
+            }
+            override fun onFailure(call: Call<Complaint>, t: Throwable) {
+                editStatus.value = BaseResponse.Error(0)
             }
         })
     }

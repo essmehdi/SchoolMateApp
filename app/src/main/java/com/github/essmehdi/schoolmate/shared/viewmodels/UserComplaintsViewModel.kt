@@ -30,7 +30,7 @@ open class UserComplaintsViewModel : ViewModel() {
         trackEmpty()
     }
 
-    fun fetchUserComplaints() {
+    fun fetchUserComplaints(user: String) {
         currentPageStatus.value = BaseResponse.Loading()
         if (currentPage.value?.last == true) {
             currentPageStatus.value = BaseResponse.Success(currentPage.value!!)
@@ -43,7 +43,7 @@ open class UserComplaintsViewModel : ViewModel() {
                     page=currentPage.value?.page?.plus(1) ?: 0,
                     sort = "${sortField.value},${sortOrder.value}",
                     type=complaintType.value!!,
-                    user="me")
+                    user=user)
                 .enqueue(object: Callback<PaginatedResponse<Complaint>> {
                 override fun onResponse(call: Call<PaginatedResponse<Complaint>>, response: Response<PaginatedResponse<Complaint>>) {
                     if (response.isSuccessful) {

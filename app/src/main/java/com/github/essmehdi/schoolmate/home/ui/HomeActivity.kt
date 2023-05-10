@@ -15,6 +15,7 @@ import com.github.essmehdi.schoolmate.auth.models.User
 import com.github.essmehdi.schoolmate.complaints.adapters.ComplaintsListAdapter
 import com.github.essmehdi.schoolmate.complaints.ui.ComplaintEditorActivity
 import com.github.essmehdi.schoolmate.complaints.ui.ComplaintsActivity
+import com.github.essmehdi.schoolmate.complaints.ui.HandlerComplaintsActivity
 import com.github.essmehdi.schoolmate.databinding.ActivityHomeBinding
 import com.github.essmehdi.schoolmate.documents.ui.DocumentsActivity
 import com.github.essmehdi.schoolmate.home.viewmodels.HomeViewModel
@@ -44,8 +45,13 @@ class HomeActivity : AppCompatActivity() {
       }
 
       seeAllComplaintsButton.setOnClickListener {
+        if(viewModel.user.value?.data?.role == "STUDENT") {
           val intent = Intent(this@HomeActivity, ComplaintsActivity::class.java)
           startActivity(intent)
+        } else {
+          val intent = Intent(this@HomeActivity, HandlerComplaintsActivity::class.java)
+          startActivity(intent)
+        }
       }
 
       makeComplaintButtonHome.setOnClickListener {
@@ -66,7 +72,7 @@ class HomeActivity : AppCompatActivity() {
     }
 
     // Complaints list setup -----------------------------------------------
-    viewModel.fetchUserComplaints()
+    viewModel.fetchUserComplaints(if(viewModel.user.value?.data?.role == "STUDENT") "me" else "all")
     complaintsListAdapter = ComplaintsListAdapter(listOf())
     binding.complaintsList.apply {
       adapter = complaintsListAdapter

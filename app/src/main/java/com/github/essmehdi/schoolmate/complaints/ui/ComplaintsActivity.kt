@@ -43,7 +43,7 @@ class ComplaintsActivity : AppCompatActivity() {
         }
 
         viewModel.fetchComplainant()
-        viewModel.fetchUserComplaints()
+        viewModel.fetchUserComplaints("me")
         viewModel.fetchComplaints()
 
         setupViewPager()

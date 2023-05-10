@@ -1,6 +1,7 @@
 package com.github.essmehdi.schoolmate.complaints.api
 
 import com.github.essmehdi.schoolmate.complaints.api.dto.*
+import com.github.essmehdi.schoolmate.complaints.enumerations.ComplaintStatus
 import com.github.essmehdi.schoolmate.complaints.models.Complaint
 import com.github.essmehdi.schoolmate.shared.api.dto.MessageResponse
 import com.github.essmehdi.schoolmate.shared.api.dto.PaginatedResponse
@@ -27,6 +28,19 @@ interface ComplaintService {
         @Query("type") type: String,
         @Query("user") user: String
     ): Call<PaginatedResponse<Complaint>>
+
+    @GET("complaints-by-status")
+    fun getComplaintsByStatusAndHandler(
+        @Query("page") page: Long = 0,
+        @Query("sort") sort: String = "date,desc",
+        @Query("status") status: ComplaintStatus?,
+        @Query("user") handler: String?,
+        @Query("type") type: String?
+    ): Call<PaginatedResponse<Complaint>>
+
+    @GET("complaints/count-by-handler/{id}")
+    fun getComplaintsCountByHandler(@Path("id") id: Long): Call<Int>
+
 
     @GET("complaints/{id}")
     fun getComplaintById(@Path("id") id: Long): Call<Complaint>

@@ -207,6 +207,8 @@ class ComplaintDetailsActivity : AppCompatActivity() {
         }
     }
 
+
+
     private fun showLoading(show: Boolean = true) {
         binding.complaintLoading.loadingOverlay.isVisible = show
     }
