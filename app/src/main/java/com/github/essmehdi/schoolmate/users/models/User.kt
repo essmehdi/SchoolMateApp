@@ -2,6 +2,7 @@ package com.github.essmehdi.schoolmate.users.models
 
 import androidx.annotation.StringRes
 import com.github.essmehdi.schoolmate.R
+import com.google.gson.annotations.SerializedName
 
 data class User(val id: Long, val firstName: String, val lastName: String, val email: String, val role: UserRole, val active: Boolean) {
   val fullName: String

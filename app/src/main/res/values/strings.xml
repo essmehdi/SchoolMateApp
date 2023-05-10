@@ -70,8 +70,42 @@
     <string name="home_welcome_text">Welcome,</string>
     <string name="home_firstname_placeholder">John</string>
 
+    <string name="home_avatar_menu_edit_profile">Edit profile</string>
+    <string name="home_avatar_menu_change_password">Change password</string>
     <string name="home_avatar_menu_logout">Logout</string>
     <string name="home_avatar_menu_logout_loading">Logging out…</string>
+
+    <string name="home_dialog_edit_profile_firstname">Firstname</string>
+    <string name="home_dialog_edit_profile_lastname">Lastname</string>
+    <string name="home_dialog_edit_profile_email">Email</string>
+
+    <string name="home_dialog_change_password_old_password">Old password</string>
+    <string name="home_dialog_change_password_new_password">New password</string>
+    <string name="home_dialog_change_password_confirm_password">Confirm password</string>
+
+    <string name="error_home_dialog_change_password_old_password_required">Old password is required</string>
+    <string name="error_home_dialog_change_password_new_password_required">New password is required</string>
+    <string name="error_home_dialog_change_password_confirm_password_required">Confirm password is required</string>
+    <string name="error_home_dialog_change_password_confirm_password_not_matching">Passwords do not match</string>
+
+    <string name="error_home_dialog_edit_profile_firstname_required">Firstname is required</string>
+    <string name="error_home_dialog_edit_profile_lastname_required">Lastname is required</string>
+    <string name="error_home_dialog_edit_profile_email_required">Email is required</string>
+
+    <string name="home_dialog_edit_profile_title">Edit profile</string>
+    <string name="home_dialog_change_password_title">Change password</string>
+
+    <string name="label_home_dialog_edit_button">Edit</string>
+    <string name="label_home_dialog_edit_button_loading">Editing…</string>
+
+    <string name="label_home_change_password_button">Change password</string>
+    <string name="label_home_change_password_button_loading">Changing password…</string>
+
+    <string name="home_dialog_change_password_success">Password changed successfully</string>
+    <string name="home_dialog_change_password_error">Password could not be changed. Verify your old password</string>
+
+    <string name="home_dialog_edit_profile_success">Profile edited successfully</string>
+    <string name="home_dialog_edit_profile_error">Profile could not be edited</string>
 
     <string name="alerts_title">Alerts</string>
     <string name="toolbox_title">Toolbox</string>
@@ -223,6 +257,8 @@
     <string name="user_details_tab_documents_description">User shared documents</string>
     <string name="user_details_tab_place_suggestions_title">Places</string>
     <string name="user_details_tab_place_suggestions_descriptions">Places suggested by user</string>
+
+    <string name="user_details_menu_edit_privileges">Change privilege</string>
 
     <string name="user_role_student">Student</string>
     <string name="user_role_moderator">Moderator</string>

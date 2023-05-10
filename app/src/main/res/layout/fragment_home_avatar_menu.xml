@@ -19,6 +19,22 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/home_avatar_change_password"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/home_avatar_menu_change_password"
+            app:icon="@drawable/ic_lock" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/home_avatar_edit_profile"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/home_avatar_menu_edit_profile"
+            app:icon="@drawable/ic_tag_edit" />
+
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/home_avatar_logout"
             style="@style/Widget.MaterialComponents.Button.TextButton"
             android:layout_width="match_parent"

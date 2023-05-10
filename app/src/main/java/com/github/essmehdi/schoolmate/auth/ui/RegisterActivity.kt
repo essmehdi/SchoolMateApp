@@ -170,6 +170,6 @@ class RegisterActivity : AppCompatActivity() {
 
   companion object {
     // Password regex for 1 uppercase, 1 lowercase, 1 digit, 1 special character and 8 characters minimum
-    private val PASSWORD_REGEX = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,100}$".toRegex()
+    val PASSWORD_REGEX = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,100}$".toRegex()
   }
 }

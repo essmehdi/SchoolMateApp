@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/user_details_menu_edit_privileges"
+        android:title="@string/user_details_menu_edit_privileges"
+        android:enabled="false"
+        android:visible="false">
+
+        <menu>
+            <group android:id="@+id/user_details_menu_edit_privileges_group">
+                <item
+                    android:id="@+id/user_details_menu_edit_privileges_student"
+                    android:title="@string/user_role_student" />
+                <item
+                    android:id="@+id/user_details_menu_edit_privileges_adei"
+                    android:title="@string/user_role_adei" />
+                <item
+                    android:id="@+id/user_details_menu_edit_privileges_moderator"
+                    android:title="@string/user_role_moderator" />
+            </group>
+        </menu>
+    </item>
+</menu>
