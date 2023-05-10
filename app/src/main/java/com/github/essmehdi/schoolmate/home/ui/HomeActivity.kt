@@ -45,7 +45,9 @@ class HomeActivity : AppCompatActivity() {
       }
 
       seeAllComplaintsButton.setOnClickListener {
-        if(viewModel.user.value?.data?.role == "STUDENT") {
+        // This button won't be displayed until the user's data is fetched
+        // so we don't have to check if the data is null
+        if(!viewModel.user.value?.data?.role.equals("ADEI")) {
           val intent = Intent(this@HomeActivity, ComplaintsActivity::class.java)
           startActivity(intent)
         } else {
@@ -54,9 +56,6 @@ class HomeActivity : AppCompatActivity() {
         }
       }
 
-      makeComplaintButtonHome.setOnClickListener {
-          goToComplaintEditor()
-      }
     }
 
     viewModel = ViewModelProvider(this)[HomeViewModel::class.java]
@@ -123,6 +122,17 @@ class HomeActivity : AppCompatActivity() {
   private fun handleUserSuccess(user: User) {
     binding.firstNameText.text = user.firstName
     binding.homeLoading.loadingOverlay.visibility = View.GONE
+    // set the make button visible if the user is not an ADEI
+    if(!viewModel.user.value?.data?.role.equals("ADEI")) {
+      binding.makeComplaintButtonHome.visibility = View.VISIBLE
+      binding.makeComplaintButtonHome.setOnClickListener {
+        goToComplaintEditor()
+      }
+    } else {
+      // Change the title of complaints section if the user is an ADEI
+      binding.complaintsHomeTitle.text = getString(R.string.complaints_title_handler)
+    }
+
   }
 
   private fun showEmpty(show: Boolean = true) {

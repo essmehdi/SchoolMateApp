@@ -4,16 +4,13 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.PopupMenu
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -21,7 +18,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.github.essmehdi.schoolmate.R
 import com.github.essmehdi.schoolmate.complaints.adapters.HandlerComplaintsAdapter
 import com.github.essmehdi.schoolmate.complaints.adapters.HandlersListAdapter
-import com.github.essmehdi.schoolmate.complaints.adapters.OnClickAssignHandlerListenerDissmisser
+import com.github.essmehdi.schoolmate.complaints.adapters.OnClickDissmiss
 import com.github.essmehdi.schoolmate.complaints.enumerations.ComplaintStatus
 import com.github.essmehdi.schoolmate.complaints.viewmodels.HandlerComplaintsViewModel
 import com.github.essmehdi.schoolmate.databinding.ActivityHandlerComplaintsBinding
@@ -178,7 +175,7 @@ class HandlerComplaintsActivity : AppCompatActivity() {
     private fun showHandlersPopup() {
         // Initialize the handlers list adapter
         viewModel.refreshHandlers()
-        handlersListAdapter = HandlersListAdapter(listOf(), viewModel, false)
+        handlersListAdapter = HandlersListAdapter(listOf(), viewModel)
         val popupBinding = ComplaintHandlersListBinding.inflate(layoutInflater)
         popupBinding.handlersList.apply {
             adapter = handlersListAdapter
@@ -236,8 +233,8 @@ class HandlerComplaintsActivity : AppCompatActivity() {
             dialog.dismiss()
         }
 
-        handlersListAdapter.onClickAssignHandlerListenerDissmisser = object : OnClickAssignHandlerListenerDissmisser {
-            override fun onClickAssignHandlerAndDismiss() {
+        handlersListAdapter.onClickDissmiss = object : OnClickDissmiss {
+            override fun onClickDismiss() {
                 // Dismiss the popup
                 dialog.dismiss()
             }
@@ -254,7 +251,6 @@ class HandlerComplaintsActivity : AppCompatActivity() {
         AlertDialog.Builder(this)
             .setTitle(R.string.filter_by_status)
             .setCancelable(true)
-            .setIcon(R.drawable.ic_megaphone)
             .setSingleChoiceItems(
                 items,
                 checkedItem
@@ -267,11 +263,6 @@ class HandlerComplaintsActivity : AppCompatActivity() {
             }
             .setNeutralButton(R.string.label_close_status_filter) { dialogInterface, _ ->
                 dialogInterface.dismiss()
-            }
-            .setOnDismissListener() {
-                if(viewModel.complaintStatus.value != currentStatus) {
-                    viewModel.refresh()
-                }
             }
             .create().show()
     }

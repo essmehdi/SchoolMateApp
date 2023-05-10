@@ -24,7 +24,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object Api {
 
-  const val BASE_URL = "http://192.168.11.102:9080/schoolmate/api/"
+  const val BASE_URL = "http://192.168.11.101:9080/schoolmate/api/"
   private lateinit var retrofit: Retrofit
 
   fun setup(context: Context) {

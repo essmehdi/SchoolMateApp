@@ -84,8 +84,8 @@ class HandlerComplaintsAdapter(var data: List<Complaint>, val viewModel: Handler
         ) {
             menu?.add(this.adapterPosition, 1, 1, binding.root.context.getString(R.string.label_complaint_item_context_menu_view))?.setOnMenuItemClickListener(this)
             menu?.add(this.adapterPosition, 2, 2, binding.root.context.getString(R.string.label_complaint_item_context_menu_handle_complaint))?.setOnMenuItemClickListener(this)
-            // If the complaint is already assigned to another handler, then disable the handle complaint option
-            if(data[this.adapterPosition].handler != null && data[this.adapterPosition].handler?.id != viewModel.currentHandler.value?.handler?.id){
+            // If the complaint is already assigned, disable the handle complaint option
+            if(data[this.adapterPosition].handler != null){ // Means the complaint is not pending
                 menu?.getItem(1)?.isEnabled = false // handle complaint (order 2)
             }
         }

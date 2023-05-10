@@ -30,8 +30,8 @@ class HandlerComplaintsViewModel : ViewModel() {
     val currentHandler: MutableLiveData<Handler> = MutableLiveData()
     val complaints: MutableLiveData<List<Complaint>> = MutableLiveData()
 
-    // Handlers Data (Map of handler -> complaints count)
-    val handlersList: MutableLiveData<List<Handler>> = MutableLiveData()
+    // Handlers Data (handler -> complaints count)
+    val handlersList: MutableLiveData<List<Handler>> = MutableLiveData() // Doesn't contain the current handler
     val currentHandlersPageStatus: MutableLiveData<BaseResponse<PaginatedResponse<User>>> = MutableLiveData()
     val currentHandlersPage: MutableLiveData<PaginatedResponse<User>?> = MutableLiveData()
 
@@ -147,12 +147,14 @@ class HandlerComplaintsViewModel : ViewModel() {
                                             response: Response<Int>
                                         ) {
                                             if (response.isSuccessful) {
-                                                handlersList.value = (handlersList.value ?: listOf()).plus(
-                                                    Handler(
-                                                        handler,
-                                                        response.body()!!
+                                                if(handler.id != currentHandler.value!!.handler.id){
+                                                    handlersList.value = (handlersList.value ?: listOf()).plus(
+                                                        Handler(
+                                                            handler,
+                                                            response.body()!!
+                                                        )
                                                     )
-                                                )
+                                                }
                                             }
                                         }
                                         override fun onFailure(call: Call<Int>, t: Throwable) {
@@ -164,7 +166,7 @@ class HandlerComplaintsViewModel : ViewModel() {
                         }
                     }
                     override fun onFailure(call: Call<PaginatedResponse<User>>, t: Throwable) {
-                        currentPageStatus.value = BaseResponse.Error(0)
+                        currentHandlersPageStatus.value = BaseResponse.Error(0)
                     }
                 }
                 )
@@ -189,8 +191,8 @@ class HandlerComplaintsViewModel : ViewModel() {
 
 
     fun refresh() {
-        currentPage.value = null
         complaints.value = listOf()
+        currentPage.value = null
         fetchComplaints()
     }
 

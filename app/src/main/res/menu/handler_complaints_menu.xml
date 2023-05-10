@@ -39,12 +39,12 @@
     <item
         android:id="@+id/handler_complaints_status_menu"
         android:title="@string/complaints_status_title"
-        android:icon="@drawable/ic_tag_menu"
+        android:icon="@drawable/ic_filter_menu"
         app:showAsAction="ifRoom"/>
 
     <item
         android:id="@+id/handler_complaint_menu_filter_by_handler"
         android:title="@string/label_complaint_filter_by_handler"
-        android:icon="@drawable/ic_filter_menu"
+        android:icon="@drawable/ic_users"
         app:showAsAction="ifRoom"/>
 </menu>

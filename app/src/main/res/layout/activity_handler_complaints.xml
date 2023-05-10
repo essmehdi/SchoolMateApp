@@ -24,12 +24,25 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/documents_tags_filter_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="20dp"
+        android:paddingVertical="10dp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/all_complaints_swipe_refresh"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginTop="?attr/actionBarSize">
 
-        <include android:id="@+id/handler_complaints_list"
+        <include
+            android:id="@+id/handler_complaints_list"
             layout="@layout/activity_complaints_main"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

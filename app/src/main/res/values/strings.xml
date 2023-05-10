@@ -262,5 +262,22 @@
     <string name="label_show_mine">My complaints</string>
     <string name="current_user_display_word">You</string>
     <string name="handler_changed_to_me">You are now handling this complaint !</string>
+    <string name="assign_button_text">Assign</string>
+    <string name="assign_button_description">Button to assign complaint to another user</string>
+    <string name="status_change_button_description">Button to change the complaint status</string>
+    <string name="complaint_status_change">Status</string>
+    <string name="label_complaint_item_context_menu_status_change">Change the complaint status</string>
+    <string name="impossible_status_change">You can\'t change the complaint status when it\'s not assigned to you ! You can take care of it by clicking on ASSIGN.</string>
+    <string name="label_complaint_item_context_menu_status_change_message">The complaint is currently %s! Make sure to pick the correct status so we can inform the complainant.</string>
+    <string name="label_confirm">Confirm status</string>
+    <string name="complaint_status_changed">Complaint status changed to %s</string>
+    <string name="label_cancel">Cancel</string>
+    <string name="label_complaint_item_context_menu_assign_handler">Assign Complaint</string>
+    <string name="label_complaint_item_context_menu_take_complaint_message">Are you sure you want to take care of this complaint? Once you do, you are responsible of handling it, and you can always assign to another person. And the complainant will be informed.</string>
+    <string name="label_complaint_item_context_menu_assign_handler_message">Once you assign this complaint to this person, they will be informed and you won\'t be able to make an action on this complaint. Do you want to continue?</string>
+    <string name="label_complaint_item_context_menu_assign_handler_success">The complaint is now assigned to: %s</string>
+    <string name="loading_complaint_edit">The complaint is being edited...</string>
+    <string name="label_confirm_general">Confirm</string>
+    <string name="complaints_title_handler">Recent complaints</string>
 
 </resources>

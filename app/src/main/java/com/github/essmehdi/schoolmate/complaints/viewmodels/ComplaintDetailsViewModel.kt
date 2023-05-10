@@ -1,28 +1,37 @@
 package com.github.essmehdi.schoolmate.complaints.viewmodels
 
-import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.github.essmehdi.schoolmate.auth.models.User
 import com.github.essmehdi.schoolmate.complaints.api.dto.EditComplaintStatusAndHandlerDto
-import com.github.essmehdi.schoolmate.complaints.enumerations.ComplaintStatus
 import com.github.essmehdi.schoolmate.complaints.models.Complaint
+import com.github.essmehdi.schoolmate.complaints.models.Handler
 import com.github.essmehdi.schoolmate.shared.api.Api
 import com.github.essmehdi.schoolmate.shared.api.BaseResponse
 import com.github.essmehdi.schoolmate.shared.api.dto.MessageResponse
+import com.github.essmehdi.schoolmate.shared.api.dto.PaginatedResponse
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class ComplaintDetailsViewModel : ViewModel() {
 
+    // For all users
     val id: MutableLiveData<Long> = MutableLiveData<Long>()
-    val currentComplainant: MutableLiveData<User> = MutableLiveData<User>()
+    val connectedUser: MutableLiveData<User> = MutableLiveData<User>() // The user that is connected to the app
     val complaint: MutableLiveData<BaseResponse<Complaint>> = MutableLiveData<BaseResponse<Complaint>>()
     val deleteStatus: MutableLiveData<BaseResponse<MessageResponse>?> = MutableLiveData(null)
 
     // For the handlers - this is the edit status of the complaint when they try to change its status/assignee
     val editStatus: MutableLiveData<BaseResponse<Complaint>> = MutableLiveData(null)
+
+    // For the handlers
+    val currentHandlerComplaintsCount: MutableLiveData<Long> = MutableLiveData()
+    val handlersList: MutableLiveData<List<Handler>> = MutableLiveData() // Doesn't contain the current handler
+    val currentHandlersPageStatus: MutableLiveData<BaseResponse<PaginatedResponse<User>>> = MutableLiveData()
+    val currentHandlersPage: MutableLiveData<PaginatedResponse<User>?> = MutableLiveData()
 
 
     fun getComplaint() {
@@ -61,12 +70,85 @@ class ComplaintDetailsViewModel : ViewModel() {
         Api.authService.me().enqueue(object: Callback<User> {
             override fun onResponse(call: Call<User>, response: Response<User>) {
                 if (response.isSuccessful) {
-                    currentComplainant.value = response.body()
+                    connectedUser.value = response.body()
                 }
             }
             override fun onFailure(call: Call<User>, t: Throwable) {
             }
         })
+    }
+
+    fun fetchHandlersAndComplaints() {
+
+        viewModelScope.launch {
+            Api
+                .usersService
+                .getUsers(
+                    page = currentHandlersPage.value?.page?.plus(1) ?: 0,
+                    sort = "lastName,desc",
+                    role = "ADEI"
+                ).enqueue(object : Callback<PaginatedResponse<User>> {
+                    override fun onResponse(
+                        call: Call<PaginatedResponse<User>>,
+                        response: Response<PaginatedResponse<User>>
+                    ) {
+                        if (response.isSuccessful) {
+                            currentHandlersPageStatus.value = BaseResponse.Success(response.body()!!)
+                            // As we have the list of handlers, we can fetch the complaints count for each one
+                            val handlers = response.body()!!.results
+                            handlers.forEach { handler ->
+                                Api
+                                    .complaintService
+                                    .getComplaintsCountByHandler(handler.id)
+                                    .enqueue(object : Callback<Int> {
+                                        override fun onResponse(
+                                            call: Call<Int>,
+                                            response: Response<Int>
+                                        ) {
+                                            if (response.isSuccessful) {
+                                                if(handler.id != connectedUser.value!!.id){
+                                                    handlersList.value = (handlersList.value ?: listOf()).plus(
+                                                        Handler(
+                                                            handler,
+                                                            response.body()!!
+                                                        )
+                                                    )
+                                                }
+                                            }
+                                        }
+                                        override fun onFailure(call: Call<Int>, t: Throwable) {
+                                        }
+                                    })
+                            }
+                        } else {
+                            currentHandlersPageStatus.value = BaseResponse.Error(response.code())
+                        }
+                    }
+                    override fun onFailure(call: Call<PaginatedResponse<User>>, t: Throwable) {
+                        currentHandlersPageStatus.value = BaseResponse.Error(0)
+                    }
+                }
+                )
+        }
+    }
+
+    fun fetchCurrentHandlerComplaintsCount(){
+        viewModelScope.launch {
+            // get handled complaints
+            Api.complaintService.getComplaintsCountByHandler(connectedUser.value!!.id)
+                .enqueue(object : Callback<Int> {
+                    override fun onResponse(
+                        call: Call<Int>,
+                        response: Response<Int>
+                    ) {
+                        if (response.isSuccessful) {
+                            currentHandlerComplaintsCount.value = response.body()!!.toLong()
+                        }
+                    }
+                    override fun onFailure(call: Call<Int>, t: Throwable) {
+                    }
+                })
+        }
     }
 
     fun editComplaintStautsAndHandler(editComplaintStatusAndHandlerDto: EditComplaintStatusAndHandlerDto){
@@ -83,6 +165,12 @@ class ComplaintDetailsViewModel : ViewModel() {
                 editStatus.value = BaseResponse.Error(0)
             }
         })
+    }
+
+    fun refreshHandlers() {
+        currentHandlersPage.value = null
+        handlersList.value = listOf()
+        fetchHandlersAndComplaints()
     }
 
     fun refresh() {
