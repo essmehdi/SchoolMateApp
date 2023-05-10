@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.github.essmehdi.schoolmate.users.models.User
 import com.github.essmehdi.schoolmate.shared.api.Api
 import com.github.essmehdi.schoolmate.shared.api.BaseResponse
+import com.github.essmehdi.schoolmate.shared.viewmodels.UserComplaintsViewModel
 import com.github.essmehdi.schoolmate.shared.api.dto.MessageResponse
 import com.github.essmehdi.schoolmate.users.api.dto.ChangePasswordDto
 import com.github.essmehdi.schoolmate.users.api.dto.EditUserDto
@@ -14,15 +15,15 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class HomeViewModel: ViewModel() {
+class HomeViewModel: UserComplaintsViewModel() {
   val user: MutableLiveData<BaseResponse<User>> = MutableLiveData()
   val changePasswordStatus: MutableLiveData<BaseResponse<MessageResponse>> = MutableLiveData()
 
   fun fetchUserData() {
     user.value = BaseResponse.Loading()
     viewModelScope.launch {
-      Api.authService.me().enqueue(object: Callback<User> {
-        override fun onResponse(call: Call<User>, response: Response<User>) {
+      Api.authService.me().enqueue(object: Callback<com.github.essmehdi.schoolmate.auth.models.User> {
+        override fun onResponse(call: Call<com.github.essmehdi.schoolmate.auth.models.User>, response: Response<com.github.essmehdi.schoolmate.auth.models.User>) {
           if (response.isSuccessful) {
             user.value = BaseResponse.Success(response.body()!!)
           } else {
@@ -30,7 +31,7 @@ class HomeViewModel: ViewModel() {
           }
         }
 
-        override fun onFailure(call: Call<User>, t: Throwable) {
+        override fun onFailure(call: Call<com.github.essmehdi.schoolmate.auth.models.User>, t: Throwable) {
           user.value = BaseResponse.Error(0)
         }
       })

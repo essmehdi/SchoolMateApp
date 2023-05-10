@@ -53,6 +53,30 @@
             android:exported="false"
             android:theme="@style/Theme.SchoolMate.NoActionBar" />
         <activity
+            android:name=".complaints.ui.HandlerComplaintsActivity"
+            android:exported="false"
+            android:label="@string/complaints_title"
+            android:parentActivityName=".home.ui.HomeActivity"
+            android:theme="@style/Theme.SchoolMate.NoActionBar" />
+        <activity
+            android:name=".complaints.ui.ComplaintEditorActivity"
+            android:exported="false"
+            android:label="@string/complaint_editor_title"
+            android:parentActivityName=".complaints.ui.ComplaintDetailsActivity"
+            android:theme="@style/Theme.SchoolMate.NoActionBar" />
+        <activity
+            android:name=".complaints.ui.ComplaintDetailsActivity"
+            android:exported="false"
+            android:label="@string/view_complaint_details"
+            android:parentActivityName=".complaints.ui.ComplaintsActivity"
+            android:theme="@style/Theme.SchoolMate.NoActionBar" />
+        <activity
+            android:name=".complaints.ui.ComplaintsActivity"
+            android:exported="false"
+            android:label="@string/complaints_title"
+            android:parentActivityName=".home.ui.HomeActivity"
+            android:theme="@style/Theme.SchoolMate.NoActionBar" />
+        <activity
             android:name=".documents.ui.DocumentScannerActivity"
             android:exported="false"
             android:label="@string/label_document_scanner_activity" />

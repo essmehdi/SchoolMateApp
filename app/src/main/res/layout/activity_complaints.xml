@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".complaints.ui.ComplaintsActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/complaints_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            tools:title="@string/complaints_title" />
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/complaints_tab_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/complaints_tab_layout_description"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior" />
+
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/complaints_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/complaints_view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/complaint_add_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/fab_margin"
+        android:layout_gravity="bottom|end"
+        android:src="@drawable/ic_megaphone"
+        app:tint="@color/white"
+        android:contentDescription="@string/action_add_complaint"/>
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
