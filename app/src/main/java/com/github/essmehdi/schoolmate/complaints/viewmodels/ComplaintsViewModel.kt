@@ -2,13 +2,13 @@ package com.github.essmehdi.schoolmate.complaints.viewmodels
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.github.essmehdi.schoolmate.auth.models.User
 import com.github.essmehdi.schoolmate.complaints.models.Complaint
 import com.github.essmehdi.schoolmate.shared.api.Api
 import com.github.essmehdi.schoolmate.shared.api.BaseResponse
 import com.github.essmehdi.schoolmate.shared.api.dto.MessageResponse
 import com.github.essmehdi.schoolmate.shared.api.dto.PaginatedResponse
 import com.github.essmehdi.schoolmate.shared.viewmodels.UserComplaintsViewModel
+import com.github.essmehdi.schoolmate.users.models.User
 import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback

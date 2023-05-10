@@ -37,12 +37,4 @@ interface UsersService {
   @PATCH("me/reset-password")
   fun changePassword(@Body changePasswordDto: ChangePasswordDto): Call<MessageResponse>
 
-  @GET("users")
-  fun getUsers(
-      @Query("page") page: Long = 0,
-      @Query("sort") sort: String = "date,desc",
-      @Query("search") search: String? = null,
-      @Query("email") email: String? = null,
-      @Query("role") role: String? = null
-  ): Call<PaginatedResponse<com.github.essmehdi.schoolmate.auth.models.User>>
 }

@@ -2,7 +2,6 @@ package com.github.essmehdi.schoolmate.complaints.adapters
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.util.Log
 import android.view.*
 import androidx.activity.result.ActivityResultLauncher
 import androidx.appcompat.app.AlertDialog
@@ -87,14 +86,14 @@ class ComplaintsListAdapter(var data: List<Complaint>?, val viewModel: Complaint
             menuInfo: ContextMenu.ContextMenuInfo?
         ) {
             if(viewModel != null) {
-                menu?.add(this.adapterPosition, 1, 1, binding.root.context.getString(R.string.label_complaint_item_context_menu_view))?.setOnMenuItemClickListener(this)
-                menu?.add(this.adapterPosition, 2, 2, binding.root.context.getString(R.string.label_complaint_item_context_menu_edit))?.setOnMenuItemClickListener(this)
-                menu?.add(this.adapterPosition, 3, 3, binding.root.context.getString(R.string.label_complaint_item_context_menu_delete))?.setOnMenuItemClickListener(this)
-                if(data!![adapterPosition].complainant.id != viewModel.complainant.value?.id){
+                menu?.add(this.bindingAdapterPosition, 1, 1, binding.root.context.getString(R.string.label_complaint_item_context_menu_view))?.setOnMenuItemClickListener(this)
+                menu?.add(this.bindingAdapterPosition, 2, 2, binding.root.context.getString(R.string.label_complaint_item_context_menu_edit))?.setOnMenuItemClickListener(this)
+                menu?.add(this.bindingAdapterPosition, 3, 3, binding.root.context.getString(R.string.label_complaint_item_context_menu_delete))?.setOnMenuItemClickListener(this)
+                if(data!![bindingAdapterPosition].complainant.id != viewModel.complainant.value?.id){
                     // Make the edit and delete options disabled
                     menu?.getItem(1)?.isEnabled = false // edit (order 2)
                     menu?.getItem(2)?.isEnabled = false // delete (order 3)
-                } else if(data!![adapterPosition].status != ComplaintStatus.PENDING){
+                } else if(data!![bindingAdapterPosition].status != ComplaintStatus.PENDING){
                     // Make the edit options disabled
                     menu?.getItem(1)?.isEnabled = false // edit (order 2)
                 }
@@ -102,7 +101,7 @@ class ComplaintsListAdapter(var data: List<Complaint>?, val viewModel: Complaint
         }
 
         override fun onMenuItemClick(item: MenuItem): Boolean {
-            val currentComplaint = data!![adapterPosition]
+            val currentComplaint = data!![bindingAdapterPosition]
             return when (item.order) {
                 1 -> {
                     val intent = Intent(binding.root.context, ComplaintDetailsActivity::class.java)

@@ -3,7 +3,6 @@ package com.github.essmehdi.schoolmate.complaints.ui
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -30,6 +29,7 @@ import com.github.essmehdi.schoolmate.databinding.ActivityComplaintDetailsBindin
 import com.github.essmehdi.schoolmate.databinding.ComplaintHandlersListBinding
 import com.github.essmehdi.schoolmate.shared.api.BaseResponse
 import com.github.essmehdi.schoolmate.shared.utils.Utils
+import com.github.essmehdi.schoolmate.users.models.UserRole
 import com.google.android.material.snackbar.Snackbar
 import org.joda.time.format.DateTimeFormat
 
@@ -82,7 +82,7 @@ class ComplaintDetailsActivity : AppCompatActivity() {
                     is BaseResponse.Success -> {
                         showLoading(false)
                         showComplaintDetails()
-                        if(viewModel.connectedUser.value?.role == "ADEI"){
+                        if(viewModel.connectedUser.value?.role!! == UserRole.ADEI){
                             // We need to check if the complaint is assigned to the current user
                             // If not, we need to hide the edit buttons
                             if(it.data?.handler?.id != viewModel.connectedUser.value?.id && !it.data?.status?.equals(ComplaintStatus.PENDING)!!) {
@@ -183,7 +183,7 @@ class ComplaintDetailsActivity : AppCompatActivity() {
         }
 
         // For the complaint handler, show the necessary buttons
-        if(viewModel.connectedUser.value?.role.equals("ADEI")){ //
+        if(viewModel.connectedUser.value?.role!!.equals(UserRole.ADEI)){ //
             viewModel.fetchCurrentHandlerComplaintsCount()
             if(viewModel.complaint.value?.data?.status?.name.equals("PENDING") || viewModel.complaint.value?.data?.handler?.id == viewModel.connectedUser.value!!.id) {
                 binding.complaintAssignButton.visibility = View.VISIBLE
@@ -194,14 +194,14 @@ class ComplaintDetailsActivity : AppCompatActivity() {
     }
 
     private fun setHandlerActionButtons(pending: Boolean = true) {
-        binding.complaintStatusChange.setOnClickListener(){
+        binding.complaintStatusChange.setOnClickListener {
             if(pending){
                 showImpossibleStatusChangeDialog()
             } else {
                 showStatusChangeDialog()
             }
         }
-        binding.complaintAssignButton.setOnClickListener(){
+        binding.complaintAssignButton.setOnClickListener{
             showAssignHandlersDialog()
         }
     }
@@ -411,7 +411,7 @@ class ComplaintDetailsActivity : AppCompatActivity() {
                 .setMessage(binding.root.context.getString(R.string.confirm_delete_complaint))
                 .setPositiveButton(binding.root.context.getString(R.string.label_yes)) { _, _ ->
                     // Delete the complaint
-                    viewModel?.deleteComplaint()
+                    viewModel.deleteComplaint()
                     // Go back to the previous activity
                     setResult(Companion.RESULT_ACTION_DELETED)
                     finish()

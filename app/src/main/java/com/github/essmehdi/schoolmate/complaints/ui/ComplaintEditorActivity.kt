@@ -3,7 +3,6 @@ package com.github.essmehdi.schoolmate.complaints.ui
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.InputType
 import android.util.Log
 import android.view.View.*
 import android.widget.ArrayAdapter

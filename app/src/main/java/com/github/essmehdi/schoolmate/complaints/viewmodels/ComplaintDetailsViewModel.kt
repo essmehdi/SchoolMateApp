@@ -3,7 +3,7 @@ package com.github.essmehdi.schoolmate.complaints.viewmodels
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.github.essmehdi.schoolmate.auth.models.User
+import com.github.essmehdi.schoolmate.users.models.User
 import com.github.essmehdi.schoolmate.complaints.api.dto.EditComplaintStatusAndHandlerDto
 import com.github.essmehdi.schoolmate.complaints.models.Complaint
 import com.github.essmehdi.schoolmate.complaints.models.Handler
@@ -11,6 +11,7 @@ import com.github.essmehdi.schoolmate.shared.api.Api
 import com.github.essmehdi.schoolmate.shared.api.BaseResponse
 import com.github.essmehdi.schoolmate.shared.api.dto.MessageResponse
 import com.github.essmehdi.schoolmate.shared.api.dto.PaginatedResponse
+import com.github.essmehdi.schoolmate.users.models.UserRole
 import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
@@ -83,10 +84,10 @@ class ComplaintDetailsViewModel : ViewModel() {
         viewModelScope.launch {
             Api
                 .usersService
-                .getUsers(
+                .getAllUsers(
                     page = currentHandlersPage.value?.page?.plus(1) ?: 0,
                     sort = "lastName,desc",
-                    role = "ADEI"
+                    role = UserRole.ADEI
                 ).enqueue(object : Callback<PaginatedResponse<User>> {
                     override fun onResponse(
                         call: Call<PaginatedResponse<User>>,
