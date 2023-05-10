@@ -22,8 +22,8 @@ class HomeViewModel: UserComplaintsViewModel() {
   fun fetchUserData() {
     user.value = BaseResponse.Loading()
     viewModelScope.launch {
-      Api.authService.me().enqueue(object: Callback<com.github.essmehdi.schoolmate.auth.models.User> {
-        override fun onResponse(call: Call<com.github.essmehdi.schoolmate.auth.models.User>, response: Response<com.github.essmehdi.schoolmate.auth.models.User>) {
+      Api.authService.me().enqueue(object: Callback<User> {
+        override fun onResponse(call: Call<User>, response: Response<User>) {
           if (response.isSuccessful) {
             user.value = BaseResponse.Success(response.body()!!)
           } else {
@@ -31,7 +31,7 @@ class HomeViewModel: UserComplaintsViewModel() {
           }
         }
 
-        override fun onFailure(call: Call<com.github.essmehdi.schoolmate.auth.models.User>, t: Throwable) {
+        override fun onFailure(call: Call<User>, t: Throwable) {
           user.value = BaseResponse.Error(0)
         }
       })

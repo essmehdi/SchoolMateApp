@@ -22,6 +22,9 @@ interface AuthService {
   @GET("me")
   fun me(): Call<User>
 
+  @GET("me")
+  fun tempMe(): Call<com.github.essmehdi.schoolmate.auth.models.User>
+
   @POST("logout")
   fun logout(): Call<Void>
 }

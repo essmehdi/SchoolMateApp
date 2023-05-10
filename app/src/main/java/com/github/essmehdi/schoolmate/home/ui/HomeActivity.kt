@@ -22,6 +22,7 @@ import com.github.essmehdi.schoolmate.documents.ui.DocumentsActivity
 import com.github.essmehdi.schoolmate.home.viewmodels.HomeViewModel
 import com.github.essmehdi.schoolmate.schoolnavigation.ui.SchoolNavigationActivity
 import com.github.essmehdi.schoolmate.shared.api.BaseResponse
+import com.github.essmehdi.schoolmate.users.models.UserRole
 import com.github.essmehdi.schoolmate.users.ui.UsersActivity
 
 class HomeActivity : AppCompatActivity() {
@@ -48,7 +49,7 @@ class HomeActivity : AppCompatActivity() {
       seeAllComplaintsButton.setOnClickListener {
         // This button won't be displayed until the user's data is fetched
         // so we don't have to check if the data is null
-        if(!viewModel.user.value?.data?.role.equals("ADEI")) {
+        if(viewModel.user.value?.data?.role != UserRole.ADEI) {
           val intent = Intent(this@HomeActivity, ComplaintsActivity::class.java)
           startActivity(intent)
         } else {
@@ -76,7 +77,7 @@ class HomeActivity : AppCompatActivity() {
     }
 
     // Complaints list setup -----------------------------------------------
-    viewModel.fetchUserComplaints(if(viewModel.user.value?.data?.role == "STUDENT") "me" else "all")
+    viewModel.fetchUserComplaints(if(viewModel.user.value?.data?.role == UserRole.STUDENT) "me" else "all")
     complaintsListAdapter = ComplaintsListAdapter(listOf())
     binding.complaintsList.apply {
       adapter = complaintsListAdapter
@@ -130,11 +131,11 @@ class HomeActivity : AppCompatActivity() {
 
   }
 
-  private fun handleUserSuccess(user: com.github.essmehdi.schoolmate.auth.models.User) {
+  private fun handleUserSuccess(user: User) {
     binding.firstNameText.text = user.firstName
     binding.homeLoading.loadingOverlay.visibility = View.GONE
     // set the make button visible if the user is not an ADEI
-    if(!viewModel.user.value?.data?.role.equals("ADEI")) {
+    if(viewModel.user.value?.data?.role != UserRole.ADEI) {
       binding.makeComplaintButtonHome.visibility = View.VISIBLE
       binding.makeComplaintButtonHome.setOnClickListener {
         goToComplaintEditor()
