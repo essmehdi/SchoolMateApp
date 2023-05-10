@@ -19,11 +19,16 @@
         android:usesCleartextTraffic="true"
         tools:replace="android:allowBackup"
         tools:targetApi="31">
+        <activity
+            android:name=".alerts.ui.EditAlertActivity"
+            android:exported="false" />
+        <activity
+            android:name=".alerts.ui.AddAlertActivity"
+            android:exported="false" />
 
         <meta-data
             android:name="MAPQUEST_MAPID"
             android:value="mapbox.satellite" />
-
         <meta-data
             android:name="MAPQUEST_ACCESS_TOKEN"
             android:value="EKMpqeOlj0j6sz19ugjC8H4ORII1V57w" />
@@ -31,7 +36,7 @@
         <activity
             android:name=".shared.ui.MapSelectorActivity"
             android:exported="false"
-            android:theme="@style/Theme.SchoolMate.Navigation"/>
+            android:theme="@style/Theme.SchoolMate.Navigation" />
         <activity
             android:name=".schoolnavigation.ui.SchoolZonesActivity"
             android:exported="false"
@@ -65,6 +70,7 @@
             android:theme="@style/Theme.SchoolMate.NoActionBar" />
         <activity
             android:name=".alerts.ui.AlertActivity"
+            android:parentActivityName=".home.ui.HomeActivity"
             android:exported="false" />
         <activity
             android:name=".home.ui.HomeActivity"

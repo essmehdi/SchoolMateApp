@@ -2,6 +2,7 @@ package com.github.essmehdi.schoolmate.alerts.models
 
 
 import com.github.essmehdi.schoolmate.users.models.User
+import java.io.Serializable
 
 data class Alert(val id: Long,
                  val user: User,
@@ -9,6 +10,6 @@ data class Alert(val id: Long,
                  val description: String,
                  val type: AlertType,
                  val coordinates: Point,
-                 val status: AlertStatus)
+                 val status: AlertStatus):Serializable
 
-data class Point(val x: Double, val y: Double)
+data class Point(val x: Double, val y: Double):Serializable

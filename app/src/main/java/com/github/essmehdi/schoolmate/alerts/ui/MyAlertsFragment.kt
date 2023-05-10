@@ -1,18 +1,27 @@
 package com.github.essmehdi.schoolmate.alerts.ui
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.essmehdi.schoolmate.R
 import com.github.essmehdi.schoolmate.alerts.adapters.MyAlertsListAdapter
-import com.github.essmehdi.schoolmate.alerts.viewmodels.AlertViewModel
+import com.github.essmehdi.schoolmate.alerts.adapters.OnEditMenuItemClickedListener
+import com.github.essmehdi.schoolmate.alerts.models.Alert
+import com.github.essmehdi.schoolmate.alerts.viewmodels.AlertsViewModel
+import com.github.essmehdi.schoolmate.alerts.viewmodels.MyAlertsViewModel
 import com.github.essmehdi.schoolmate.databinding.FragmentMyAlertsBinding
 import com.github.essmehdi.schoolmate.shared.api.BaseResponse
+import com.github.essmehdi.schoolmate.users.models.User
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -27,11 +36,11 @@ private const val ARG_PARAM2 = "param2"
 class MyAlertsFragment : Fragment() {
 
 
-
     private lateinit var binding: FragmentMyAlertsBinding
-    private val viewModel: AlertViewModel by viewModels()
+    private val viewModel: MyAlertsViewModel by viewModels()
+    private val ParentviewModel: AlertsViewModel by activityViewModels()
     private lateinit var alertAdapter: MyAlertsListAdapter
-
+    private lateinit var editorLauncher: ActivityResultLauncher<Intent>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,6 +49,7 @@ class MyAlertsFragment : Fragment() {
         //    param2 = it.getString(ARG_PARAM2)
         }
     }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -51,17 +61,30 @@ class MyAlertsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-       // viewModel = ViewModelProvider(this)[AlertViewModel::class.java]
+        editorLauncher=registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
+            if (it.resultCode== AppCompatActivity.RESULT_OK){
 
-        viewModel.fetchUser()
-        viewModel.user.observe(viewLifecycleOwner){
+                viewModel.loadAlerts(
+                    (ParentviewModel.user.value as BaseResponse.Success<User>).data!!.id
+                )
+            }
+        }
+
+
+        ParentviewModel.user.observe(viewLifecycleOwner){
             if (it is BaseResponse.Success){
                 viewModel.loadAlerts(it.data!!.id)
             }
-
         }
 
         alertAdapter = MyAlertsListAdapter(listOf(),viewModel,true)
+        alertAdapter.setOnEditMenuItemClickedListener(object : OnEditMenuItemClickedListener {
+            override fun onEditMenuItemClickedListener(alert: Alert) {
+                val intent=Intent(requireContext(),AddAlertActivity::class.java)
+                intent.putExtra("alert",alert)
+                editorLauncher.launch(intent)
+            }
+        })
         binding.myAlertsList.apply {
             adapter= alertAdapter
             layoutManager= LinearLayoutManager(requireContext())

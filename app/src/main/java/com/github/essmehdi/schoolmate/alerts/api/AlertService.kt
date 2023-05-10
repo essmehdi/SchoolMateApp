@@ -18,6 +18,11 @@ interface AlertService {
     fun getAllAlerts(
         @Query("page") page: Long = 0
     ): Call<PaginatedResponse<Alert>>
+
+    @GET("pendingalerts")
+    fun getPendingAlerts(
+        @Query("page") page: Long = 0
+    ): Call<PaginatedResponse<Alert>>
     @POST("alerts")
     @Headers("Content-Type: application/json")
     fun addUserAlert(@Body createAlertDto: AlertDto): Call<Alert>

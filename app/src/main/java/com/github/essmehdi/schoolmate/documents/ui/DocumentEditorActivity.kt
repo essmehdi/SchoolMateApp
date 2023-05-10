@@ -40,8 +40,7 @@ class DocumentEditorActivity : AppCompatActivity() {
 
     viewModel = ViewModelProvider(this)[DocumentEditorViewModel::class.java]
 
-    if (intent.hasExtra("document")) {
-      val doc = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+    if (intent.hasExtra("document")) { val doc = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
         intent.getSerializableExtra("document", Document::class.java)
       } else {
         intent.getSerializableExtra("document")
@@ -217,6 +216,7 @@ class DocumentEditorActivity : AppCompatActivity() {
   }
 
   private fun handleError(code: Int) {
+
     if (code == 400) {
       Toast.makeText(this, R.string.error_wrong_field_value, Toast.LENGTH_LONG).show()
     } else {

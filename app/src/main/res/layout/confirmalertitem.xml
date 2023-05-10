@@ -1,0 +1,64 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/alert_titre"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        tools:text="Titre"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/alert_description"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/alert_titre"
+        tools:text="petit titre"
+        android:textSize="14sp" />
+
+    <RelativeLayout
+        android:id="@+id/alert_sta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="10dp"
+        android:elevation="4dp"
+        android:padding="8dp">
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/confirm_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#136C64"
+                android:text="Confirm"
+                android:textColor="#FFFFFF"
+                android:textSize="14sp" />
+
+            <Button
+                android:id="@+id/cancel_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_marginStart="8dp"
+                android:backgroundTint="#801111"
+                android:text="Cancel"
+                android:textColor="#FFFFFF"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+</RelativeLayout>

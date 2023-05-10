@@ -10,16 +10,17 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.RecyclerView
 import com.github.essmehdi.schoolmate.alerts.models.Alert
-import com.github.essmehdi.schoolmate.alerts.viewmodels.AlertViewModel
-import com.github.essmehdi.schoolmate.alerts.viewmodels.PublishedAlertsFragmentViewModel
+import com.github.essmehdi.schoolmate.alerts.viewmodels.MyAlertsViewModel
 import com.github.essmehdi.schoolmate.databinding.AlertItemBinding
 
 class MyAlertsListAdapter(
+
     var data:List<Alert>?,
     val viewModel: ViewModel,
-    val shared:Boolean=false): RecyclerView.Adapter<MyAlertsListAdapter.MyAlertsListViewHolder>(){
+    val userAlerts:Boolean=false): RecyclerView.Adapter<MyAlertsListAdapter.MyAlertsListViewHolder>(){
 
 
+    lateinit var listener: OnEditMenuItemClickedListener
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -44,6 +45,9 @@ class MyAlertsListAdapter(
         this.data=data
         notifyDataSetChanged()
     }
+    fun setOnEditMenuItemClickedListener(listener: OnEditMenuItemClickedListener) {
+        this.listener = listener
+    }
     inner class MyAlertsListViewHolder(private val binding:AlertItemBinding):RecyclerView.ViewHolder(binding.root),
         View.OnCreateContextMenuListener, MenuItem.OnMenuItemClickListener {
 
@@ -64,23 +68,23 @@ class MyAlertsListAdapter(
             v: View?,
             menuInfo: ContextMenu.ContextMenuInfo?
         ) {
-            if (shared) return
+            if (!userAlerts) return
             menu?.add(Menu.NONE, 1, 1, "Modifier")?.setOnMenuItemClickListener(this)
             menu?.add(Menu.NONE, 2, 2, "Supprimer")?.setOnMenuItemClickListener(this)
 
         }
 
         override fun onMenuItemClick(item: MenuItem): Boolean {
-            val currentAlert = data!![adapterPosition]
+            val currentAlert = data!![bindingAdapterPosition]
             return when (item.itemId) {
                 1 -> {
-                    // viewModel.updateAlert(currentAlert)
+                   listener.onEditMenuItemClickedListener(currentAlert)
                     true
                 }
 
                 2 -> {
                     //cast to AlertViewModel
-                    (viewModel as AlertViewModel).deleteAlert(currentAlert)
+                    (viewModel as MyAlertsViewModel).deleteAlert(currentAlert)
                     true
 
                 }
@@ -91,7 +95,10 @@ class MyAlertsListAdapter(
 
         }
         }
+
 }
 
 
-
+interface OnEditMenuItemClickedListener {
+    fun onEditMenuItemClickedListener(alert: Alert)
+}

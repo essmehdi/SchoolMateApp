@@ -6,6 +6,7 @@ import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.github.essmehdi.schoolmate.R
+import com.github.essmehdi.schoolmate.alerts.ui.AlertActivity
 import com.github.essmehdi.schoolmate.users.models.User
 import com.github.essmehdi.schoolmate.databinding.ActivityHomeBinding
 import com.github.essmehdi.schoolmate.documents.ui.DocumentsActivity
@@ -36,6 +37,10 @@ class HomeActivity : AppCompatActivity() {
       }
       usersHomeButton.homeButtonRoot.setOnClickListener {
         val intent = Intent(this@HomeActivity, UsersActivity::class.java)
+        startActivity(intent)
+      }
+      alertsHomeButton.homeButtonRoot.setOnClickListener {
+        val intent = Intent(this@HomeActivity, AlertActivity::class.java)
         startActivity(intent)
       }
       homeAvatarCard.setOnClickListener {
