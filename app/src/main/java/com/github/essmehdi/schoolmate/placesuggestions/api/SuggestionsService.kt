@@ -1,13 +1,14 @@
 package com.github.essmehdi.schoolmate.placesuggestions.api
 
 import com.github.essmehdi.schoolmate.placesuggestions.api.dto.CreateSuggestionDto
+import com.github.essmehdi.schoolmate.placesuggestions.api.dto.EditSuggestionDto
 import com.github.essmehdi.schoolmate.placesuggestions.enumerations.SuggestionType
 import com.github.essmehdi.schoolmate.placesuggestions.models.PlaceSuggestions
 import com.github.essmehdi.schoolmate.shared.api.dto.PaginatedResponse
 import retrofit2.Call
 import retrofit2.http.*
 
-interface PlaceSuggestionsService {
+interface SuggestionsService {
     @GET("placesuggestions")
     fun getAllSuggestions(
         @Query("page") page: Long = 0,
@@ -38,6 +39,12 @@ interface PlaceSuggestionsService {
 
     @GET("placesuggestions/{id}")
     fun getSuggestion(
+        @Path("id") id: Long,
+    ): Call<PlaceSuggestions>
+
+    @PATCH("placesuggestions/{id}")
+    fun editSuggestion(
+        @Body editSuggestionDto: EditSuggestionDto,
         @Path("id") id: Long,
     ): Call<PlaceSuggestions>
 

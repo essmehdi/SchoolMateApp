@@ -5,6 +5,7 @@ import android.content.SharedPreferences
 import com.github.essmehdi.schoolmate.R
 import com.github.essmehdi.schoolmate.auth.api.AuthService
 import com.github.essmehdi.schoolmate.documents.api.DocumentsService
+import com.github.essmehdi.schoolmate.placesuggestions.api.SuggestionsService
 import com.github.essmehdi.schoolmate.schoolnavigation.api.SchoolZonesService
 import com.github.essmehdi.schoolmate.shared.api.interceptors.CookieAuthenticator
 import com.github.essmehdi.schoolmate.shared.api.interceptors.RequestLogger
@@ -52,5 +53,9 @@ object Api {
 
   val usersService: UsersService by lazy {
     retrofit.create(UsersService::class.java)
+  }
+
+  val suggestionsService: SuggestionsService by lazy{
+    retrofit.create(SuggestionsService::class.java)
   }
 }
