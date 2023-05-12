@@ -34,12 +34,12 @@ class SuggestionEditorViewModel: ViewModel() {
         }
     }
 
-    fun selectType(type: SuggestionType) {
-        selectedType.value = type
-    }
 
-    fun removeType() {
-        selectedType.value = null
+    fun loadSuggestion(id: Long){
+        uploadStatus.value = BaseResponse.Loading()
+        viewModelScope.launch {
+            Api.suggestionsService.getSuggestion(id).enqueue(requestCallback)
+        }
     }
 
     fun addSuggestion(createSuggestionDto: CreateSuggestionDto) {
