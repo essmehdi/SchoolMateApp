@@ -1,6 +1,5 @@
 package com.github.essmehdi.schoolmate.placesuggestions.viewmodels
 
-import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -37,7 +36,7 @@ class SuggestionsViewModel : ViewModel(){
         }
         viewModelScope.launch {
             //if id isn't null,
-             if (id==0.toLong())
+            val apiMethod = if (id==0.toLong())
                 Api.suggestionsService.getCurrentUserSuggestions(
                 currentPage.value?.page?.plus(1) ?: 0,
                 sort = "${sortField.value},${sortOrder.value}",
@@ -50,8 +49,27 @@ class SuggestionsViewModel : ViewModel(){
                 sort = "${sortField.value},${sortOrder.value}",
                 id = id
             )
-        }
-    }
+
+        apiMethod.enqueue(object: Callback<PaginatedResponse<PlaceSuggestions>> {
+                override fun onResponse(
+                    call: Call<PaginatedResponse<PlaceSuggestions>>,
+                    response: Response<PaginatedResponse<PlaceSuggestions>>
+                ) {
+                    if (response.isSuccessful) {
+                        currentPageStatus.value = BaseResponse.Success(response.body()!!)
+                        currentPage.value = response.body()!!
+                        suggestions.value = (suggestions.value ?: listOf()).plus(response.body()!!.results)
+                    } else {
+                        currentPageStatus.value = BaseResponse.Error(response.code())
+                    }
+                }
+
+                override fun onFailure(call: Call<PaginatedResponse<PlaceSuggestions>>, t: Throwable) {
+                    currentPageStatus.value = BaseResponse.Error(0)
+                }
+            })
+    }}
+
 
     fun deleteSuggestion(id: Long) {
         deleteStatus.value = BaseResponse.Loading()
