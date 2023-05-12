@@ -9,6 +9,7 @@ import com.github.essmehdi.schoolmate.shared.api.Api
 import com.github.essmehdi.schoolmate.shared.api.BaseResponse
 import com.github.essmehdi.schoolmate.shared.api.dto.MessageResponse
 import com.github.essmehdi.schoolmate.shared.api.dto.PaginatedResponse
+import com.github.essmehdi.schoolmate.users.models.User
 import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
@@ -25,6 +26,20 @@ class SuggestionsViewModel : ViewModel(){
 
 
     val id: MutableLiveData<Long> = MutableLiveData()
+    val currentUser: MutableLiveData<User> = MutableLiveData<User>()
+
+    fun fetchCurrentUser(){
+        Api.authService.me().enqueue(object: Callback<User> {
+            override fun onResponse(call: Call<User>, response: Response<User>) {
+                if (response.isSuccessful) {
+                    currentUser.value = response.body()
+                }
+            }
+            override fun onFailure(call: Call<User>, t: Throwable) {
+            }
+        })
+
+    }
 
     fun loadSuggestions(id: Long? = null){
 
