@@ -8,6 +8,7 @@ data class PlaceSuggestions (
     val user: User,
     val description: String,
     val type: SuggestionType,
+    val date: String,
     val coordinates: Point)
 
 data class Point (val x: Double, val y: Double)
