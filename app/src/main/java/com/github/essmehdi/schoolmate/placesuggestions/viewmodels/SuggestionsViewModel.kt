@@ -19,6 +19,7 @@ class SuggestionsViewModel : ViewModel(){
     private val sortField: MutableLiveData<String> = MutableLiveData("date")
     private val sortOrder: MutableLiveData<String> = MutableLiveData("desc")
     val suggestions: MutableLiveData<List<PlaceSuggestions>> = MutableLiveData()
+    val mysuggestions: MutableLiveData<List<PlaceSuggestions>> = MutableLiveData()
     val currentPageStatus: MutableLiveData<BaseResponse<PaginatedResponse<PlaceSuggestions>>> = MutableLiveData()
     val currentPage: MutableLiveData<PaginatedResponse<PlaceSuggestions>?> = MutableLiveData()
     val filterType: MutableLiveData<SuggestionType?> = MutableLiveData()
@@ -41,6 +42,30 @@ class SuggestionsViewModel : ViewModel(){
 
     }
 
+    fun loadCurrentUserSuggestions(){
+            Api.suggestionsService.getCurrentUserSuggestions(
+                currentPage.value?.page?.plus(1) ?: 0,
+                sort = "${sortField.value},${sortOrder.value}",
+            )
+                .enqueue(object: Callback<PaginatedResponse<PlaceSuggestions>> {
+                    override fun onResponse(
+                        call: Call<PaginatedResponse<PlaceSuggestions>>,
+                        response: Response<PaginatedResponse<PlaceSuggestions>>
+                    ) {
+                        if (response.isSuccessful) {
+                            currentPageStatus.value = BaseResponse.Success(response.body()!!)
+                            currentPage.value = response.body()!!
+                            mysuggestions.value = (suggestions.value ?: listOf()).plus(response.body()!!.results)
+                        } else {
+                            currentPageStatus.value = BaseResponse.Error(response.code())
+                        }
+                    }
+
+                    override fun onFailure(call: Call<PaginatedResponse<PlaceSuggestions>>, t: Throwable) {
+                        currentPageStatus.value = BaseResponse.Error(0)
+                    }
+                })
+    }
     fun loadSuggestions(id: Long? = null){
 
         id?.let { this.id.value = it }
@@ -51,11 +76,7 @@ class SuggestionsViewModel : ViewModel(){
         }
         viewModelScope.launch {
             //if id isn't null,
-            val apiMethod = if (id==0.toLong())
-                Api.suggestionsService.getCurrentUserSuggestions(
-                currentPage.value?.page?.plus(1) ?: 0,
-                sort = "${sortField.value},${sortOrder.value}",
-            )  else if(id == null)
+            val apiMethod =  if(id == null)
                 Api.suggestionsService.getAllSuggestions(
                 currentPage.value?.page?.plus(1) ?: 0,
                 sort = "${sortField.value},${sortOrder.value}",
