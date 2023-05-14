@@ -104,13 +104,6 @@
     <string name="label_uploading_form">Uploading…</string>
     <string name="label_editing_form">Editing…</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="alerts_title_placeholder">Alerts</string>
-    <string name="my_alerts">My alerts</string>
-    <string name="published_alerts">Published Alerts</string>
-    <string name="empty_list">There is no alerts yet</string>
-
     <string name="label_documents_menu_sort_fields">Sort by</string>
     <string name="label_documents_menu_sort_order">Order</string>
     <string name="label_documents_menu_sort_name">Name</string>

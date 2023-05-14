@@ -26,6 +26,13 @@ class AlertActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding= ActivityAlertBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        editorLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == RESULT_OK) {
+                // TODO
+            }
+        }
+
         binding.fab.setOnClickListener {
             val intent = Intent(this, AddAlertActivity::class.java)
             editorLauncher.launch(intent)
