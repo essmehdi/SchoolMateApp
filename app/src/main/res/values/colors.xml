@@ -15,6 +15,15 @@
     <color name="destructive">#EF4444</color>
     <color name="success">#22c55e</color>
     <color name="ensias">#FF0021</color>
+    <color name="destructive">#EF4444</color>
+    <color name="success">#22c55e</color>
+    <color name="ensias">#FF0021</color>
+    <color name="gray_low">#777777</color>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="black_opacity_low">#0D000000</color>
     <color name="white">#FFFFFFFF</color>
@@ -30,4 +39,8 @@
     <color name="complaint_status_resolved">#14532D</color>
     <color name="complaint_status_unresolved">#000000</color>
     <color name="red">#FF1100</color>
+
+    <color name="alerts_pending">#A85C57</color>
+    <color name="alerts_confirmed">#005503</color>
+    <color name="alerts_canceled">#8F0000</color>
 </resources>

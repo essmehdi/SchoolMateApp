@@ -3,6 +3,7 @@ package com.github.essmehdi.schoolmate.shared.api
 import android.content.Context
 import android.content.SharedPreferences
 import com.github.essmehdi.schoolmate.R
+import com.github.essmehdi.schoolmate.alerts.api.AlertService
 import com.github.essmehdi.schoolmate.auth.api.AuthService
 import com.github.essmehdi.schoolmate.complaints.api.ComplaintService
 import com.github.essmehdi.schoolmate.complaints.models.BuildingComplaint
@@ -21,7 +22,6 @@ import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-
 
 object Api {
 
@@ -62,6 +62,10 @@ object Api {
 
   val authService: AuthService by lazy {
     retrofit.create(AuthService::class.java)
+  }
+
+  val alertService: AlertService by lazy {
+    retrofit.create(AlertService::class.java)
   }
 
   val documentsService: DocumentsService by lazy {

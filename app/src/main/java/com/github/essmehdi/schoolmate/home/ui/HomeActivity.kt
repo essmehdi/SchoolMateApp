@@ -16,6 +16,7 @@ import com.github.essmehdi.schoolmate.complaints.adapters.ComplaintsListAdapter
 import com.github.essmehdi.schoolmate.complaints.ui.ComplaintEditorActivity
 import com.github.essmehdi.schoolmate.complaints.ui.ComplaintsActivity
 import com.github.essmehdi.schoolmate.complaints.ui.HandlerComplaintsActivity
+import com.github.essmehdi.schoolmate.alerts.ui.AlertActivity
 import com.github.essmehdi.schoolmate.databinding.ActivityHomeBinding
 import com.github.essmehdi.schoolmate.documents.ui.DocumentsActivity
 import com.github.essmehdi.schoolmate.home.viewmodels.HomeViewModel
@@ -61,6 +62,12 @@ class HomeActivity : AppCompatActivity() {
         val intent = Intent(this@HomeActivity, UsersActivity::class.java)
         startActivity(intent)
       }
+
+      alertsHomeButton.homeButtonRoot.setOnClickListener {
+        val intent = Intent(this@HomeActivity, AlertActivity::class.java)
+        startActivity(intent)
+      }
+
       homeAvatarCard.setOnClickListener {
         showAvatarMenu()
       }
