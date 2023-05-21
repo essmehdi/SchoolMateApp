@@ -1,17 +1,24 @@
 package com.github.essmehdi.schoolmate.alerts.adapters
 
 import android.annotation.SuppressLint
+import android.content.Intent
+import android.util.Log
 import android.view.ContextMenu
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.RecyclerView
+import com.github.essmehdi.schoolmate.R
 import com.github.essmehdi.schoolmate.alerts.models.Alert
+import com.github.essmehdi.schoolmate.alerts.ui.AlertDetailsActivity
 import com.github.essmehdi.schoolmate.alerts.viewmodels.MyAlertsViewModel
 import com.github.essmehdi.schoolmate.databinding.AlertItemBinding
+import com.github.essmehdi.schoolmate.shared.utils.Utils
+import org.joda.time.format.DateTimeFormat
 
 class MyAlertsListAdapter(
 
@@ -57,10 +64,18 @@ class MyAlertsListAdapter(
         }
 
         fun bind(alert: Alert) {
-            binding.alertTitre.text = alert.title
-            binding.alertDescription.text = alert.description
-            binding.alertStatus.text = alert.status.toString()
+            val formatter = DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm:ss.SSSZZ")
+            val dateTime = formatter.parseDateTime(alert.date)
 
+            binding.alertTitre.text = alert.title
+            binding.alertDescription.text = Utils.calculatePastTime(dateTime.toDate(), binding.root.context) ?: ""
+            binding.alertStatus.text = alert.status.toString()
+            binding.alertStatus.setTextColor(ContextCompat.getColor(binding.root.context, getColor(alert.status.toString())))
+            binding.root.setOnClickListener {
+                val intent = Intent(binding.root.context, AlertDetailsActivity::class.java)
+                intent.putExtra("alertId", alert.id)
+                binding.root.context.startActivity(intent)
+            }
         }
 
         override fun onCreateContextMenu(
@@ -75,6 +90,7 @@ class MyAlertsListAdapter(
         }
 
         override fun onMenuItemClick(item: MenuItem): Boolean {
+            Log.d("MyAlertsListAdapter", "onMenuItemClick: ${data!![bindingAdapterPosition]}")
             val currentAlert = data!![bindingAdapterPosition]
             return when (item.itemId) {
                 1 -> {
@@ -95,6 +111,17 @@ class MyAlertsListAdapter(
 
         }
         }
+
+    private fun getColor(status: String): Int {
+        return when (status) {
+            "PENDING" -> R.color.alerts_pending
+            "CONFIRMED" -> R.color.alerts_confirmed
+            "CANCELLED" -> R.color.alerts_canceled
+            else -> {
+                R.color.alerts_pending
+            }
+        }
+    }
 
 }
 

@@ -27,9 +27,13 @@ class AlertActivity : AppCompatActivity() {
         binding= ActivityAlertBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        setSupportActionBar(binding.alertsToolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_navigation_left)
+
         editorLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == RESULT_OK) {
-                // TODO
+                // TODO: refresh data
             }
         }
 

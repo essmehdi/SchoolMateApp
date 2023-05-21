@@ -246,5 +246,33 @@
     <string name="error_zone_result">could not load the location</string>
     <string name="error_type_result">Select the type</string>
     <string name="error_zone_alert_result">the zone had not been selected</string>
+    <string name="submitted_alert">Submitted</string>
+    <string name="alert_title">Titre</string>
+    <string name="status_alert_preview">Status</string>
+    <string name="confirm_alert">Confirm</string>
+    <string name="cancel_alert">Cancel</string>
+    <string name="close_map_label">Close map</string>
+    <string name="alert_details_title">Alert Title</string>
+    <string name="alert_name_raw">Alert</string>
+    <string name="complainant_name">by Zak Hachm</string>
+    <string name="action_add_alert">its an alert icon</string>
+    <string name="alert_date_icon_description">its a date icon</string>
+    <string name="alert_date_raw">Created: </string>
+    <string name="alert_date">1 hour ago</string>
+    <string name="complaint_type_icon_description">its an tree icon</string>
+    <string name="alert_type_raw">Type: </string>
+    <string name="alert_type">DANGER</string>
+    <string name="alert_status_raw">Status: </string>
+    <string name="alert_handler_raw">User:</string>
+    <string name="alert_status_icon_description">its an hourglass icon</string>
+    <string name="alert_handler"> Zak Hachm</string>
+    <string name="alert_description_class_raw">Description</string>
+    <string name="alert_description">this is the alert description</string>
+    <string name="Alert_maker_icon_description">This is the alert maker icon</string>
+    <string name="location_button_description">Show alert location icon</string>
+    <string name="assign_button_text">Show alert location</string>
+    <string name="alert_editor">Alert editor</string>
+    <string name="alert_details">Alert details</string>
+    <string name="alerts_activity">Alerts</string>
 
 </resources>

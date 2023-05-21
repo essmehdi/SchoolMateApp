@@ -3,6 +3,7 @@ package com.github.essmehdi.schoolmate.alerts.ui
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.widget.RadioButton
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
@@ -31,8 +32,13 @@ class AddAlertActivity : AppCompatActivity() {
     binding = ActivityAddAlertBinding.inflate(layoutInflater)
     setContentView(binding.root)
 
+    setSupportActionBar(binding.alertEditorToolbar)
+    supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_navigation_left)
+
     if (intent.hasExtra("alert")) {
       val alert = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+        Log.d("AddAlertActivity", "extra: " + intent.getSerializableExtra("alert", Alert::class.java))
         intent.getSerializableExtra("alert", Alert::class.java)
       } else {
         intent.getSerializableExtra("alert")
@@ -158,7 +164,7 @@ class AddAlertActivity : AppCompatActivity() {
       alertEditorNameEditText.setText(alert.title)
       alertEditorDescriptionEditText.setText(alert.description)
 
-      viewModel.selectedLocation.value = Point(alert.coordinates.x, alert.coordinates.y)
+      viewModel.selectedLocation.value = Point(alert.coordinates[0], alert.coordinates[1])
       when (alert.type) {
         AlertType.THIEVES -> {
           alertEditorAreaThievesRadioButton.isChecked = true

@@ -3,14 +3,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-
+    android:background="?attr/selectableItemBackground"
     android:padding="16dp">
 
     <TextView
         android:id="@+id/alert_titre"
-        android:layout_width="80dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:text="Titre"
+        android:text="@string/alert_title"
+        android:layout_marginTop="12dp"
+        android:maxLines="1"
+        android:ellipsize="end"
+        style="@style/TextAppearance.SchoolMate.ListItemTitle"
         android:textSize="16sp" />
 
     <TextView
@@ -18,7 +22,9 @@
         android:layout_width="80dp"
         android:layout_height="wrap_content"
         android:layout_below="@id/alert_titre"
-        tools:text="petit titre"
+        android:text="@string/submitted_alert"
+        android:maxLines="1"
+        android:ellipsize="end"
         android:textSize="14sp" />
 
     <RelativeLayout
@@ -27,7 +33,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="10dp"
         android:elevation="4dp"
         android:padding="8dp">
 
@@ -43,9 +48,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:backgroundTint="#136C64"
-                android:text="Confirm"
-                android:textColor="#FFFFFF"
-                android:textSize="14sp" />
+                android:text="@string/confirm_alert"
+                android:textColor="@color/white" />
 
             <Button
                 android:id="@+id/cancel_button"
@@ -54,9 +58,8 @@
 
                 android:layout_marginStart="8dp"
                 android:backgroundTint="#801111"
-                android:text="Cancel"
-                android:textColor="#FFFFFF"
-                android:textSize="14sp" />
+                android:text="@string/cancel_alert"
+                android:textColor="@color/white" />
 
         </LinearLayout>
 

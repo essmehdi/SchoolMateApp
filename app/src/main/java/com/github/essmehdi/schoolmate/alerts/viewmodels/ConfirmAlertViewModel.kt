@@ -91,12 +91,18 @@ class ConfirmAlertViewModel : ViewModel(){
         if (showEmpty.hasActiveObservers()) return
 
         showEmpty.addSource(alerts) {
-            showEmpty.value = it.isEmpty()&& currentPageStatus.value is BaseResponse.Success
+            showEmpty.value = it.isEmpty() == true && currentPageStatus.value is BaseResponse.Success
 
         }
         showEmpty.addSource(currentPageStatus) {
             showEmpty.value = alerts.value?.isEmpty() == true && it is BaseResponse.Success
         }
+    }
+
+    fun refresh() {
+        currentPage.value = null
+        alerts.value = listOf()
+        loadPendingAlerts()
     }
 
 }

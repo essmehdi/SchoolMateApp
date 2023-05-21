@@ -20,11 +20,17 @@
         tools:replace="android:allowBackup"
         tools:targetApi="31">
         <activity
-            android:name=".alerts.ui.EditAlertActivity"
-            android:exported="false" />
+            android:name=".alerts.ui.AlertDetailsActivity"
+            android:exported="false"
+            android:label="@string/alert_details"
+            android:parentActivityName=".alerts.ui.AlertActivity"
+            android:theme="@style/Theme.SchoolMate.NoActionBar" />
         <activity
             android:name=".alerts.ui.AddAlertActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:label="@string/alert_editor"
+            android:parentActivityName=".alerts.ui.AlertActivity"
+            android:theme="@style/Theme.SchoolMate.NoActionBar" />
 
         <meta-data
             android:name="MAPQUEST_MAPID"
@@ -70,8 +76,10 @@
             android:theme="@style/Theme.SchoolMate.NoActionBar" />
         <activity
             android:name=".alerts.ui.AlertActivity"
+            android:exported="false"
+            android:label="@string/alerts_activity"
             android:parentActivityName=".home.ui.HomeActivity"
-            android:exported="false" />
+            android:theme="@style/Theme.SchoolMate.NoActionBar" />
         <activity
             android:name=".home.ui.HomeActivity"
             android:exported="false"

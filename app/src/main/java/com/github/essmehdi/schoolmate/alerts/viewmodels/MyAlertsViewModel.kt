@@ -1,5 +1,6 @@
 package com.github.essmehdi.schoolmate.alerts.viewmodels
 
+import android.util.Log
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -52,6 +53,7 @@ class MyAlertsViewModel : ViewModel() {
             }
 
             override fun onFailure(call: retrofit2.Call<PaginatedResponse<Alert>>, t: Throwable) {
+                Log.e("Retrofit", t.message?: " ")
                 currentPageStatus.value = BaseResponse.Error(0)
             }
 
@@ -84,10 +86,16 @@ class MyAlertsViewModel : ViewModel() {
         if (showEmpty.hasActiveObservers()) return
 
         showEmpty.addSource(alerts) {
-            showEmpty.value = it.isEmpty() && currentPageStatus.value is BaseResponse.Success
+            showEmpty.value = it?.isEmpty() == true && currentPageStatus.value is BaseResponse.Success
         }
         showEmpty.addSource(currentPageStatus) {
             showEmpty.value = alerts.value?.isEmpty() == true && it is BaseResponse.Success
         }
+    }
+
+    fun refresh() {
+        currentPage.value = null
+        alerts.value = listOf()
+        loadAlerts(id.value ?: 0)
     }
 }

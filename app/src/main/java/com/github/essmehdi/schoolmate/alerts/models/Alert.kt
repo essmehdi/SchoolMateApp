@@ -9,7 +9,8 @@ data class Alert(val id: Long,
                  val title: String,
                  val description: String,
                  val type: AlertType,
-                 val coordinates: Point,
-                 val status: AlertStatus):Serializable
+                 val coordinates: List<Double>,
+                 val status: AlertStatus,
+                 val date: String):Serializable
 
 data class Point(val x: Double, val y: Double):Serializable

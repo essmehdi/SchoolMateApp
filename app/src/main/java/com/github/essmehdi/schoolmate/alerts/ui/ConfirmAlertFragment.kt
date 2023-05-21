@@ -7,12 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.essmehdi.schoolmate.R
 import com.github.essmehdi.schoolmate.alerts.adapters.ConfirmAlertsListAdapter
 import com.github.essmehdi.schoolmate.alerts.viewmodels.ConfirmAlertViewModel
 import com.github.essmehdi.schoolmate.databinding.FragmentConfirmAlertBinding
 import com.github.essmehdi.schoolmate.shared.api.BaseResponse
+import com.github.essmehdi.schoolmate.users.models.User
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -54,6 +56,7 @@ class ConfirmAlertFragment : Fragment() {
         binding.alertsList.apply {
             adapter = alertAdapter
             layoutManager = LinearLayoutManager(requireContext())
+            addItemDecoration(DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL))
         }
         binding.alertsSwipeRefresh.layoutTransition?.setAnimateParentHierarchy(false)
         viewModel.showEmpty.observe(viewLifecycleOwner){
@@ -83,6 +86,11 @@ class ConfirmAlertFragment : Fragment() {
             }
         }
 
+        binding.alertsSwipeRefresh.layoutTransition?.setAnimateParentHierarchy(false)
+        binding.alertsSwipeRefresh.setOnRefreshListener {
+            viewModel.refresh()
+            binding.alertsSwipeRefresh.isRefreshing=false
+        }
 
     }
     private fun handleError(code: Int) {

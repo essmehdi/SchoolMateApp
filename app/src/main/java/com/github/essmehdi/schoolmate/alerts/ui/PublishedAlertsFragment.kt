@@ -11,6 +11,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.essmehdi.schoolmate.R
 import com.github.essmehdi.schoolmate.alerts.adapters.MyAlertsListAdapter
@@ -65,8 +66,8 @@ class PublishedAlertsFragment : Fragment() {
         binding.myPublishedAlertsList.apply {
             adapter = alertAdapter
             layoutManager = LinearLayoutManager(requireContext())
+            addItemDecoration(DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL))
         }
-        binding.myPublishedAlertsSwipeRefresh.layoutTransition?.setAnimateParentHierarchy(false)
         viewModel.showEmpty.observe(viewLifecycleOwner){
             showEmpty(it)
         }
@@ -91,6 +92,11 @@ class PublishedAlertsFragment : Fragment() {
                 }
                 null -> {}
             }
+        }
+        binding.myPublishedAlertsSwipeRefresh.layoutTransition?.setAnimateParentHierarchy(false)
+        binding.myPublishedAlertsSwipeRefresh.setOnRefreshListener {
+            viewModel.refresh()
+            binding.myPublishedAlertsSwipeRefresh.isRefreshing = false
         }
     }
 

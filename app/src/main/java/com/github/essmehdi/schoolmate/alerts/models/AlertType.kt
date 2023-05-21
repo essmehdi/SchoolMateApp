@@ -1,5 +1,7 @@
 package com.github.essmehdi.schoolmate.alerts.models
 
-enum class AlertType {
+import java.io.Serializable
+
+enum class AlertType : Serializable {
     PHARMACY,THIEVES,LIBRARY
 }

@@ -2,6 +2,7 @@ package com.github.essmehdi.schoolmate.alerts.ui
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.essmehdi.schoolmate.R
 import com.github.essmehdi.schoolmate.alerts.adapters.MyAlertsListAdapter
@@ -80,6 +82,7 @@ class MyAlertsFragment : Fragment() {
         alertAdapter = MyAlertsListAdapter(listOf(),viewModel,true)
         alertAdapter.setOnEditMenuItemClickedListener(object : OnEditMenuItemClickedListener {
             override fun onEditMenuItemClickedListener(alert: Alert) {
+                Log.d("MyAlertsFragment", "onEditMenuItemClickedListener: " + alert.id)
                 val intent=Intent(requireContext(),AddAlertActivity::class.java)
                 intent.putExtra("alert",alert)
                 editorLauncher.launch(intent)
@@ -88,8 +91,9 @@ class MyAlertsFragment : Fragment() {
         binding.myAlertsList.apply {
             adapter= alertAdapter
             layoutManager= LinearLayoutManager(requireContext())
+            // decoration
+            addItemDecoration(DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL))
         }
-        binding.myAlertsSwipeRefresh.layoutTransition?.setAnimateParentHierarchy(false)
         viewModel.showEmpty.observe(viewLifecycleOwner){
             showEmpty(it)
         }
@@ -113,6 +117,11 @@ class MyAlertsFragment : Fragment() {
                 }
                 null -> {}
             }
+        }
+        binding.myAlertsSwipeRefresh.layoutTransition?.setAnimateParentHierarchy(false)
+        binding.myAlertsSwipeRefresh.setOnRefreshListener {
+            viewModel.refresh()
+            binding.myAlertsSwipeRefresh.isRefreshing=false
         }
     }
 

@@ -1,6 +1,8 @@
 package com.github.essmehdi.schoolmate.alerts.models
 
-enum class AlertStatus {
+import java.io.Serializable
+
+enum class AlertStatus : Serializable {
     PENDING,
     CONFIRMED,
     CANCELLED
