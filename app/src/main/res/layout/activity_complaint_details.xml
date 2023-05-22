@@ -416,9 +416,7 @@
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
-        <include android:id="@+id/complaint_loading" layout="@layout/loading_overlay" tools:visibility="gone" />
 
-        <include android:id="@+id/complaint_empty" layout="@layout/empty_overlay" android:visibility="gone" tools:visibility="gone" />
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -474,5 +472,9 @@
         android:visibility="gone"
         android:contentDescription="@string/status_change_button_description"
         android:text="@string/complaint_status_change"/>
+
+    <include android:id="@+id/complaint_details_loading" layout="@layout/loading_overlay" tools:visibility="gone" />
+
+    <include android:id="@+id/complaint_details_empty" layout="@layout/empty_overlay" android:visibility="gone" tools:visibility="gone" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
