@@ -403,12 +403,12 @@
     <string name="close_map_label">Close map</string>
     <string name="alert_details_title">Alert Title</string>
     <string name="alert_name_raw">Alert</string>
-    <string name="complainant_name">by Zak Hachm</string>
+    <string name="alert_maker_name">by Zak Hachm</string>
     <string name="action_add_alert">its an alert icon</string>
     <string name="alert_date_icon_description">its a date icon</string>
     <string name="alert_date_raw">Created: </string>
     <string name="alert_date">1 hour ago</string>
-    <string name="complaint_type_icon_description">its an tree icon</string>
+    <string name="alert_type_icon_description">Icon for alerts type</string>
     <string name="alert_type_raw">Type: </string>
     <string name="alert_type">DANGER</string>
     <string name="alert_status_raw">Status: </string>
@@ -419,7 +419,7 @@
     <string name="alert_description">this is the alert description</string>
     <string name="Alert_maker_icon_description">This is the alert maker icon</string>
     <string name="location_button_description">Show alert location icon</string>
-    <string name="assign_button_text">Show alert location</string>
+    <string name="show_alert_button_text">Show alert location</string>
     <string name="alert_editor">Alert editor</string>
     <string name="alert_details">Alert details</string>
     <string name="alerts_activity">Alerts</string>
@@ -440,5 +440,7 @@
     <string name="user_role_student">Student</string>
     <string name="user_role_moderator">Moderator</string>
     <string name="user_role_adei">ADEI</string>
+    <string name="my_alerts">My alerts</string>
+    <string name="published_alerts">Published alerts</string>
 
 </resources>

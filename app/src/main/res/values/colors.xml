@@ -15,9 +15,6 @@
     <color name="destructive">#EF4444</color>
     <color name="success">#22c55e</color>
     <color name="ensias">#FF0021</color>
-    <color name="destructive">#EF4444</color>
-    <color name="success">#22c55e</color>
-    <color name="ensias">#FF0021</color>
     <color name="gray_low">#777777</color>
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>
@@ -28,7 +25,6 @@
     <color name="black_opacity_low">#0D000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    <color name="gray_low">#777777</color>
     <color name="complaint_status_background_primary">#FFEFDC</color>
     <color name="complaint_status_background_secondary">#FFFFFF</color>
     <color name="complaint_status_pending">#FF8A00</color>

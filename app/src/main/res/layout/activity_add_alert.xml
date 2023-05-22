@@ -3,7 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
     xmlns:tools="http://schemas.android.com/tools">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -86,6 +85,8 @@
             android:id="@+id/alert_editor_area_radio_group"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
             android:orientation="horizontal">
 
             <com.google.android.material.radiobutton.MaterialRadioButton
@@ -101,7 +102,6 @@
                 style="@style/Widget.MaterialComponents.CompoundButton.RadioButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
                 android:text="@string/label_alert_editor_area_thieves_radio_button" />
 
             <com.google.android.material.radiobutton.MaterialRadioButton
@@ -109,11 +109,9 @@
                 style="@style/Widget.MaterialComponents.CompoundButton.RadioButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="50dp"
                 android:text="@string/label_alert_editor_area_library_radio_button" />
 
 
-            >
         </RadioGroup>
 
         <com.google.android.material.button.MaterialButton

@@ -42,7 +42,7 @@ class AlertDetailsActivity : AppCompatActivity() {
                 binding.alertMaker.text = it.data.user.fullName
                 binding.alertDescription.text = it.data.description
                 //clicklisner to redirect to the AlertMapFragment
-                binding.assignAlertMapButton.setOnClickListener {
+                binding.showAlertMapButton.setOnClickListener {
                     // show the map fragment
                     val fragment = AlertMapFragment(viewModel.alert.value!!.data!!.coordinates, viewModel.alert.value!!.data!!.title)
                     fragment.show(supportFragmentManager, "AlertMapFragment")
