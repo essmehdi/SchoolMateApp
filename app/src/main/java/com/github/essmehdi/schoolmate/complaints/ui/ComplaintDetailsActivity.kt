@@ -3,6 +3,7 @@ package com.github.essmehdi.schoolmate.complaints.ui
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -82,7 +83,7 @@ class ComplaintDetailsActivity : AppCompatActivity() {
                     is BaseResponse.Success -> {
                         showLoading(false)
                         showComplaintDetails()
-                        if(viewModel.connectedUser.value?.role!! == UserRole.ADEI){
+                        if(viewModel.connectedUser.value?.role == UserRole.ADEI){
                             // We need to check if the complaint is assigned to the current user
                             // If not, we need to hide the edit buttons
                             if(it.data?.handler?.id != viewModel.connectedUser.value?.id && !it.data?.status?.equals(ComplaintStatus.PENDING)!!) {
@@ -94,7 +95,8 @@ class ComplaintDetailsActivity : AppCompatActivity() {
                             Snackbar.make(binding.root, getString(R.string.complaint_created, if (intent.getBooleanExtra("edited",false)) "updated" else "submitted"), Snackbar.LENGTH_SHORT).show()
                     }
                     is BaseResponse.Loading -> {
-                        showLoading()
+                        Log.d("Loading Status", "LOADING")
+                        showLoading(true)
                     }
                     is BaseResponse.Error -> {
                         showLoading(false)
@@ -183,7 +185,7 @@ class ComplaintDetailsActivity : AppCompatActivity() {
         }
 
         // For the complaint handler, show the necessary buttons
-        if(viewModel.connectedUser.value?.role!!.equals(UserRole.ADEI)){ //
+        if(viewModel.connectedUser.value?.role == UserRole.ADEI){ //
             viewModel.fetchCurrentHandlerComplaintsCount()
             if(viewModel.complaint.value?.data?.status?.name.equals("PENDING") || viewModel.complaint.value?.data?.handler?.id == viewModel.connectedUser.value!!.id) {
                 binding.complaintAssignButton.visibility = View.VISIBLE
@@ -456,13 +458,13 @@ class ComplaintDetailsActivity : AppCompatActivity() {
 
 
     private fun showLoading(show: Boolean = true) {
-        binding.complaintLoading.loadingOverlay.isVisible = show
+        binding.complaintDetailsLoading.loadingOverlay.isVisible = show
     }
 
     private fun handleError(code: Int) {
-        binding.complaintLoading.loadingErrorMessage.text = getString(R.string.unknown_error_occurred)
-        binding.complaintLoading.loadingErrorMessage.visibility = View.VISIBLE
-        binding.complaintLoading.loadingProgressBar.visibility = View.GONE
+        binding.complaintDetailsLoading.loadingErrorMessage.text = getString(R.string.unknown_error_occurred)
+        binding.complaintDetailsLoading.loadingErrorMessage.visibility = View.VISIBLE
+        binding.complaintDetailsLoading.loadingProgressBar.visibility = View.GONE
         showLoading()
     }
 
