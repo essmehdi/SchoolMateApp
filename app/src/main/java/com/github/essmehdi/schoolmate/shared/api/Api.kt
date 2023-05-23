@@ -2,6 +2,7 @@ package com.github.essmehdi.schoolmate.shared.api
 
 import android.content.Context
 import android.content.SharedPreferences
+import com.github.essmehdi.schoolmate.BuildConfig
 import com.github.essmehdi.schoolmate.R
 import com.github.essmehdi.schoolmate.alerts.api.AlertService
 import com.github.essmehdi.schoolmate.auth.api.AuthService
@@ -25,7 +26,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object Api {
 
-  const val BASE_URL = "http://192.168.1.107:9080/schoolmate/api/"
+  val BASE_URL = if (BuildConfig.BUILD_TYPE == "debug") "http://192.168.1.111:9080/schoolmate/api/" else "https://lionfish-app-76qxk.ondigitalocean.app/schoolmate/api/"
   private lateinit var retrofit: Retrofit
 
   fun setup(context: Context) {

@@ -102,49 +102,6 @@
             android:label="@string/alert_editor"
             android:parentActivityName=".alerts.ui.AlertActivity"
             android:theme="@style/Theme.SchoolMate.NoActionBar" />
-
-        <meta-data
-            android:name="MAPQUEST_MAPID"
-            android:value="mapbox.satellite" />
-        <meta-data
-            android:name="MAPQUEST_ACCESS_TOKEN"
-            android:value="EKMpqeOlj0j6sz19ugjC8H4ORII1V57w" />
-
-        <activity
-            android:name=".shared.ui.MapSelectorActivity"
-            android:exported="false"
-            android:theme="@style/Theme.SchoolMate.Navigation" />
-        <activity
-            android:name=".schoolnavigation.ui.SchoolZonesActivity"
-            android:exported="false"
-            android:label="@string/school_zones_title" />
-        <activity
-            android:name=".users.ui.UserDetailsActivity"
-            android:exported="false"
-            android:theme="@style/Theme.SchoolMate.NoActionBar" />
-        <activity
-            android:name=".users.ui.UsersActivity"
-            android:exported="false"
-            android:label="@string/users_title"
-            android:parentActivityName=".home.ui.HomeActivity" />
-        <activity
-            android:name=".auth.ui.RegisterActivity"
-            android:exported="false"
-            android:theme="@style/Theme.SchoolMate.NoActionBar" />
-        <activity
-            android:name=".documents.ui.DocumentScannerActivity"
-            android:exported="false"
-            android:label="@string/label_document_scanner_activity" />
-        <activity
-            android:name=".documents.ui.DocumentEditorActivity"
-            android:exported="false"
-            android:label="@string/action_upload_document" />
-        <activity
-            android:name=".documents.ui.DocumentsActivity"
-            android:exported="false"
-            android:label="@string/documents_title"
-            android:parentActivityName=".home.ui.HomeActivity"
-            android:theme="@style/Theme.SchoolMate.NoActionBar" />
         <activity
             android:name=".alerts.ui.AlertActivity"
             android:exported="false"
