@@ -53,6 +53,12 @@
             android:layout_height="wrap_content"
             android:text="@string/suggestion_description_placeholder"/>
 
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/suggestion_date_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/suggestion_date_placeholder"/>
+
     </androidx.appcompat.widget.LinearLayoutCompat>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

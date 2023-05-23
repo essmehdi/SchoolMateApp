@@ -105,16 +105,15 @@
                     app:icon="@{@drawable/ic_user}"
                     app:text="@{@string/users_title}" />
 
-                <include
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="13dp"
-                    android:id="@+id/suggestions_home_button"
-                    layout="@layout/home_button"
-                    app:icon="@{@drawable/ic_suggestions}"
-                    app:text="@{@string/suggestions_title}" />
-
             </androidx.appcompat.widget.LinearLayoutCompat>
+            <include
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="13dp"
+                android:id="@+id/suggestions_home_button"
+                layout="@layout/home_button"
+                app:icon="@{@drawable/ic_suggestions}"
+                app:text="@{@string/suggestions_title}" />
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"

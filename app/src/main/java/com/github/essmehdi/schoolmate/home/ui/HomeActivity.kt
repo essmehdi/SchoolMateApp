@@ -10,6 +10,7 @@ import com.github.essmehdi.schoolmate.users.models.User
 import com.github.essmehdi.schoolmate.databinding.ActivityHomeBinding
 import com.github.essmehdi.schoolmate.documents.ui.DocumentsActivity
 import com.github.essmehdi.schoolmate.home.viewmodels.HomeViewModel
+import com.github.essmehdi.schoolmate.placesuggestions.ui.SuggestionsActivity
 import com.github.essmehdi.schoolmate.schoolnavigation.ui.SchoolNavigationActivity
 import com.github.essmehdi.schoolmate.shared.api.BaseResponse
 import com.github.essmehdi.schoolmate.users.ui.UsersActivity
@@ -35,6 +36,10 @@ class HomeActivity : AppCompatActivity() {
       }
       usersHomeButton.homeButtonRoot.setOnClickListener {
         val intent = Intent(this@HomeActivity, UsersActivity::class.java)
+        startActivity(intent)
+      }
+      suggestionsHomeButton.homeButtonRoot.setOnClickListener {
+        val intent = Intent(this@HomeActivity, SuggestionsActivity::class.java)
         startActivity(intent)
       }
       homeAvatarCard.setOnClickListener {

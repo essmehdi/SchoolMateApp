@@ -17,4 +17,5 @@
     <color name="ensias">#FF0021</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="gray_low">#777777</color>
 </resources>

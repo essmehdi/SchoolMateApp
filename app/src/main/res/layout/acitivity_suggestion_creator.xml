@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="30dp"
+        tools:context=".placesuggestions.ui.SuggestionEditorActivity">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/linearLayoutCompat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/suggestion_creator_title"
+                android:layout_gravity="center"
+                android:textSize="30sp"
+                android:textColor="@color/primary"
+                android:textStyle="bold"
+                android:layout_marginBottom="50dp"
+                android:padding="50dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/suggestion_creator_type_title"
+                android:text="@string/suggestion_add_title_type"
+                android:textSize="20sp"
+                android:layout_gravity="center"
+                android:textColor="#000000"
+                android:textStyle="bold"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                >
+                <RadioGroup
+                    android:id="@+id/alert_creator_area_radio_group"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_gravity="center">
+
+                    <com.google.android.material.radiobutton.MaterialRadioButton
+                        android:id="@+id/suggestion_creator_study_type_radio_button"
+                        style="@style/Widget.MaterialComponents.CompoundButton.RadioButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="true"
+                        android:buttonTint="@color/primary"
+                        android:text="@string/suggestion_editor_study_type" />
+
+                    <com.google.android.material.radiobutton.MaterialRadioButton
+                        android:id="@+id/suggestion_creator_entertainment_radio_button"
+                        style="@style/Widget.MaterialComponents.CompoundButton.RadioButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="100dp"
+                        android:buttonTint="@color/primary"
+                        android:text="@string/suggestion_editor_entertainment_type" />
+                </RadioGroup>
+
+                <RadioGroup
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_gravity="center">
+                    <com.google.android.material.radiobutton.MaterialRadioButton
+                        android:id="@+id/suggestion_creator_food_type_radio_button"
+                        style="@style/Widget.MaterialComponents.CompoundButton.RadioButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:buttonTint="@color/primary"
+                        android:text="@string/suggestion_editor_food_type" />
+
+                    <RadioButton
+                        android:id="@+id/suggestion_creator_Other_radio_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="104dp"
+                        android:buttonTint="@color/primary"
+                        android:text="@string/suggestion_editor_Other_type" />
+                </RadioGroup>
+            </LinearLayout>
+
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/alert_creator_area_change_button"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/label_suggestion_location"
+                android:textStyle="bold"/>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/suggestion_description_edittext_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:hint="@string/label_suggestion_description"
+                app:boxBackgroundColor="@color/primary_transparent">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/suggestion_description_edittext"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/document_upload_form_send_button"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="104dp"
+                android:backgroundTint="?attr/colorPrimary"
+                android:padding="17dp"
+                android:text="@string/action_send_suggestion_form"
+                android:textStyle="bold"
+                app:cornerRadius="@dimen/button_corners_round"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.497"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_gravity="center"
+                android:layout_marginTop="60dp"/>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

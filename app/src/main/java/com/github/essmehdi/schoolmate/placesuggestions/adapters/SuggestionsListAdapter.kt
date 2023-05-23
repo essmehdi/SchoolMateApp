@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.view.ContextMenu
 import android.view.LayoutInflater
-import android.view.Menu
 import android.view.MenuItem
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -18,6 +17,7 @@ import com.github.essmehdi.schoolmate.R
 import com.github.essmehdi.schoolmate.placesuggestions.models.PlaceSuggestions
 import com.github.essmehdi.schoolmate.placesuggestions.ui.SuggestionDetailsActivity
 import com.github.essmehdi.schoolmate.placesuggestions.ui.SuggestionEditorActivity
+import com.github.essmehdi.schoolmate.placesuggestions.ui.SuggestionsActivity
 import com.github.essmehdi.schoolmate.placesuggestions.viewmodels.SuggestionsViewModel
 import com.github.essmehdi.schoolmate.shared.utils.Utils
 import com.github.essmehdi.schoolmate.users.models.UserRole
@@ -56,11 +56,11 @@ class SuggestionsListAdapter(var data: List<PlaceSuggestions>, var viewModel: Su
             binding.suggestionDateText.text =
                 Utils.calculatePastTime(dateTime.toDate(), binding.root.context) ?: ""
             binding.suggesterText.text = suggestion.user.fullName
-            binding.suggestionTypeText.text = suggestion.type.toString()
+            binding.suggestionTypeText.text = suggestion.suggestiontype.name
             binding.suggestionDescriptionText.text = suggestion.description
             binding.root.setOnClickListener {
                 val intent = Intent(binding.root.context, SuggestionDetailsActivity::class.java)
-                intent.putExtra("suggestionId", suggestion.id)
+                intent.putExtra("id", suggestion.id)
                 launcher?.launch(intent)
             }
         }
@@ -77,8 +77,8 @@ class SuggestionsListAdapter(var data: List<PlaceSuggestions>, var viewModel: Su
                 )?.setOnMenuItemClickListener(this)
                 if (data!![bindingAdapterPosition].user.id != viewModel!!.currentUser.value?.id) {
                     //make the delete button available to the suggester and moderator, and edit to the suggester
-                    if(data!![bindingAdapterPosition].user.role!=UserRole.MODERATOR){menu?.getItem(2)?.isEnabled = false }// delete (order 3)
-                    menu?.getItem(1)?.isEnabled = false // edit (order 2)
+                    if(data!![bindingAdapterPosition].user.role!=UserRole.MODERATOR){menu?.getItem(1)?.isEnabled = false }// delete (order 2)
+                    menu?.getItem(0)?.isEnabled = false // edit (order 2)
                 }
             }
 
@@ -89,7 +89,7 @@ class SuggestionsListAdapter(var data: List<PlaceSuggestions>, var viewModel: Su
             return when (item.order){
                 1 -> {
                     val intent = Intent(binding.root.context, SuggestionEditorActivity::class.java)
-                    intent.putExtra("suggestionId", currentSuggestion.id)
+                    intent.putExtra("id", currentSuggestion.id)
                     launcher?.launch(intent)
                     true
                 }
@@ -100,6 +100,7 @@ class SuggestionsListAdapter(var data: List<PlaceSuggestions>, var viewModel: Su
                     builder.setPositiveButton(binding.root.context.getString(R.string.label_suggestion_yes)) { _, _ ->
                         // Delete the complaint
                         viewModel?.deleteSuggestion(currentSuggestion.id!!)
+                        viewModel?.refresh()
                     }
                     builder.setNegativeButton(binding.root.context.getString(R.string.label_suggestion_no)) { dialog, _ ->
                         // Dismiss the dialog

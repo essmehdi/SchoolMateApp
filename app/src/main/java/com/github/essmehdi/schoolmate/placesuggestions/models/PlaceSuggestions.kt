@@ -7,7 +7,7 @@ data class PlaceSuggestions (
     val id: Long,
     val user: User,
     val description: String,
-    val type: SuggestionType,
+    val suggestiontype: SuggestionType,
     val date: String,
     val coordinates: Point)
 
