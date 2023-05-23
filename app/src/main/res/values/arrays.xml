@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="complaint_type_options">
+        <item>Building complaint</item>
+        <item>Room complaint</item>
+        <item>Facilities complaint</item>
+    </string-array>
+</resources>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/complaints_main_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="?attr/actionBarSize"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/complaints_list_main"
+        tools:listitem="@layout/complaint_item"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+
+    <include android:id="@+id/complaints_loading" layout="@layout/loading_overlay" tools:visibility="gone" />
+
+    <include android:id="@+id/complaints_empty" layout="@layout/empty_overlay" android:visibility="gone" tools:visibility="gone" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

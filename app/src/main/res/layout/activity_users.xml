@@ -26,5 +26,7 @@
             layout="@layout/loading_overlay"
             tools:visibility="gone" />
 
+        <include android:id="@+id/users_empty" layout="@layout/empty_overlay" android:visibility="gone" tools:visibility="gone" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

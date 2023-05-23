@@ -27,6 +27,9 @@
         <meta-data
             android:name="MAPQUEST_ACCESS_TOKEN"
             android:value="EKMpqeOlj0j6sz19ugjC8H4ORII1V57w" />
+      
+       <meta-data android:name="com.onesignal.NotificationServiceExtension"
+            android:value="com.github.essmehdi.schoolmate.onesignal.NotificationsServiceExtension" />
 
         <activity android:name=".placesuggestions.ui.SuggestionsActivity"
             android:exported="false"
@@ -45,9 +48,6 @@
             android:label="@string/suggestions_editor"
             android:parentActivityName=".placesuggestions.ui.SuggestionsActivity"
             android:theme="@style/Theme.SchoolMate.NoActionBar"/>
-
-
-
         <activity
             android:name=".shared.ui.MapSelectorActivity"
             android:exported="false"
@@ -70,6 +70,30 @@
             android:exported="false"
             android:theme="@style/Theme.SchoolMate.NoActionBar" />
         <activity
+            android:name=".complaints.ui.HandlerComplaintsActivity"
+            android:exported="false"
+            android:label="@string/complaints_title"
+            android:parentActivityName=".home.ui.HomeActivity"
+            android:theme="@style/Theme.SchoolMate.NoActionBar" />
+        <activity
+            android:name=".complaints.ui.ComplaintEditorActivity"
+            android:exported="false"
+            android:label="@string/complaint_editor_title"
+            android:parentActivityName=".complaints.ui.ComplaintDetailsActivity"
+            android:theme="@style/Theme.SchoolMate.NoActionBar" />
+        <activity
+            android:name=".complaints.ui.ComplaintDetailsActivity"
+            android:exported="false"
+            android:label="@string/view_complaint_details"
+            android:parentActivityName=".complaints.ui.ComplaintsActivity"
+            android:theme="@style/Theme.SchoolMate.NoActionBar" />
+        <activity
+            android:name=".complaints.ui.ComplaintsActivity"
+            android:exported="false"
+            android:label="@string/complaints_title"
+            android:parentActivityName=".home.ui.HomeActivity"
+            android:theme="@style/Theme.SchoolMate.NoActionBar" />
+        <activity
             android:name=".documents.ui.DocumentScannerActivity"
             android:exported="false"
             android:label="@string/label_document_scanner_activity" />
@@ -81,6 +105,24 @@
             android:name=".documents.ui.DocumentsActivity"
             android:exported="false"
             android:label="@string/documents_title"
+            android:parentActivityName=".home.ui.HomeActivity"
+            android:theme="@style/Theme.SchoolMate.NoActionBar" />
+        <activity
+            android:name=".alerts.ui.AlertDetailsActivity"
+            android:exported="false"
+            android:label="@string/alert_details"
+            android:parentActivityName=".alerts.ui.AlertActivity"
+            android:theme="@style/Theme.SchoolMate.NoActionBar" />
+        <activity
+            android:name=".alerts.ui.AddAlertActivity"
+            android:exported="false"
+            android:label="@string/alert_editor"
+            android:parentActivityName=".alerts.ui.AlertActivity"
+            android:theme="@style/Theme.SchoolMate.NoActionBar" />
+        <activity
+            android:name=".alerts.ui.AlertActivity"
+            android:exported="false"
+            android:label="@string/alerts_activity"
             android:parentActivityName=".home.ui.HomeActivity"
             android:theme="@style/Theme.SchoolMate.NoActionBar" />
         <activity

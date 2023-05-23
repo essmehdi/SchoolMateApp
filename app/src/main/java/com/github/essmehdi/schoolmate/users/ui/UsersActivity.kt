@@ -6,6 +6,7 @@ import androidx.activity.viewModels
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.github.essmehdi.schoolmate.R
 import com.github.essmehdi.schoolmate.databinding.ActivityUsersBinding
 import com.github.essmehdi.schoolmate.users.adapters.UsersAdapter
@@ -29,32 +30,58 @@ class UsersActivity : AppCompatActivity() {
         adapter = usersAdapter
         layoutManager = LinearLayoutManager(this@UsersActivity)
         addItemDecoration(DividerItemDecoration(this@UsersActivity, DividerItemDecoration.VERTICAL))
+        addOnScrollListener(object : RecyclerView.OnScrollListener() {
+          override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+            super.onScrolled(recyclerView, dx, dy)
+            if (dy > 0) {
+              if (viewModel.currentPageStatus.value is BaseResponse.Loading) {
+                return
+              }
+              val visibleItemCount = layoutManager?.childCount ?: 0
+              val totalItemCount = layoutManager?.itemCount ?: 0
+              val pastVisibleItems = (layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
+              if (visibleItemCount + pastVisibleItems >= totalItemCount) {
+                viewModel.loadUsers()
+              }
+            }
+          }
+        })
       }
 
       usersListSwipeRefresh.setOnRefreshListener {
-        viewModel.fetchUsers()
+        viewModel.refresh()
       }
     }
 
-    viewModel.fetchUsers()
-    viewModel.usersFetchStatus.observe(this) {
-      when (it) {
+    viewModel.loadUsers()
+
+    viewModel.showEmpty.observe(this) {
+      showEmpty(it)
+    }
+
+    viewModel.users.observe(this) { users ->
+      users?.let { usersAdapter.updateData(it) }
+    }
+
+    viewModel.currentPageStatus.observe(this) { currentPage ->
+      when (currentPage) {
         is BaseResponse.Loading -> {
-          if (usersAdapter.data.isEmpty()) showLoading()
-        }
-        is BaseResponse.Error -> {
-          dismissSwipe()
-          handleError(it.code!!)
+          if (viewModel.users.value.isNullOrEmpty()) {
+            showLoading()
+          } else {
+            showLoading(false)
+          }
         }
         is BaseResponse.Success -> {
-          dismissSwipe()
           showLoading(false)
-          usersAdapter.updateData(it.data!!)
+          dismissSwipe()
+        }
+        is BaseResponse.Error -> {
+          handleError(currentPage.code!!)
+          dismissSwipe()
         }
       }
     }
-
-
   }
 
   private fun dismissSwipe() {
@@ -79,5 +106,9 @@ class UsersActivity : AppCompatActivity() {
     }
     binding.usersLoading.loadingProgressBar.isVisible = false
     binding.usersLoading.loadingOverlay.isVisible = show
+  }
+
+  private fun showEmpty(show: Boolean = true) {
+    binding.usersEmpty.root.isVisible = show
   }
 }
