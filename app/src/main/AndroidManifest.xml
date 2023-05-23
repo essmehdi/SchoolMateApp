@@ -27,10 +27,27 @@
         <meta-data
             android:name="MAPQUEST_ACCESS_TOKEN"
             android:value="EKMpqeOlj0j6sz19ugjC8H4ORII1V57w" />
-
-        <meta-data android:name="com.onesignal.NotificationServiceExtension"
+      
+       <meta-data android:name="com.onesignal.NotificationServiceExtension"
             android:value="com.github.essmehdi.schoolmate.onesignal.NotificationsServiceExtension" />
 
+        <activity android:name=".placesuggestions.ui.SuggestionsActivity"
+            android:exported="false"
+            android:label="@string/suggestions_title"
+            android:parentActivityName=".home.ui.HomeActivity"
+            android:theme="@style/Theme.SchoolMate.NoActionBar"/>
+
+        <activity android:name=".placesuggestions.ui.SuggestionDetailsActivity"
+            android:exported="false"
+            android:label="@string/suggestions_details"
+            android:parentActivityName=".placesuggestions.ui.SuggestionsActivity"
+            android:theme="@style/Theme.SchoolMate.NoActionBar"/>
+
+        <activity android:name=".placesuggestions.ui.SuggestionEditorActivity"
+            android:exported="false"
+            android:label="@string/suggestions_editor"
+            android:parentActivityName=".placesuggestions.ui.SuggestionsActivity"
+            android:theme="@style/Theme.SchoolMate.NoActionBar"/>
         <activity
             android:name=".shared.ui.MapSelectorActivity"
             android:exported="false"

@@ -39,4 +39,5 @@
     <color name="alerts_pending">#A85C57</color>
     <color name="alerts_confirmed">#005503</color>
     <color name="alerts_canceled">#8F0000</color>
+  
 </resources>

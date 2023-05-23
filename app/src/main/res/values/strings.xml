@@ -443,4 +443,92 @@
     <string name="my_alerts">My alerts</string>
     <string name="published_alerts">Published alerts</string>
 
+
+    <string name="suggestions_title">Suggestions</string>
+    <string name="suggester_placeholder">Mouad EL OUARTI</string>
+    <string name="suggestion_type_placeholder">Study Place</string>
+    <string name="suggestion_description_placeholder">This is a description for a place suggestion</string>
+    <string name="suggestions_layout_title">Place Suggestions</string>
+    <string name="action_send_suggestion_form">Suggest</string>
+    <string name="label_suggestion_description">Add a Description</string>
+    <string name="suggestion_editor_title">Edit</string>
+    <string name="suggestion_creator_title">Suggest a place!</string>
+    <string name="suggestion_type_dropdown_placeholder">Suggestion Type</string>
+    <string name="label_suggestion_location">Choose your suggestion\'s location</string>
+    <string name="suggestion_date_placeholder">01/01/2023</string>
+    <string name="suggestion_editor_suggester_placeholder">Mouad EL OUARTI\n</string>
+    <string name="suggestion_editor_suggester">Suggested by:</string>
+    <string name="suggestion_editor_type">Suggestion Type:</string>
+    <string name="suggestion_editor_type_placeholder">Study Place\n</string>
+    <string name="suggestion_editor_description">Description:</string>
+    <string name="suggestion_editor_description_placeholder">This is an example of a description for a suggestion\n</string>
+    <string-array name="suggestion_types">
+        <item>Study place</item>
+        <item>Food place</item>
+        <item>Entertainment place</item>
+        <item>Other</item>
+    </string-array>
+
+
+    <string name="alert_add_title">Add Alert</string>
+    <string name="alert_editor_title">title</string>
+    <string name="alert_editor_type">type</string>
+    <string name="label_alert_editor_area_change_button">Select zone</string>
+    <string name="alert_zone_editor_confirm_add_button">Add</string>
+    <string name="alert_edit_title">Edit Alert</string>
+    <string name="alert_zone_editor_edit_button">Edit</string>
+    <string name="confirm_alerts">Confirm Alerts</string>
+    <string name="label_alert_editor_area_pharmacy_radio_button">PHARMACY</string>
+    <string name="label_alert_editor_area_thieves_radio_button">THIEVES</string>
+    <string name="label_alert_editor_area_library_radio_button">LIBRARY</string>
+    <string name="label_school_zone_editor_address">Type</string>
+    <string name="alert_add_title_type">Type</string>
+    <string name="error_zone_result">could not load the location</string>
+    <string name="error_type_result">Select the type</string>
+    <string name="error_zone_alert_result">the zone had not been selected</string>
+    <string name="suggestion_add_title_type">Suggestion type\n</string>
+    <string name="suggestion_editor_study_type">Study</string>
+    <string name="suggestion_editor_food_type">Food</string>
+    <string name="suggestion_editor_entertainment_type">Entertainment</string>
+    <string name="suggestion_editor_Other_type">Other</string>
+    <string name="action_edit_suggestion">Edit</string>
+    <string name="action_add_suggestion">Add</string>
+    <string name="label_suggestion_editor_description">This is a description</string>
+    <string name="suggestion_editor_date_placeholder">01/01/2023</string>
+    <string name="suggestion_details_date">Published on:</string>
+    <string name="action_back_from_details">Back</string>
+    <string name="label_suggestion_item_context_menu_edit">Edit suggestion</string>
+    <string name="label_suggestion_item_context_menu_delete">Delete</string>
+    <string name="confirm_delete_suggestion">Are you sure you would like to delete this suggestion?</string>
+    <string name="label_suggestion_yes">Confirm</string>
+    <string name="label_suggestion_no">Cancel</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="all_suggestions_title">All suggestions</string>
+    <string name="my_suggestions_title">My suggestions</string>
+    <string name="action_add_suggestion_description">This button allows you to add a suggestion</string>
+    <string name="suggestion_choice_tab_layout">Tab layout, All suggestions, My Suggestions</string>
+    <string name="suggestions_details">Suggestion details</string>
+    <string name="suggestions_editor">Suggestion editor</string>
+    <string name="suggestion_location_button_description">Button to show suggestion location</string>
+    <string name="show_suggetion_location_button_text">Show location</string>
+    <string name="suggestion_name_raw">Details of the suggestion:</string>
+    <string name="suggestion_date_raw">Suggested:</string>
+    <string name="suggestion_type">Type:</string>
+    <string name="suggester_raw">Suggester:</string>
+    <string name="suggestion_description_raw">Description:</string>
+    <string name="label_suggestions_menu_sort_order">Order</string>
+    <string name="label_suggestions_menu_sort_asc">Oldest</string>
+    <string name="label_suggestions_menu_sort_desc">Newest</string>
+    <string name="label_suggestions_menu_sort_fields">Filter by</string>
+    <string name="label_suggestions_menu_filter_study">Study</string>
+    <string name="label_suggestions_menu_filter_food">Food</string>
+    <string name="label_suggestions_menu_filter_entertainment">Entertainment</string>
+    <string name="label_suggestions_menu_filter_other">Other</string>
+    <string name="edit_suggestion_title">Edit suggestion</string>
+    <string name="add_suggestion_title">Suggest a place</string>
+    <string name="suggestions_edior_area_button_change">Change the suggestion\'s location</string>
+    <string name="error_suggestion_description_required">The description is required</string>
+    <string name="error_suggestion_location_required">The location is required</string>
+
 </resources>

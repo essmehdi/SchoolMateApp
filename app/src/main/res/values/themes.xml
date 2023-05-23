@@ -116,14 +116,32 @@
         <item name="tabIndicator">@null</item>
     </style>
 
+    <style name="TextAppearance.SchoolMate.SuggestionDetails" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="android:textColor">@color/body</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
     <style name="TextAppearance.SchoolMate.AlertDetails" parent="TextAppearance.MaterialComponents.Body1">
         <item name="android:textColor">@color/body</item>
         <item name="android:textSize">18sp</item>
     </style>
 
+
+    <style name="SuggestionDetailsIcon">
+        <item name="android:paddingStart">15dp</item>
+        <item name="android:paddingEnd">12dp</item>
+    </style>
+
     <style name="AlertDetailsIcon">
         <item name="android:paddingStart">15dp</item>
         <item name="android:paddingEnd">12dp</item>
+    </style>
+
+
+    <style name="TextAppearance.SchoolMate.SuggestionItemDetail" parent="TextAppearance.MaterialComponents.Body2">
+        <item name="android:textColor">@color/gray_low</item>
+        <item name="android:paddingStart">8dp</item>
+        <item name="android:textSize">18sp</item>
     </style>
 
     <style name="TextAppearance.SchoolMate.AlertItemDetail" parent="TextAppearance.MaterialComponents.Body2">
