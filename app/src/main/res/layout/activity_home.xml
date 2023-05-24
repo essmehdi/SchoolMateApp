@@ -129,7 +129,7 @@
                         android:layout_marginHorizontal="13dp"
                         android:id="@+id/suggestions_home_button"
                         layout="@layout/home_button"
-                        app:icon="@{@drawable/ic_map_pin_fill}"
+                        app:icon="@{@drawable/ic_map_pin}"
                         app:text="@{@string/suggestions_title}" />
 
                 </androidx.appcompat.widget.LinearLayoutCompat>

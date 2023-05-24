@@ -27,7 +27,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object Api {
 
-  val BASE_URL = if (BuildConfig.BUILD_TYPE == "debug") "http://192.168.1.111:9080/schoolmate/api/" else "https://lionfish-app-76qxk.ondigitalocean.app/schoolmate/api/"
+  val BASE_URL = if (BuildConfig.BUILD_TYPE == "debug") "http://100.91.178.138:9080/schoolmate/api/" else "https://lionfish-app-76qxk.ondigitalocean.app/schoolmate/api/"
   private lateinit var retrofit: Retrofit
 
   fun setup(context: Context) {
