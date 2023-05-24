@@ -4,6 +4,6 @@ import com.github.essmehdi.schoolmate.placesuggestions.enumerations.SuggestionTy
 
 data class EditSuggestionDto (
     val description : String?,
-    val type : SuggestionType?,
+    val suggestiontype : SuggestionType?,
     val coordinates : List<Double>?,
         )

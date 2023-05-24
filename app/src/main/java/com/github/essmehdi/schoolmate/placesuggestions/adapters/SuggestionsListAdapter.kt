@@ -15,12 +15,14 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.ViewModel
 import com.github.essmehdi.schoolmate.R
+import com.github.essmehdi.schoolmate.placesuggestions.enumerations.SuggestionType
 import com.github.essmehdi.schoolmate.placesuggestions.models.PlaceSuggestions
 import com.github.essmehdi.schoolmate.placesuggestions.ui.SuggestionDetailsActivity
 import com.github.essmehdi.schoolmate.placesuggestions.ui.SuggestionEditorActivity
 import com.github.essmehdi.schoolmate.placesuggestions.ui.SuggestionsActivity
 import com.github.essmehdi.schoolmate.placesuggestions.viewmodels.SuggestionsViewModel
 import com.github.essmehdi.schoolmate.shared.utils.Utils
+import com.github.essmehdi.schoolmate.users.models.User
 import com.github.essmehdi.schoolmate.users.models.UserRole
 import com.github.essmehdi.schoolmate.users.viewmodels.UserPlacesViewModel
 import org.joda.time.format.DateTimeFormat
@@ -65,6 +67,14 @@ class SuggestionsListAdapter(var data: List<PlaceSuggestions>, val viewModel: Vi
                 intent.putExtra("id", suggestion.id)
                 launcher?.launch(intent)
             }
+            binding.suggestionItemImage.setImageResource(
+                when(suggestion.suggestiontype) {
+                    SuggestionType.StudyPlace -> R.drawable.ic_books
+                    SuggestionType.FoodPlace -> R.drawable.ic_food
+                    SuggestionType.Entertainment -> R.drawable.ic_popcorn
+                    SuggestionType.Other -> R.drawable.ic_question
+                }
+            )
         }
 
         override fun onCreateContextMenu(
@@ -77,16 +87,16 @@ class SuggestionsListAdapter(var data: List<PlaceSuggestions>, val viewModel: Vi
                 )?.setOnMenuItemClickListener(this)
                 menu?.add( this.bindingAdapterPosition,2,2, binding.root.context.getString(R.string.label_suggestion_item_context_menu_delete)
                 )?.setOnMenuItemClickListener(this)
-                val currentUserId: Long =
+                val currentUser: User? =
                     if (viewModel is SuggestionsViewModel)
-                        viewModel.currentUser.value!!.id
+                        viewModel.currentUser.value!!
                     else if (viewModel is UserPlacesViewModel)
-                        viewModel.currentUser.value!!.id
-                    else 0
+                        viewModel.currentUser.value!!
+                    else null
 
-                if (data[bindingAdapterPosition].user.id != currentUserId) {
+                if (data[bindingAdapterPosition].user.id != currentUser!!.id) {
                     //make the delete button available to the suggester and moderator, and edit to the suggester
-                    if(data[bindingAdapterPosition].user.role!=UserRole.MODERATOR){menu?.getItem(1)?.isEnabled = false }// delete (order 2)
+                    if(currentUser.role!=UserRole.MODERATOR){menu?.getItem(1)?.isEnabled = false }// delete (order 2)
                     menu?.getItem(0)?.isEnabled = false // edit (order 2)
                 }
             }

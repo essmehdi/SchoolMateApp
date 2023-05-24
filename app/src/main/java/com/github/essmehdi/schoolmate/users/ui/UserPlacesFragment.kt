@@ -94,6 +94,7 @@ class UserPlacesFragment : Fragment() {
 
     viewModel.suggestions.observe(viewLifecycleOwner){suggestions ->
       suggestions?.let { placesAdapter.updateData(it) }
+      binding.userSuggestionsSwipe.isRefreshing = false
     }
 
     viewModel.currentPageStatus.observe(viewLifecycleOwner) { currentPage ->
@@ -102,13 +103,16 @@ class UserPlacesFragment : Fragment() {
           if (viewModel.suggestions.value == null || viewModel.suggestions.value!!.isEmpty()) {
             showLoading()
           } else {
+            binding.userSuggestionsSwipe.isRefreshing = false
             showLoading(false)
           }
         }
         is BaseResponse.Success -> {
+          binding.userSuggestionsSwipe.isRefreshing = false
           showLoading(false)
         }
         is BaseResponse.Error -> {
+          binding.userSuggestionsSwipe.isRefreshing = false
           handleError(currentPage.code!!)
         }
         null -> {}

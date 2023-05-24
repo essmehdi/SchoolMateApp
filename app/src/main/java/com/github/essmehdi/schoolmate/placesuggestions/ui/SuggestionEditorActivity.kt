@@ -44,6 +44,8 @@ class SuggestionEditorActivity : AppCompatActivity() {
         if (viewModel.editMode.value == true) {
             binding.suggestionEditorTitle.text = getString(R.string.edit_suggestion_title)
             binding.suggestionUploadFormSendButton.text = getString(R.string.action_edit_suggestion)
+            // Unset default suggestion type
+            binding.suggestionEditorStudyTypeRadioButton.isChecked = false
             val id = intent.getLongExtra("id", 0)
             viewModel.loadSuggestion(id)
             viewModel.suggestion.observe(this) {
@@ -143,7 +145,7 @@ class SuggestionEditorActivity : AppCompatActivity() {
                 getString(R.string.error_suggestion_description_required)
             return
         }
-        var type = if (binding.suggestionEditorStudyTypeRadioButton.isChecked) {
+        val type = if (binding.suggestionEditorStudyTypeRadioButton.isChecked) {
             SuggestionType.StudyPlace
         } else if (binding.suggestionEditorFoodTypeRadioButton.isChecked) {
             SuggestionType.FoodPlace
@@ -170,12 +172,12 @@ class SuggestionEditorActivity : AppCompatActivity() {
                 is BaseResponse.Loading -> {
                     showLoading()
                 }
-
                 is BaseResponse.Success -> {
                     showLoading(false)
                     if (viewModel.editMode.value != true) {
+                        // Open new details activity to show that the suggestion is created
                         val intent = Intent(this, SuggestionDetailsActivity::class.java)
-                        intent.putExtra("id", viewModel.editId.value)
+                        intent.putExtra("id", viewModel.uploadStatus.value!!.data!!.id)
                         startActivity(intent)
                     } else {
                         setResult(RESULT_OK)
