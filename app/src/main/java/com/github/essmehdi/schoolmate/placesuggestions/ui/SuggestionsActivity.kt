@@ -12,6 +12,8 @@ import com.github.essmehdi.schoolmate.R
 import com.github.essmehdi.schoolmate.databinding.ActivitySuggestionsBinding
 import com.github.essmehdi.schoolmate.placesuggestions.adapters.SuggestionsViewPagerAdapter
 import com.github.essmehdi.schoolmate.placesuggestions.viewmodels.SuggestionsViewModel
+import com.github.essmehdi.schoolmate.shared.api.BaseResponse
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayoutMediator
 
 
@@ -45,6 +47,22 @@ class SuggestionsActivity : AppCompatActivity(){
 
         binding.suggestionAddButton.setOnClickListener{
             launcher?.launch(Intent(this, SuggestionEditorActivity::class.java))
+        }
+
+        viewModel.deleteStatus.observe(this){
+            when (it) {
+                is BaseResponse.Success -> {
+                    Snackbar.make(binding.root, R.string.success_suggestion_deletion, Snackbar.LENGTH_SHORT).show()
+                    viewModel.refresh()
+                }
+                is BaseResponse.Loading -> {
+                    Snackbar.make(binding.root, R.string.loading_suggestion_deletion, Snackbar.LENGTH_INDEFINITE).show()
+                }
+                is BaseResponse.Error -> {
+                    Snackbar.make(binding.root, R.string.error_suggestion_deletion, Snackbar.LENGTH_SHORT).show()
+                }
+                else -> {}
+            }
         }
 
         setupViewPager()
