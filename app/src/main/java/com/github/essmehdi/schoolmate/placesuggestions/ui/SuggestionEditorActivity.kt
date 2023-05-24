@@ -173,13 +173,13 @@ class SuggestionEditorActivity : AppCompatActivity() {
 
                 is BaseResponse.Success -> {
                     showLoading(false)
-                    if (viewModel.editMode.value == true) {
+                    if (viewModel.editMode.value != true) {
                         val intent = Intent(this, SuggestionDetailsActivity::class.java)
                         intent.putExtra("id", viewModel.editId.value)
                         startActivity(intent)
                     } else {
-                        val intent = Intent(this, SuggestionsActivity::class.java)
-                        startActivity(intent)
+                        setResult(RESULT_OK)
+                        finish()
                     }
                 }
 

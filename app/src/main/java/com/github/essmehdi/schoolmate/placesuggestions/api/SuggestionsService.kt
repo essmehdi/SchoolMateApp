@@ -28,9 +28,9 @@ interface SuggestionsService {
 
     @GET("placesuggestions/user/{id}")
     fun getUserSuggestions(
+        @Path("id") id: Long,
         @Query("page") page: Long = 0,
-        @Query("sort") sort: String = "date,desc",
-        @Path("id") id: Long
+        @Query("sort") sort: String = "date,desc"
     ): Call<PaginatedResponse<PlaceSuggestions>>
 
     @GET("placesuggestions/{id}")

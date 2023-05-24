@@ -470,22 +470,7 @@
     </string-array>
 
 
-    <string name="alert_add_title">Add Alert</string>
-    <string name="alert_editor_title">title</string>
-    <string name="alert_editor_type">type</string>
-    <string name="label_alert_editor_area_change_button">Select zone</string>
-    <string name="alert_zone_editor_confirm_add_button">Add</string>
-    <string name="alert_edit_title">Edit Alert</string>
-    <string name="alert_zone_editor_edit_button">Edit</string>
-    <string name="confirm_alerts">Confirm Alerts</string>
-    <string name="label_alert_editor_area_pharmacy_radio_button">PHARMACY</string>
-    <string name="label_alert_editor_area_thieves_radio_button">THIEVES</string>
-    <string name="label_alert_editor_area_library_radio_button">LIBRARY</string>
-    <string name="label_school_zone_editor_address">Type</string>
-    <string name="alert_add_title_type">Type</string>
-    <string name="error_zone_result">could not load the location</string>
-    <string name="error_type_result">Select the type</string>
-    <string name="error_zone_alert_result">the zone had not been selected</string>
+
     <string name="suggestion_add_title_type">Suggestion type\n</string>
     <string name="suggestion_editor_study_type">Study</string>
     <string name="suggestion_editor_food_type">Food</string>
@@ -530,5 +515,8 @@
     <string name="suggestions_edior_area_button_change">Change the suggestion\'s location</string>
     <string name="error_suggestion_description_required">The description is required</string>
     <string name="error_suggestion_location_required">The location is required</string>
+    <string name="error_suggestion_deletion">An error has occured while deleting suggestion!</string>
+    <string name="success_suggestion_deletion">Suggestion deleted successfully !</string>
+    <string name="loading_suggestion_deletion">Deleting suggestion...</string>
 
 </resources>
